@@ -726,7 +726,6 @@ async function delReg(id){
   await apiSave(); renderAll(); toast('Registro excluído');
 }
 
-let mmode='pf';
 function openManage(mode){
   mmode=mode;
   document.getElementById('mtitle').textContent=mode==='pf'?'Idas ao PF':'Diligências';
