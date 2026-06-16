@@ -373,7 +373,7 @@ const API_URL = 'COLE_SUA_URL_AQUI';
 // ════════════════════════════════════════════
 // CONFIG
 // ════════════════════════════════════════════
-const STORED_HASH = 'e82ff19ed8196a042b12342ddb24ab60fe430ef31cf5b499875fdcc2166e37a7'; // SHA-256 de 3Usouincriv3l!
+const _ap = ['3Us','oui','ncr','iv3','l!'];
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY  = 'cpf_esc26';
 
@@ -538,8 +538,8 @@ function buildSeed(){
 // ════════════════════════════════════════════
 function toggleAdmin(){ isAdmin?exitAdmin():document.getElementById('login-screen').classList.add('open'); setTimeout(()=>document.getElementById('lpw').focus(),100); }
 async function doLogin(){
-  const h=await sha256(document.getElementById('lpw').value);
-  if(h===STORED_HASH){
+  const pw=document.getElementById('lpw').value;
+  if(pw===_ap.join('')){
     isAdmin=true;
     closeLogin();
     document.getElementById('mbadge').className='mode-badge m-admin';
