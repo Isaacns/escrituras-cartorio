@@ -368,7 +368,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 // ════════════════════════════════════════════
 // ⚠️  COLE SUA URL DO APPS SCRIPT AQUI
 // ════════════════════════════════════════════
-const API_URL = 'https://script.google.com/macros/s/AKfycbw_Qt5d5-RWpcSErChlyj99NUnQzLpkIc6Vb2fxawChpoyliH7y2NpU8u7IQ_MdnZUO/exec';
+const API_URL = 'COLE_SUA_URL_AQUI';
 
 // ════════════════════════════════════════════
 // CONFIG
@@ -405,10 +405,23 @@ function closeLogin(){document.getElementById('login-screen').classList.remove('
 function emptyMonth(){ return {registros:[],idasPF:[],diligencias:[],totalER:0,totalDilig:0,naoIdasPF:0,totalPagar:0}; }
 
 // ════════════════════════════════════════════
-// API
+// API — JSONP para GET (contorna CORS), fetch no-cors para POST
 // ════════════════════════════════════════════
+function jsonpLoad(){
+  return new Promise((resolve,reject)=>{
+    const cbName='cb_'+Date.now();
+    const script=document.createElement('script');
+    const timeout=setTimeout(()=>{ delete window[cbName]; script.remove(); reject(new Error('timeout')); },8000);
+    window[cbName]=function(data){
+      clearTimeout(timeout); delete window[cbName]; script.remove(); resolve(data);
+    };
+    script.src=API_URL+'?callback='+cbName+'&t='+Date.now();
+    script.onerror=()=>{ clearTimeout(timeout); delete window[cbName]; script.remove(); reject(new Error('script error')); };
+    document.head.appendChild(script);
+  });
+}
+
 async function apiLoad(){
-  // Se não configurou a URL ainda, usa apenas localStorage
   if(!API_URL||API_URL==='COLE_SUA_URL_AQUI'){
     const local=lsLoad();
     if(local){DB=local;sync('ok','Dados locais (API não configurada)');return;}
@@ -416,21 +429,38 @@ async function apiLoad(){
   }
   try{
     sync('sync');
-    const r=await fetch(API_URL,{method:'GET',cache:'no-cache'});
-    const j=await r.json();
-    if(j.ok&&j.data&&Object.keys(j.data).length>0){ DB=j.data; lsSave(); sync('ok'); }
-    else{ const local=lsLoad(); DB=local||buildSeed(); sync('ok','Dados locais carregados'); }
-  }catch(e){ const local=lsLoad(); DB=local||buildSeed(); sync('err','Sem conexão — exibindo dados locais'); }
+    // Tenta JSONP primeiro
+    const j=await jsonpLoad();
+    if(j&&j.ok&&j.data&&Object.keys(j.data).length>0){ DB=j.data; lsSave(); sync('ok'); return; }
+    throw new Error('empty');
+  }catch(e){
+    // Fallback: fetch normal
+    try{
+      const r=await fetch(API_URL,{method:'GET',cache:'no-cache'});
+      const j=await r.json();
+      if(j.ok&&j.data&&Object.keys(j.data).length>0){ DB=j.data; lsSave(); sync('ok'); return; }
+    }catch(e2){}
+    const local=lsLoad();
+    DB=local||buildSeed();
+    sync(local?'ok':'err', local?'Dados locais carregados':'Sem conexão — dados de exemplo');
+  }
 }
+
 async function apiSave(){
   lsSave();
   if(!API_URL||API_URL==='COLE_SUA_URL_AQUI'){sync('ok','Salvo localmente');return;}
   try{
     sync('sync','Salvando...');
-    const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({data:DB}),headers:{'Content-Type':'application/json'}});
-    const j=await r.json();
-    if(j.ok) sync('ok'); else throw new Error();
-  }catch(e){ sync('err','Erro ao salvar no servidor — salvo localmente'); }
+    // POST com fetch — Apps Script aceita cross-origin POST via redirect
+    const r=await fetch(API_URL,{
+      method:'POST',
+      mode:'no-cors',
+      body:JSON.stringify({data:DB}),
+      headers:{'Content-Type':'text/plain'} // text/plain evita preflight CORS
+    });
+    // no-cors não retorna body, então assumimos sucesso se não lançou erro
+    sync('ok'); 
+  }catch(e){ sync('err','Erro ao salvar — dados mantidos localmente'); }
 }
 function lsSave(){ try{localStorage.setItem(LSKEY,JSON.stringify(DB));}catch(e){} }
 function lsLoad(){ try{const r=localStorage.getItem(LSKEY);return r?JSON.parse(r):null;}catch(e){return null;} }
