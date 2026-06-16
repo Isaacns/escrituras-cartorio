@@ -1,0 +1,787 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Escrituras 2026 — Cartório Praia do Forte</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+:root{
+  --navy:#0D1B3E;--navy-mid:#16285A;--blue:#1A4DA8;--blue-light:#2563EB;
+  --accent:#3B82F6;--gold:#F59E0B;--gold-light:#FCD34D;--green:#10B981;
+  --red:#EF4444;--bg:#F1F5F9;--card:#fff;--border:#E2E8F0;
+  --text:#1E293B;--muted:#64748B;--slate:#94A3B8;
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
+
+/* ── HEADER ── */
+header{
+  background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,var(--blue) 100%);
+  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
+  box-shadow:0 4px 20px rgba(13,27,62,.45);position:sticky;top:0;z-index:50;
+}
+.h-left{display:flex;align-items:center;gap:12px}
+.logo{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold-light));
+  border-radius:11px;display:flex;align-items:center;justify-content:center;
+  font-size:18px;color:var(--navy);box-shadow:0 4px 10px rgba(245,158,11,.4);flex-shrink:0}
+.h-title{color:#fff;font-size:15px;font-weight:700;line-height:1.2}
+.h-sub{color:rgba(255,255,255,.55);font-size:11px;margin-top:2px}
+.h-right{display:flex;align-items:center;gap:8px}
+.mode-badge{padding:4px 11px;border-radius:18px;font-size:10px;font-weight:700;letter-spacing:.4px;text-transform:uppercase;white-space:nowrap}
+.m-client{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2)}
+.m-admin{background:var(--gold);color:var(--navy)}
+.btn-hdr{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:700;transition:all .2s;white-space:nowrap}
+.btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{background:var(--gold-light)}
+.btn-out{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}.btn-out:hover{background:rgba(255,255,255,.18)}
+.btn-ghost{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:16px;padding:4px 6px}
+.btn-ghost:hover{color:#fff}
+.admin-bar{display:none;gap:6px;align-items:center}
+
+/* ── SYNC BAR ── */
+.sync-bar{background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:7px 20px;display:flex;align-items:center;gap:8px;font-size:11px;color:#1D4ED8}
+.sdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0;transition:background .3s}
+.sdot.sync{background:var(--gold);animation:pulse .8s infinite}
+.sdot.err{background:var(--red)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
+.sync-time{margin-left:auto;color:#93C5FD;font-size:10px}
+
+/* ── MAIN ── */
+main{max-width:1300px;margin:0 auto;padding:20px 16px 60px}
+
+/* ── SECTION TITLE ── */
+.stitle{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
+.stitle::after{content:'';flex:1;height:1px;background:var(--border)}
+
+/* ── ANNUAL GRID ── */
+.annual-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:18px}
+.ac{background:var(--card);border-radius:11px;padding:14px 12px;box-shadow:0 1px 5px rgba(0,0,0,.07);
+  border:1px solid var(--border);cursor:pointer;transition:all .15s}
+.ac:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.1)}
+.ac.sel{border:2px solid var(--navy)}
+.ac-month{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
+.ac-val{font-size:17px;font-weight:800;color:var(--navy)}
+.ac-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
+.ac-bar{height:3px;background:var(--bg);border-radius:3px;margin-top:8px;overflow:hidden}
+.ac-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--accent))}
+
+/* ── TABS ── */
+.tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--card);padding:4px;border-radius:11px;
+  box-shadow:0 1px 5px rgba(0,0,0,.07);width:fit-content;flex-wrap:wrap}
+.tab{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:600;
+  transition:all .2s;color:var(--muted);background:transparent;touch-action:manipulation}
+.tab.active{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(13,27,62,.3)}
+.tab:hover:not(.active){background:var(--bg)}
+
+/* ── KPI ── */
+.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
+.kc{background:var(--card);border-radius:11px;padding:14px;box-shadow:0 1px 5px rgba(0,0,0,.07);
+  border:1px solid var(--border);position:relative;overflow:hidden}
+.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--kc,var(--blue))}
+.kc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:5px}
+.kc-val{font-size:22px;font-weight:800;color:var(--text);line-height:1}
+.kc-sub{font-size:10px;color:var(--muted);margin-top:4px}
+.kc-icon{position:absolute;top:10px;right:10px;font-size:17px;opacity:.12}
+
+/* ── CONTENT GRID ── */
+.cg{display:grid;grid-template-columns:1fr 300px;gap:14px}
+
+/* ── CARD ── */
+.card{background:var(--card);border-radius:11px;padding:18px;box-shadow:0 1px 5px rgba(0,0,0,.07);border:1px solid var(--border)}
+.ctitle{font-size:12px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px}
+.cdot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
+
+/* ── FILTER ── */
+.fbar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
+.flabel{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
+.fbtn{padding:4px 10px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);
+  font-size:10.5px;font-weight:600;cursor:pointer;transition:all .18s;color:var(--muted);touch-action:manipulation}
+.fbtn.on{border-color:var(--navy);background:var(--navy);color:#fff}
+
+/* ── TABLE ── */
+.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
+table{width:100%;border-collapse:collapse;font-size:11.5px}
+thead th{text-align:left;padding:7px 11px;background:var(--bg);font-size:9px;font-weight:700;
+  text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
+tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
+tbody tr:hover{background:#F8FAFC}
+tbody tr:last-child{border-bottom:none}
+tbody td{padding:8px 11px;vertical-align:middle}
+.del-btn{background:none;border:none;cursor:pointer;color:var(--slate);font-size:14px;padding:3px 6px;border-radius:4px;touch-action:manipulation}
+.del-btn:hover{color:var(--red);background:#FEF2F2}
+
+/* ── BADGES ── */
+.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:14px;font-size:10px;font-weight:700;white-space:nowrap}
+.be{background:#EFF6FF;color:#1D4ED8}.br{background:#F5F3FF;color:#6D28D9}.ba{background:#FFF7ED;color:#C2410C}
+.bs{background:#ECFDF5;color:#065F46}.bn{background:#F1F5F9;color:#475569}
+.bp{background:#ECFDF5;color:#065F46}.bf{background:#FFF7ED;color:#9A3412}
+
+/* ── SIDEBAR ── */
+.sidebar{display:flex;flex-direction:column;gap:12px}
+.fr{display:flex;justify-content:space-between;align-items:center;padding:8px 0;border-bottom:1px solid var(--border)}
+.fr:last-child{border-bottom:none}
+.fl{font-size:11.5px;color:var(--muted)}.fv{font-size:13px;font-weight:700}
+.cb{color:var(--blue-light)}.cg2{color:var(--gold)}.cr{color:var(--red)}.cg3{color:var(--green)}
+.trow{background:var(--navy);margin:8px -18px -18px;padding:12px 18px;border-radius:0 0 11px 11px;
+  display:flex;justify-content:space-between;align-items:center}
+.trow span:first-child{color:rgba(255,255,255,.65);font-size:11px;font-weight:600}
+.trow span:last-child{color:var(--gold-light);font-size:17px;font-weight:800}
+.pf-list{list-style:none}
+.pf-list li{padding:6px 9px;background:var(--bg);border-radius:7px;margin-bottom:4px;font-size:11.5px;
+  display:flex;align-items:center;gap:6px}
+.pdot{width:6px;height:6px;border-radius:50%;background:var(--blue-light);flex-shrink:0}
+.di{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:1px solid #FDE68A;border-radius:8px;
+  padding:9px 11px;font-size:11px;line-height:1.5;margin-bottom:6px;color:#78350F}
+.di-date{font-weight:700;font-size:9.5px;margin-bottom:2px}
+.cr-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
+.cr-label{font-size:10px;color:var(--muted);width:88px;flex-shrink:0;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.cr-wrap{flex:1;background:var(--bg);border-radius:4px;height:17px;overflow:hidden}
+.cr-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:5px;transition:width .4s}
+.cr-bar span{font-size:9.5px;font-weight:700;color:#fff}
+.nodata{text-align:center;padding:24px;color:var(--muted);font-size:12px}
+
+/* ── OVERLAYS ── */
+.overlay{position:fixed;inset:0;background:rgba(13,27,62,.62);z-index:200;
+  display:none;align-items:center;justify-content:center;padding:12px;backdrop-filter:blur(4px)}
+.overlay.open{display:flex}
+.modal{background:var(--card);border-radius:14px;width:100%;max-width:520px;
+  box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden;max-height:94vh;display:flex;flex-direction:column}
+.mhdr{background:linear-gradient(135deg,var(--navy),var(--blue));padding:16px 20px;
+  display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
+.mhdr h2{color:#fff;font-size:14px;font-weight:700}
+.mclose{background:none;border:none;color:rgba(255,255,255,.65);font-size:20px;cursor:pointer;padding:2px 6px}
+.mclose:hover{color:#fff}
+.mbody{padding:20px;overflow-y:auto;flex:1}
+.mfoot{padding:13px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0}
+
+/* FORM */
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
+.frow.s{grid-template-columns:1fr}
+.fg{display:flex;flex-direction:column;gap:4px}
+.fg label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
+.fg input,.fg select,.fg textarea{padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;
+  font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s;
+  -webkit-appearance:none;appearance:none}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue-light);background:#fff}
+.fg textarea{resize:vertical;min-height:60px}
+.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
+.btn{padding:9px 16px;border-radius:8px;border:none;cursor:pointer;font-size:13px;font-weight:700;transition:all .2s;touch-action:manipulation}
+.btn-save{background:var(--navy);color:#fff}.btn-save:hover{background:var(--blue)}
+.btn-cancel{background:var(--bg);color:var(--muted)}.btn-cancel:hover{background:var(--border);color:var(--text)}
+.btn-add{background:var(--green);color:#fff;margin-bottom:16px;width:100%;padding:10px}
+.btn-danger{background:#FEF2F2;color:var(--red);border:1px solid #FECACA;font-size:11px;padding:4px 10px;flex-shrink:0}
+.btn-danger:hover{background:var(--red);color:#fff}
+.mi{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);gap:10px}
+.mi:last-child{border-bottom:none}
+.mi-label{font-size:12px;font-weight:600}.mi-date{font-size:10px;color:var(--muted);margin-top:2px}
+
+/* TOAST */
+.toast{position:fixed;bottom:20px;right:20px;z-index:500;background:var(--navy);color:#fff;
+  padding:10px 16px;border-radius:9px;font-size:12px;font-weight:600;
+  box-shadow:0 8px 24px rgba(0,0,0,.22);transform:translateY(70px);opacity:0;transition:all .3s;
+  max-width:280px;word-break:break-word}
+.toast.show{transform:translateY(0);opacity:1}
+.toast.err{background:var(--red)}
+
+/* LOGIN */
+.login-screen{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy),var(--navy-mid) 60%,var(--blue));
+  z-index:999;display:none;align-items:center;justify-content:center}
+.login-screen.open{display:flex}
+.lbox{background:var(--card);border-radius:16px;padding:32px 28px;width:100%;max-width:340px;
+  box-shadow:0 24px 60px rgba(0,0,0,.4);text-align:center;margin:16px}
+.licon{font-size:36px;margin-bottom:14px}
+.lbox h2{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:5px}
+.lbox p{font-size:12px;color:var(--muted);margin-bottom:20px}
+.lbox input{width:100%;padding:11px;border:1.5px solid var(--border);border-radius:9px;
+  font-size:16px;text-align:center;letter-spacing:2px;outline:none;margin-bottom:12px;
+  -webkit-appearance:none}
+.lbox input:focus{border-color:var(--blue-light)}
+.lbtn{width:100%;padding:12px;border-radius:9px;border:none;cursor:pointer;
+  background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;font-size:14px;font-weight:700}
+.lerr{color:var(--red);font-size:12px;margin-top:8px;display:none}
+
+/* LOADING */
+.loading{position:fixed;inset:0;background:rgba(255,255,255,.88);z-index:400;
+  display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px}
+.loading.open{display:flex}
+.spin{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--blue);
+  border-radius:50%;animation:spin .7s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+.loading p{font-size:12px;color:var(--muted);font-weight:600}
+
+/* ── RESPONSIVE MOBILE ── */
+@media(max-width:768px){
+  .annual-grid{grid-template-columns:repeat(3,1fr)}
+  .kpi-grid{grid-template-columns:repeat(2,1fr)}
+  .cg{grid-template-columns:1fr}
+  .sidebar{order:2}
+  .frow{grid-template-columns:1fr}
+  .h-title{font-size:13px}
+  header{padding:12px 14px}
+  main{padding:14px 12px 50px}
+  .admin-bar{flex-wrap:wrap}
+  .btn-hdr{padding:7px 10px;font-size:11px}
+}
+@media(max-width:480px){
+  .annual-grid{grid-template-columns:repeat(2,1fr)}
+  .kpi-grid{grid-template-columns:1fr 1fr}
+  .mode-badge{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- LOGIN ADMIN -->
+<div class="login-screen" id="login-screen">
+  <div class="lbox">
+    <div class="licon">🔐</div>
+    <h2>Acesso Administrativo</h2>
+    <p>Digite a senha para ativar o modo admin</p>
+    <input type="password" id="lpw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
+    <button class="lbtn" onclick="doLogin()">Entrar</button>
+    <div class="lerr" id="lerr">Senha incorreta</div>
+    <button onclick="closeLogin()" style="margin-top:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px">Cancelar</button>
+  </div>
+</div>
+
+<!-- LOADING -->
+<div class="loading" id="loading">
+  <div class="spin"></div>
+  <p id="lmsg">Carregando dados...</p>
+</div>
+
+<!-- HEADER -->
+<header>
+  <div class="h-left">
+    <div class="logo">📋</div>
+    <div>
+      <div class="h-title">Entregas & Retiradas de Escrituras</div>
+      <div class="h-sub" id="hsub">Cartório Praia do Forte · 2026 · Visualização</div>
+    </div>
+  </div>
+  <div class="h-right">
+    <span class="mode-badge m-client" id="mbadge">👁 Leitura</span>
+    <div class="admin-bar" id="abar">
+      <button class="btn-hdr btn-out" onclick="openManage('pf')">+ PF</button>
+      <button class="btn-hdr btn-out" onclick="openManage('dil')">+ Diligência</button>
+      <button class="btn-hdr btn-gold" onclick="openForm()">+ Registro</button>
+    </div>
+    <button class="btn-ghost" id="atbtn" onclick="toggleAdmin()" title="Admin">⚙</button>
+  </div>
+</header>
+
+<!-- SYNC BAR -->
+<div class="sync-bar">
+  <span class="sdot" id="sdot"></span>
+  <span id="smsg">Carregando...</span>
+  <span class="sync-time" id="stime"></span>
+</div>
+
+<main>
+  <div class="stitle">Resumo Anual — 2026</div>
+  <div class="annual-grid" id="annual-grid"></div>
+  <div class="tabs" id="tabs"></div>
+  <div class="kpi-grid" id="kpi-grid"></div>
+  <div class="cg">
+    <div>
+      <div class="fbar">
+        <span class="flabel">Filtrar:</span>
+        <button class="fbtn on" onclick="setFilter('todos',this)">Todos</button>
+        <button class="fbtn" onclick="setFilter('Entrega',this)">Entrega</button>
+        <button class="fbtn" onclick="setFilter('Retirada',this)">Retirada</button>
+        <button class="fbtn" onclick="setFilter('Entrega/Retirada',this)">Ambos</button>
+        <button class="fbtn" onclick="setFilter('pacote',this)">Pacote</button>
+        <button class="fbtn" onclick="setFilter('fora',this)">Avulso</button>
+      </div>
+      <div class="card">
+        <div class="ctitle"><span class="cdot"></span>Registros do Mês</div>
+        <div class="tw">
+          <table>
+            <thead><tr>
+              <th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th>
+              <th>Gráfica</th><th>Valor</th><th>Graf. R$</th><th>Situação</th><th>Obs.</th>
+              <th id="th-del" style="display:none"></th>
+            </tr></thead>
+            <tbody id="tbody"></tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+    <div class="sidebar">
+      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--green)"></span>Resumo Financeiro</div><div id="fin"></div></div>
+      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--blue-light)"></span>Idas ao PF</div><ul class="pf-list" id="pfl"></ul></div>
+      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--gold)"></span>Diligências</div><div id="dill"></div></div>
+      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--accent)"></span>Locais Frequentes</div><div id="locais"></div></div>
+    </div>
+  </div>
+</main>
+
+<div class="toast" id="toast"></div>
+
+<!-- MODAL REGISTRO -->
+<div class="overlay" id="ov-form">
+  <div class="modal">
+    <div class="mhdr"><h2>Novo Registro</h2><button class="mclose" onclick="closeOv('ov-form')">✕</button></div>
+    <div class="mbody">
+      <div class="frow"><div class="fg"><label>Mês</label><select id="f-mes"></select></div><div class="fg"><label>Data</label><input type="date" id="f-data"></div></div>
+      <div class="frow"><div class="fg"><label>Tipo</label><select id="f-tipo"><option>Entrega</option><option>Retirada</option><option>Entrega/Retirada</option></select></div><div class="fg"><label>Escrevente</label><input type="text" id="f-esc" placeholder="Nome ou —"></div></div>
+      <div class="frow"><div class="fg"><label>Local / Empreendimento</label><input type="text" id="f-local" placeholder="Ex: Santa Helena"></div><div class="fg"><label>Gráfica?</label><select id="f-graf" onchange="document.getElementById('f-gv').value=this.value==='Sim'?15:0"><option>Não</option><option>Sim</option></select></div></div>
+      <div class="frow"><div class="fg"><label>Valor E/R (R$)</label><input type="number" id="f-val" value="60" min="0" inputmode="numeric"></div><div class="fg"><label>Valor Gráfica (R$)</label><input type="number" id="f-gv" value="0" min="0" inputmode="numeric"></div></div>
+      <div class="frow"><div class="fg"><label>Situação</label><select id="f-sit"><option value="pacote">Inclusa no Pacote</option><option value="fora">Avulso / Fora do Pacote</option></select></div><div class="fg"><label>Nº Pacote (ex: 2/4)</label><input type="text" id="f-np" placeholder="Opcional"></div></div>
+      <div class="frow s"><div class="fg"><label>Observação</label><textarea id="f-obs" placeholder="Observação adicional..."></textarea></div></div>
+    </div>
+    <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-form')">Cancelar</button><button class="btn btn-save" onclick="saveReg()">Salvar</button></div>
+  </div>
+</div>
+
+<!-- MODAL PF / DIL -->
+<div class="overlay" id="ov-manage">
+  <div class="modal">
+    <div class="mhdr"><h2 id="mtitle">Gerenciar</h2><button class="mclose" onclick="closeOv('ov-manage')">✕</button></div>
+    <div class="mbody">
+      <div class="frow"><div class="fg"><label>Mês</label><select id="m-mes" onchange="renderML()"></select></div><div class="fg"><label>Data</label><input type="date" id="m-data"></div></div>
+      <div class="frow s" id="m-dw"><div class="fg"><label>Descrição</label><textarea id="m-desc" placeholder="Descrição da diligência..."></textarea></div></div>
+      <div class="frow s" id="m-vw"><div class="fg"><label>Valor (R$)</label><input type="number" id="m-val" value="130" min="0" inputmode="numeric"></div></div>
+      <button class="btn btn-add" onclick="saveML()">+ Adicionar</button>
+      <div style="border-top:1px solid var(--border);padding-top:12px">
+        <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px">Registrados neste mês</div>
+        <div id="mlist"></div>
+      </div>
+    </div>
+    <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-manage')">Fechar</button></div>
+  </div>
+</div>
+
+<!-- MODAL FINANCEIRO -->
+<div class="overlay" id="ov-fin">
+  <div class="modal">
+    <div class="mhdr"><h2>Ajuste Financeiro — <span id="fin-ml"></span></h2><button class="mclose" onclick="closeOv('ov-fin')">✕</button></div>
+    <div class="mbody">
+      <p style="font-size:12px;color:var(--muted);margin-bottom:14px">Ajuste os valores calculados do mês manualmente se necessário.</p>
+      <div class="frow"><div class="fg"><label>Total E/R (R$)</label><input type="number" id="fin-er" min="0" inputmode="numeric"></div><div class="fg"><label>Total Diligências (R$)</label><input type="number" id="fin-dil" min="0" inputmode="numeric"></div></div>
+      <div class="frow"><div class="fg"><label>Desconto não idas PF (R$)</label><input type="number" id="fin-nao" min="0" inputmode="numeric"></div><div class="fg"><label>Total a Pagar (R$)</label><input type="number" id="fin-tot" min="0" inputmode="numeric"></div></div>
+    </div>
+    <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-fin')">Cancelar</button><button class="btn btn-save" onclick="saveFin()">Salvar</button></div>
+  </div>
+</div>
+
+<script>
+// ════════════════════════════════════════════
+// ⚠️  COLE SUA URL DO APPS SCRIPT AQUI
+// ════════════════════════════════════════════
+const API_URL = 'https://script.google.com/macros/s/AKfycbw_Qt5d5-RWpcSErChlyj99NUnQzLpkIc6Vb2fxawChpoyliH7y2NpU8u7IQ_MdnZUO/exec';
+
+// ════════════════════════════════════════════
+// CONFIG
+// ════════════════════════════════════════════
+const STORED_HASH = '7be38dc34d64e35960a9ef99c10c1a0c6a14a18acac2b4f5f77ab2cf44ef9f80'; // SHA-256 de 3Usouincriv3l!
+const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
+const LSKEY  = 'cpf_esc26';
+
+let DB = {}, isAdmin = false, curMonth = 'Janeiro', curFilter = 'todos', mmode = 'pf';
+
+// ════════════════════════════════════════════
+// UTILS
+// ════════════════════════════════════════════
+function uid(){ return Date.now().toString(36)+Math.random().toString(36).slice(2,6); }
+function fmtD(iso){ if(!iso)return''; const[y,m,d]=iso.split('-'); return`${d}/${m}/${y}`; }
+async function sha256(s){
+  const b=await crypto.subtle.digest('SHA-256',new TextEncoder().encode(s));
+  return Array.from(new Uint8Array(b)).map(x=>x.toString(16).padStart(2,'0')).join('');
+}
+function toast(msg,err=false){
+  const t=document.getElementById('toast');
+  t.textContent=(err?'⚠ ':'✓ ')+msg;
+  t.className='toast show'+(err?' err':'');
+  clearTimeout(t._t); t._t=setTimeout(()=>t.classList.remove('show'),3000);
+}
+function sync(state,msg=''){
+  const d=document.getElementById('sdot'),s=document.getElementById('smsg');
+  d.className='sdot'+(state==='sync'?' sync':state==='err'?' err':'');
+  s.textContent=msg||(state==='ok'?'Dados sincronizados com o servidor':'Sincronizando...');
+  if(state==='ok') document.getElementById('stime').textContent='Atualizado: '+new Date().toLocaleTimeString('pt-BR',{hour:'2-digit',minute:'2-digit'});
+}
+function closeOv(id){document.getElementById(id).classList.remove('open');}
+function closeLogin(){document.getElementById('login-screen').classList.remove('open');}
+function emptyMonth(){ return {registros:[],idasPF:[],diligencias:[],totalER:0,totalDilig:0,naoIdasPF:0,totalPagar:0}; }
+
+// ════════════════════════════════════════════
+// API
+// ════════════════════════════════════════════
+async function apiLoad(){
+  // Se não configurou a URL ainda, usa apenas localStorage
+  if(!API_URL||API_URL==='COLE_SUA_URL_AQUI'){
+    const local=lsLoad();
+    if(local){DB=local;sync('ok','Dados locais (API não configurada)');return;}
+    DB=buildSeed(); sync('ok','Dados de exemplo carregados'); return;
+  }
+  try{
+    sync('sync');
+    const r=await fetch(API_URL,{method:'GET',cache:'no-cache'});
+    const j=await r.json();
+    if(j.ok&&j.data&&Object.keys(j.data).length>0){ DB=j.data; lsSave(); sync('ok'); }
+    else{ const local=lsLoad(); DB=local||buildSeed(); sync('ok','Dados locais carregados'); }
+  }catch(e){ const local=lsLoad(); DB=local||buildSeed(); sync('err','Sem conexão — exibindo dados locais'); }
+}
+async function apiSave(){
+  lsSave();
+  if(!API_URL||API_URL==='COLE_SUA_URL_AQUI'){sync('ok','Salvo localmente');return;}
+  try{
+    sync('sync','Salvando...');
+    const r=await fetch(API_URL,{method:'POST',body:JSON.stringify({data:DB}),headers:{'Content-Type':'application/json'}});
+    const j=await r.json();
+    if(j.ok) sync('ok'); else throw new Error();
+  }catch(e){ sync('err','Erro ao salvar no servidor — salvo localmente'); }
+}
+function lsSave(){ try{localStorage.setItem(LSKEY,JSON.stringify(DB));}catch(e){} }
+function lsLoad(){ try{const r=localStorage.getItem(LSKEY);return r?JSON.parse(r):null;}catch(e){return null;} }
+
+// ════════════════════════════════════════════
+// SEED DATA
+// ════════════════════════════════════════════
+function buildSeed(){
+  const o={};
+  MONTHS.forEach(m=>{o[m]=emptyMonth();});
+  o['Janeiro'].registros=[
+    {id:uid(),data:'06/01/2026',tipo:'Entrega',  escrevente:'—',local:'Santa Helena',              grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (1/4)'},
+    {id:uid(),data:'07/01/2026',tipo:'Retirada', escrevente:'—',local:'Santa Helena',              grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (2/4)'},
+    {id:uid(),data:'21/01/2026',tipo:'Entrega',  escrevente:'—',local:'Imbassaí Privilege',        grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (3/4)'},
+    {id:uid(),data:'22/01/2026',tipo:'Retirada', escrevente:'—',local:'Imbassaí Privilege',        grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (4/4)'},
+    {id:uid(),data:'21/01/2026',tipo:'Entrega',  escrevente:'—',local:'SEFAZ/SETAP',               grafica:'Sim',valor:60,graficaVal:15,situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'29/01/2026',tipo:'Retirada', escrevente:'—',local:'SEFAZ/SETAP',               grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'23/01/2026',tipo:'Entrega',  escrevente:'—',local:'Serrana',                   grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'28/01/2026',tipo:'Retirada', escrevente:'—',local:'Serrana',                   grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'23/01/2026',tipo:'Entrega',  escrevente:'—',local:'Costa Andrade',             grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'28/01/2026',tipo:'Retirada', escrevente:'—',local:'Costa Andrade',             grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'22/01/2026',tipo:'Entrega',  escrevente:'—',local:'Boulevard Side Empresarial',grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'28/01/2026',tipo:'Retirada', escrevente:'—',local:'Boulevard Side Empresarial',grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'29/01/2026',tipo:'Entrega',  escrevente:'—',local:'Santa Helena',              grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+  ];
+  o['Janeiro'].idasPF=[{id:uid(),data:'22/01/2026'},{id:uid(),data:'30/01/2026'}];
+  o['Janeiro'].diligencias=[{id:uid(),data:'29/01/2026',desc:'Recolhimento de Assinatura no Bairro da Graça',valor:130},{id:uid(),data:'28/01/2026',desc:'Pegar documentação no Shopping + Entrega de Chave de roda e Documentação na HAUS BMW',valor:130}];
+  o['Janeiro'].totalER=585;o['Janeiro'].totalDilig=260;o['Janeiro'].naoIdasPF=405;o['Janeiro'].totalPagar=440;
+  o['Fevereiro'].registros=[
+    {id:uid(),data:'04/02/2026',tipo:'Entrega', escrevente:'—',local:'Imbassaí Privilege',grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (1/4)'},
+    {id:uid(),data:'05/02/2026',tipo:'Retirada',escrevente:'—',local:'Imbassaí Privilege',grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (2/4)'},
+    {id:uid(),data:'06/02/2026',tipo:'Retirada',escrevente:'—',local:'Santa Helena',      grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (3/4)'},
+    {id:uid(),data:'09/02/2026',tipo:'Entrega', escrevente:'—',local:'Santa Helena',      grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (4/4)'},
+    {id:uid(),data:'19/02/2026',tipo:'Retirada',escrevente:'—',local:'Santa Helena',      grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'19/02/2026',tipo:'Entrega', escrevente:'—',local:'Serrana',           grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'25/02/2026',tipo:'Retirada',escrevente:'—',local:'Serrana',           grafica:'Sim',valor:60,graficaVal:15,situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'27/02/2026',tipo:'Entrega', escrevente:'—',local:'Costa Andrade',     grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+  ];
+  o['Fevereiro'].idasPF=[{id:uid(),data:'06/02/2026'},{id:uid(),data:'25/02/2026'}];
+  o['Fevereiro'].diligencias=[{id:uid(),data:'04/02/2026',desc:'Recolhimento de Assinatura no bairro do Imbuí',valor:130},{id:uid(),data:'04/02/2026',desc:'Entrega de Escritura no bairro do Alto do Itaigara',valor:130}];
+  o['Fevereiro'].totalER=270;o['Fevereiro'].totalDilig=260;o['Fevereiro'].naoIdasPF=210;o['Fevereiro'].totalPagar=320;
+  o['Março'].registros=[
+    {id:uid(),data:'03/03/2026',tipo:'Entrega',         escrevente:'—',local:'Santa Helena', grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (1/4)'},
+    {id:uid(),data:'05/03/2026',tipo:'Retirada',        escrevente:'—',local:'Costa Andrade',grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (2/4)'},
+    {id:uid(),data:'05/03/2026',tipo:'Entrega',         escrevente:'—',local:'Santa Helena', grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (3/4)'},
+    {id:uid(),data:'16/03/2026',tipo:'Entrega',         escrevente:'—',local:'Santa Helena', grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (4/4)'},
+    {id:uid(),data:'17/03/2026',tipo:'Entrega/Retirada',escrevente:'—',local:'Santa Helena', grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'17/03/2026',tipo:'Entrega',         escrevente:'—',local:'Serrana',      grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'18/03/2026',tipo:'Retirada',        escrevente:'—',local:'Serrana',      grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'20/03/2026',tipo:'Entrega',         escrevente:'—',local:'Santa Helena', grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'23/03/2026',tipo:'Entrega',         escrevente:'—',local:'Serrana',      grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'23/03/2026',tipo:'Entrega',         escrevente:'—',local:'Imbassaí',     grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'24/03/2026',tipo:'Retirada',        escrevente:'—',local:'Serrana',      grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'24/03/2026',tipo:'Retirada',        escrevente:'—',local:'Imbassaí',     grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+  ];
+  o['Março'].idasPF=[{id:uid(),data:'06/03/2026'},{id:uid(),data:'12/03/2026'},{id:uid(),data:'20/03/2026'},{id:uid(),data:'26/03/2026'}];
+  o['Março'].diligencias=[{id:uid(),data:'23/03/2026',desc:'Ida na Gráfica entregar cartão',valor:30}];
+  o['Março'].totalER=510;o['Março'].totalDilig=30;o['Março'].naoIdasPF=0;o['Março'].totalPagar=540;
+  o['Abril'].registros=[
+    {id:uid(),data:'09/04/2026',tipo:'Entrega',         escrevente:'Ilana', local:'Santa Fé',      grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (1/4)'},
+    {id:uid(),data:'15/04/2026',tipo:'Retirada',        escrevente:'Ilana', local:'Santa Fé',      grafica:'Não',valor:60,graficaVal:0, situacao:'pacote',obs:'Inclusa no pacote (2/4)'},
+    {id:uid(),data:'14/04/2026',tipo:'Entrega',         escrevente:'Deyse', local:'Reserva Sauípe',grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (3/4)'},
+    {id:uid(),data:'28/04/2026',tipo:'Entrega',         escrevente:'Deyse', local:'Reserva Sauípe',grafica:'Sim',valor:60,graficaVal:15,situacao:'pacote',obs:'Inclusa no pacote (4/4)'},
+    {id:uid(),data:'29/04/2026',tipo:'Entrega/Retirada',escrevente:'Débora',local:'Bioflora',      grafica:'Sim',valor:60,graficaVal:15,situacao:'fora',  obs:'Fora do pacote'},
+    {id:uid(),data:'30/04/2026',tipo:'Entrega',         escrevente:'Débora',local:'Bioflora',      grafica:'Não',valor:60,graficaVal:0, situacao:'fora',  obs:'Fora do pacote'},
+  ];
+  o['Abril'].idasPF=[{id:uid(),data:'30/04/2026'}];
+  o['Abril'].diligencias=[{id:uid(),data:'14/04/2026',desc:'Recolhimento de assinaturas nos bairros de Patamares e Caminho das Árvores. Cliente: Dr. Helder (Alexandre e Dani)',valor:130}];
+  o['Abril'].totalER=180;o['Abril'].totalDilig=130;o['Abril'].naoIdasPF=180;o['Abril'].totalPagar=130;
+  return o;
+}
+
+// ════════════════════════════════════════════
+// AUTH
+// ════════════════════════════════════════════
+function toggleAdmin(){ isAdmin?exitAdmin():document.getElementById('login-screen').classList.add('open'); setTimeout(()=>document.getElementById('lpw').focus(),100); }
+async function doLogin(){
+  const h=await sha256(document.getElementById('lpw').value);
+  if(h===STORED_HASH){
+    isAdmin=true;
+    closeLogin();
+    document.getElementById('mbadge').className='mode-badge m-admin';
+    document.getElementById('mbadge').textContent='🔑 Admin';
+    document.getElementById('hsub').textContent='Cartório Praia do Forte · 2026 · Modo Administrador';
+    document.getElementById('abar').style.display='flex';
+    document.getElementById('th-del').style.display='';
+    document.getElementById('atbtn').textContent='🔓';
+    renderAll(); toast('Modo admin ativado');
+  } else {
+    document.getElementById('lerr').style.display='block';
+    document.getElementById('lpw').value='';
+    document.getElementById('lpw').focus();
+  }
+}
+function exitAdmin(){
+  isAdmin=false;
+  document.getElementById('mbadge').className='mode-badge m-client';
+  document.getElementById('mbadge').textContent='👁 Leitura';
+  document.getElementById('hsub').textContent='Cartório Praia do Forte · 2026 · Visualização';
+  document.getElementById('abar').style.display='none';
+  document.getElementById('th-del').style.display='none';
+  document.getElementById('atbtn').textContent='⚙';
+  renderAll(); toast('Modo leitura ativado');
+}
+
+// ════════════════════════════════════════════
+// RENDER
+// ════════════════════════════════════════════
+function populateSels(){
+  ['f-mes','m-mes'].forEach(id=>{
+    const s=document.getElementById(id);
+    if(s) s.innerHTML=MONTHS.map(m=>`<option value="${m}">${m}</option>`).join('');
+  });
+}
+
+function renderAnnual(){
+  const mx=Math.max(...MONTHS.map(m=>(DB[m]||{}).totalPagar||0),1);
+  document.getElementById('annual-grid').innerHTML=MONTHS.map(m=>{
+    const d=DB[m]||emptyMonth();
+    const has=d.registros.length>0||d.totalPagar>0;
+    return`<div class="ac ${m===curMonth?'sel':''}" onclick="sw('${m}')">
+      <div class="ac-month">${m}</div>
+      <div class="ac-val" style="color:${has?'var(--navy)':'var(--slate)'};">${has?'R$ '+d.totalPagar.toLocaleString('pt-BR'):'—'}</div>
+      <div class="ac-sub">${d.registros.length} reg</div>
+      <div class="ac-bar"><div class="ac-fill" style="width:${((d.totalPagar/mx)*100).toFixed(0)}%"></div></div>
+    </div>`;
+  }).join('');
+}
+
+function renderTabs(){
+  document.getElementById('tabs').innerHTML=MONTHS.map(m=>
+    `<button class="tab ${m===curMonth?'active':''}" onclick="sw('${m}')">${m.slice(0,3)}</button>`
+  ).join('');
+}
+
+function sw(m){ curMonth=m; curFilter='todos'; document.querySelectorAll('.fbtn').forEach((b,i)=>b.classList.toggle('on',i===0)); renderAll(); }
+function setFilter(f,el){ curFilter=f; document.querySelectorAll('.fbtn').forEach(b=>b.classList.remove('on')); el.classList.add('on'); renderTable(); }
+
+function renderKPI(){
+  const d=DB[curMonth]||emptyMonth();
+  const r=d.registros;
+  const tg=r.reduce((s,x)=>s+(x.graficaVal||0),0);
+  const kpis=[
+    {l:'Total a Pagar',v:`R$ ${d.totalPagar.toLocaleString('pt-BR')}`,s:'Valor líquido',c:'var(--green)',i:'💰'},
+    {l:'E/R Total',    v:`R$ ${d.totalER.toLocaleString('pt-BR')}`,   s:'Entregas e Retiradas',c:'var(--blue)',i:'📦'},
+    {l:'Diligências',  v:`R$ ${d.totalDilig.toLocaleString('pt-BR')}`,s:`${d.diligencias.length} item(ns)`,c:'var(--gold)',i:'🚗'},
+    {l:'Registros',    v:r.length,s:`${r.filter(x=>x.situacao==='pacote').length} pac · ${r.filter(x=>x.situacao==='fora').length} avulso`,c:'var(--accent)',i:'📋'},
+    {l:'Gráfica',      v:`R$ ${tg.toLocaleString('pt-BR')}`,s:`${r.filter(x=>x.grafica==='Sim').length} ida(s)`,c:'#8B5CF6',i:'🖨️'},
+  ];
+  document.getElementById('kpi-grid').innerHTML=kpis.map(k=>`
+    <div class="kc" style="--kc:${k.c}">
+      <div class="kc-label">${k.l}</div>
+      <div class="kc-val">${k.v}</div>
+      <div class="kc-sub">${k.s}</div>
+      <div class="kc-icon">${k.i}</div>
+    </div>`).join('');
+}
+
+function renderTable(){
+  const d=DB[curMonth]||emptyMonth();
+  let r=[...d.registros];
+  if(curFilter==='pacote') r=r.filter(x=>x.situacao==='pacote');
+  else if(curFilter==='fora') r=r.filter(x=>x.situacao==='fora');
+  else if(curFilter!=='todos') r=r.filter(x=>x.tipo===curFilter);
+  const tb=t=>t==='Entrega'?'<span class="badge be">↑ Entrega</span>':t==='Retirada'?'<span class="badge br">↓ Retirada</span>':'<span class="badge ba">↕ Ambos</span>';
+  const tbody=document.getElementById('tbody');
+  if(!r.length){tbody.innerHTML=`<tr><td colspan="10" class="nodata">Nenhum registro neste mês</td></tr>`;return;}
+  tbody.innerHTML=r.map(x=>`<tr>
+    <td style="font-weight:600;white-space:nowrap;color:var(--navy)">${x.data}</td>
+    <td>${tb(x.tipo)}</td>
+    <td style="color:var(--muted)">${x.escrevente||'—'}</td>
+    <td style="font-weight:500">${x.local}</td>
+    <td>${x.grafica==='Sim'?'<span class="badge bs">✓ Sim</span>':'<span class="badge bn">— Não</span>'}</td>
+    <td style="font-weight:700;color:var(--navy)">R$ ${x.valor}</td>
+    <td style="color:${x.graficaVal>0?'#7C3AED':'var(--muted)'};font-weight:${x.graficaVal>0?700:400}">${x.graficaVal>0?'R$ '+x.graficaVal:'—'}</td>
+    <td>${x.situacao==='pacote'?'<span class="badge bp">Pacote</span>':'<span class="badge bf">Avulso</span>'}</td>
+    <td style="color:var(--muted);font-size:10.5px">${x.obs||''}</td>
+    ${isAdmin?`<td><button class="del-btn" onclick="delReg('${x.id}')">🗑</button></td>`:'<td></td>'}
+  </tr>`).join('');
+}
+
+function renderFin(){
+  const d=DB[curMonth]||emptyMonth();
+  const rows=[
+    {l:'Total E/R',v:`R$ ${d.totalER.toLocaleString('pt-BR')}`,c:'cb'},
+    {l:'Diligências',v:`R$ ${d.totalDilig.toLocaleString('pt-BR')}`,c:'cg2'},
+    ...(d.naoIdasPF>0?[{l:'Desconto (não idas PF)',v:`– R$ ${d.naoIdasPF.toLocaleString('pt-BR')}`,c:'cr'}]:[]),
+  ];
+  document.getElementById('fin').innerHTML=
+    rows.map(r=>`<div class="fr"><span class="fl">${r.l}</span><span class="fv ${r.c}">${r.v}</span></div>`).join('')
+    +(isAdmin?`<div style="padding-top:5px;display:flex;justify-content:flex-end"><button onclick="openFin()" style="font-size:10px;color:var(--blue-light);background:none;border:none;cursor:pointer;font-weight:700">✏ Editar</button></div>`:'')
+    +`<div class="trow"><span>Total a Pagar</span><span>R$ ${d.totalPagar.toLocaleString('pt-BR')}</span></div>`;
+}
+
+function renderPF(){
+  const d=DB[curMonth]||emptyMonth();
+  document.getElementById('pfl').innerHTML=d.idasPF.length
+    ?d.idasPF.map(p=>`<li><span class="pdot"></span>${p.data}</li>`).join('')
+    :'<li style="color:var(--muted);font-size:11px">Nenhuma ida registrada</li>';
+}
+
+function renderDil(){
+  const d=DB[curMonth]||emptyMonth();
+  document.getElementById('dill').innerHTML=d.diligencias.length
+    ?d.diligencias.map(x=>`<div class="di"><div class="di-date">📅 ${x.data} · R$ ${(x.valor||130).toLocaleString('pt-BR')}</div>${x.desc}</div>`).join('')
+    :'<div style="color:var(--muted);font-size:11px;padding:4px 0">Nenhuma diligência</div>';
+}
+
+function renderLocais(){
+  const r=(DB[curMonth]||emptyMonth()).registros;
+  const c={};r.forEach(x=>{c[x.local]=(c[x.local]||0)+1;});
+  const s=Object.entries(c).sort((a,b)=>b[1]-a[1]).slice(0,6);
+  const mx=s[0]?.[1]||1;
+  const cols=['#3B82F6','#8B5CF6','#10B981','#F59E0B','#EF4444','#06B6D4'];
+  document.getElementById('locais').innerHTML=s.length
+    ?s.map(([l,n],i)=>`<div class="cr-row"><span class="cr-label" title="${l}">${l}</span><div class="cr-wrap"><div class="cr-bar" style="width:${(n/mx*100).toFixed(0)}%;background:${cols[i]}"><span>${n}x</span></div></div></div>`).join('')
+    :'<div class="nodata">Sem dados</div>';
+}
+
+function renderAll(){ renderAnnual();renderTabs();renderKPI();renderTable();renderFin();renderPF();renderDil();renderLocais(); }
+
+// ════════════════════════════════════════════
+// ADMIN ACTIONS
+// ════════════════════════════════════════════
+function openForm(){
+  document.getElementById('f-mes').value=curMonth;
+  ['f-data','f-esc','f-local','f-obs','f-np'].forEach(id=>document.getElementById(id).value='');
+  document.getElementById('f-tipo').value='Entrega';
+  document.getElementById('f-graf').value='Não';
+  document.getElementById('f-val').value='60';
+  document.getElementById('f-gv').value='0';
+  document.getElementById('f-sit').value='fora';
+  document.getElementById('ov-form').classList.add('open');
+}
+
+async function saveReg(){
+  const mes=document.getElementById('f-mes').value;
+  const iso=document.getElementById('f-data').value;
+  const local=document.getElementById('f-local').value.trim();
+  if(!iso||!local){toast('Preencha Data e Local',true);return;}
+  const sit=document.getElementById('f-sit').value;
+  const np=document.getElementById('f-np').value.trim();
+  let obs=document.getElementById('f-obs').value.trim();
+  if(!obs) obs=sit==='pacote'?(np?`Inclusa no pacote (${np})`:'Inclusa no pacote'):'Fora do pacote';
+  if(!DB[mes]) DB[mes]=emptyMonth();
+  DB[mes].registros.push({
+    id:uid(),data:fmtD(iso),tipo:document.getElementById('f-tipo').value,
+    escrevente:document.getElementById('f-esc').value.trim()||'—',local,
+    grafica:document.getElementById('f-graf').value,
+    valor:parseInt(document.getElementById('f-val').value)||60,
+    graficaVal:parseInt(document.getElementById('f-gv').value)||0,
+    situacao:sit,obs
+  });
+  DB[mes].totalER=DB[mes].registros.reduce((s,x)=>s+(x.valor||0),0);
+  curMonth=mes; closeOv('ov-form');
+  await apiSave(); renderAll(); toast(`Registro adicionado em ${mes}`);
+}
+
+async function delReg(id){
+  if(!confirm('Excluir este registro?'))return;
+  DB[curMonth].registros=DB[curMonth].registros.filter(x=>x.id!==id);
+  DB[curMonth].totalER=DB[curMonth].registros.reduce((s,x)=>s+(x.valor||0),0);
+  await apiSave(); renderAll(); toast('Registro excluído');
+}
+
+let mmode='pf';
+function openManage(mode){
+  mmode=mode;
+  document.getElementById('mtitle').textContent=mode==='pf'?'Idas ao PF':'Diligências';
+  document.getElementById('m-mes').value=curMonth;
+  document.getElementById('m-data').value='';
+  document.getElementById('m-desc').value='';
+  document.getElementById('m-val').value='130';
+  document.getElementById('m-dw').style.display=mode==='dil'?'':'none';
+  document.getElementById('m-vw').style.display=mode==='dil'?'':'none';
+  renderML(); document.getElementById('ov-manage').classList.add('open');
+}
+
+function renderML(){
+  const mes=document.getElementById('m-mes').value;
+  const d=DB[mes]||emptyMonth();
+  const items=mmode==='pf'?d.idasPF:d.diligencias;
+  document.getElementById('mlist').innerHTML=items.length
+    ?items.map(it=>`<div class="mi">
+        <div><div class="mi-label">${mmode==='pf'?it.data:it.desc}</div><div class="mi-date">${it.data}${mmode==='dil'?' · R$ '+(it.valor||130):''}</div></div>
+        <button class="btn btn-danger" onclick="delML('${it.id}','${mes}')">Excluir</button>
+      </div>`).join('')
+    :'<div class="nodata">Nenhum item neste mês</div>';
+}
+
+async function saveML(){
+  const mes=document.getElementById('m-mes').value;
+  const iso=document.getElementById('m-data').value;
+  if(!iso){toast('Informe a data',true);return;}
+  if(!DB[mes]) DB[mes]=emptyMonth();
+  if(mmode==='pf'){
+    DB[mes].idasPF.push({id:uid(),data:fmtD(iso)});
+    toast(`Ida ao PF adicionada em ${mes}`);
+  } else {
+    const desc=document.getElementById('m-desc').value.trim();
+    if(!desc){toast('Informe a descrição',true);return;}
+    const val=parseInt(document.getElementById('m-val').value)||130;
+    DB[mes].diligencias.push({id:uid(),data:fmtD(iso),desc,valor:val});
+    DB[mes].totalDilig=DB[mes].diligencias.reduce((s,x)=>s+(x.valor||130),0);
+    toast(`Diligência adicionada em ${mes}`);
+  }
+  await apiSave(); renderML(); renderAll();
+}
+
+async function delML(id,mes){
+  if(!confirm('Excluir?'))return;
+  if(mmode==='pf') DB[mes].idasPF=DB[mes].idasPF.filter(x=>x.id!==id);
+  else{ DB[mes].diligencias=DB[mes].diligencias.filter(x=>x.id!==id); DB[mes].totalDilig=DB[mes].diligencias.reduce((s,x)=>s+(x.valor||130),0); }
+  await apiSave(); renderML(); renderAll();
+}
+
+function openFin(){
+  const d=DB[curMonth];
+  document.getElementById('fin-ml').textContent=curMonth;
+  document.getElementById('fin-er').value=d.totalER;
+  document.getElementById('fin-dil').value=d.totalDilig;
+  document.getElementById('fin-nao').value=d.naoIdasPF;
+  document.getElementById('fin-tot').value=d.totalPagar;
+  document.getElementById('ov-fin').classList.add('open');
+}
+async function saveFin(){
+  DB[curMonth].totalER=parseInt(document.getElementById('fin-er').value)||0;
+  DB[curMonth].totalDilig=parseInt(document.getElementById('fin-dil').value)||0;
+  DB[curMonth].naoIdasPF=parseInt(document.getElementById('fin-nao').value)||0;
+  DB[curMonth].totalPagar=parseInt(document.getElementById('fin-tot').value)||0;
+  await apiSave(); closeOv('ov-fin'); renderAll(); toast('Valores financeiros salvos');
+}
+
+// Close overlays on bg click
+['ov-form','ov-manage','ov-fin','login-screen'].forEach(id=>{
+  document.getElementById(id).addEventListener('click',function(e){if(e.target===this)this.classList.remove('open');});
+});
+
+// ════════════════════════════════════════════
+// INIT
+// ════════════════════════════════════════════
+async function init(){
+  document.getElementById('loading').classList.add('open');
+  populateSels();
+  await apiLoad();
+  document.getElementById('loading').classList.remove('open');
+  renderAll();
+  // Auto-refresh a cada 60s (útil para o cliente ver atualizações)
+  setInterval(async()=>{ if(!isAdmin){ await apiLoad(); renderAll(); } }, 60000);
+}
+init();
+</script>
+</body>
+</html>
