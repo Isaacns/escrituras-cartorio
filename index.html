@@ -43,14 +43,17 @@ main{max-width:1300px;margin:0 auto;padding:20px 16px 60px}
 .stitle::after{content:'';flex:1;height:1px;background:var(--border)}
 .annual-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
 .ac{background:var(--card);border-radius:11px;padding:14px 12px;box-shadow:0 1px 5px rgba(0,0,0,.07);
-  border:1px solid var(--border);cursor:pointer;transition:all .15s}
+  border:1px solid var(--border);cursor:pointer;transition:all .15s;position:relative}
 .ac:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.1)}
 .ac.sel{border:2px solid var(--navy)}
+.ac.em-and{border-top:3px solid var(--gold)}
 .ac-month{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
 .ac-val{font-size:17px;font-weight:800;color:var(--navy)}
 .ac-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
 .ac-bar{height:3px;background:var(--bg);border-radius:3px;margin-top:8px;overflow:hidden}
 .ac-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--accent))}
+.ac-badge{position:absolute;top:6px;right:6px;background:var(--gold);color:var(--navy);
+  font-size:8px;font-weight:800;padding:1px 5px;border-radius:8px;text-transform:uppercase}
 .tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--card);padding:4px;border-radius:11px;
   box-shadow:0 1px 5px rgba(0,0,0,.07);width:fit-content;flex-wrap:wrap}
 .tab{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:600;
@@ -91,6 +94,16 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .be{background:#EFF6FF;color:#1D4ED8}.br{background:#F5F3FF;color:#6D28D9}.ba{background:#FFF7ED;color:#C2410C}
 .bs{background:#ECFDF5;color:#065F46}.bn{background:#F1F5F9;color:#475569}
 .sidebar{display:flex;flex-direction:column;gap:12px}
+/* Aviso mês em andamento */
+.aviso-andamento{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:1px solid #FDE68A;
+  border-radius:9px;padding:10px 13px;font-size:11.5px;color:#78350F;margin-bottom:10px;line-height:1.5}
+/* Configuração PF */
+.pf-config{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:12px}
+.pf-config label{color:var(--muted);font-weight:600;white-space:nowrap}
+.pf-config input{width:48px;padding:4px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;text-align:center;outline:none}
+.pf-config input:focus{border-color:var(--blue-light)}
+.pf-config small{color:var(--muted);font-size:10px}
+/* Calc box */
 .calc-box{background:var(--bg);border-radius:9px;padding:12px;margin-bottom:10px}
 .calc-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(0,0,0,.06)}
 .calc-row:last-child{border:none}
@@ -103,9 +116,8 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .total-row span:last-child{color:var(--gold-light);font-size:18px;font-weight:800}
 .pf-list{list-style:none}
 .pf-list li{padding:6px 9px;background:var(--bg);border-radius:7px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;gap:7px}
-.pdot{width:7px;height:7px;border-radius:50%;background:var(--blue-light);flex-shrink:0}
-.di{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:1px solid #FDE68A;border-radius:8px;
-  padding:9px 11px;font-size:11px;line-height:1.5;margin-bottom:6px;color:#78350F}
+.pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
+.di{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:1px solid #FDE68A;border-radius:8px;padding:9px 11px;font-size:11px;line-height:1.5;margin-bottom:6px;color:#78350F}
 .di-date{font-weight:700;font-size:10px;margin-bottom:2px}
 .cr-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
 .cr-label{font-size:10px;color:var(--muted);width:88px;flex-shrink:0;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
@@ -113,6 +125,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .cr-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:5px;transition:width .4s}
 .cr-bar span{font-size:9.5px;font-weight:700;color:#fff}
 .nodata{text-align:center;padding:28px;color:var(--muted);font-size:12px}
+/* Modals */
 .overlay{position:fixed;inset:0;background:rgba(13,27,62,.62);z-index:200;display:none;align-items:center;justify-content:center;padding:12px;backdrop-filter:blur(4px)}
 .overlay.open{display:flex}
 .modal{background:var(--card);border-radius:14px;width:100%;max-width:540px;box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden;max-height:94vh;display:flex;flex-direction:column}
@@ -138,11 +151,11 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .btn-danger{background:#FEF2F2;color:var(--red);border:1px solid #FECACA;font-size:11px;padding:4px 10px;flex-shrink:0}
 .btn-danger:hover{background:var(--red);color:#fff}
 .btn-rep{background:linear-gradient(135deg,var(--purple),#6D28D9);color:#fff}
+.hint{background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 12px;font-size:11.5px;color:#166534;margin-bottom:12px;line-height:1.6}
 .mi{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);gap:10px}
 .mi:last-child{border-bottom:none}
 .mi-label{font-size:12px;font-weight:600}.mi-date{font-size:10px;color:var(--muted);margin-top:2px}
-.hint{background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 12px;font-size:11.5px;color:#166534;margin-bottom:12px;line-height:1.6}
-/* RELATÓRIO */
+/* Relatório */
 .rep-sec{margin-bottom:20px}
 .rep-sec h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border)}
 .rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
@@ -158,10 +171,10 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .rep-table tr.desc-row td{background:#FFF1F2}
 .calc-detail{background:var(--bg);border-radius:8px;padding:12px;font-size:12px}
 .calc-detail-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)}
-.calc-detail-row:last-child{border:none;font-weight:700;font-size:13px;color:var(--navy);padding-top:8px}
+.calc-detail-row:last-child{border:none;font-weight:700;font-size:13px;padding-top:8px}
+/* Toast / Login / Loading */
 .toast{position:fixed;bottom:20px;right:20px;z-index:500;background:var(--navy);color:#fff;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.22);transform:translateY(70px);opacity:0;transition:all .3s;max-width:280px}
-.toast.show{transform:translateY(0);opacity:1}
-.toast.err{background:var(--red)}
+.toast.show{transform:translateY(0);opacity:1}.toast.err{background:var(--red)}
 .login-screen{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy),var(--navy-mid) 60%,var(--blue));z-index:999;display:none;align-items:center;justify-content:center}
 .login-screen.open{display:flex}
 .lbox{background:var(--card);border-radius:16px;padding:32px 28px;width:100%;max-width:340px;box-shadow:0 24px 60px rgba(0,0,0,.4);text-align:center;margin:16px}
@@ -193,7 +206,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
     <button onclick="closeLogin()" style="margin-top:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px">Cancelar</button>
   </div>
 </div>
-<div class="loading" id="loading"><div class="spin"></div><p id="lmsg">Carregando...</p></div>
+<div class="loading" id="loading"><div class="spin"></div><p>Carregando...</p></div>
 <header>
   <div class="h-left">
     <div class="logo">📋</div>
@@ -251,20 +264,32 @@ tbody td{padding:8px 11px;vertical-align:middle}
       </div>
     </div>
     <div class="sidebar">
+      <div id="aviso-and" style="display:none" class="aviso-andamento">⏳ <strong>Mês em andamento</strong> — o cálculo de não-idas ao PF será aplicado apenas ao fechar o mês.</div>
       <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--green)"></span>Cálculo do Mês</div><div id="calc-content"></div></div>
-      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--blue-light)"></span>Idas ao PF <span id="pf-count" style="margin-left:auto;font-size:10px;font-weight:600;color:var(--muted)"></span></div><ul class="pf-list" id="pfl"></ul></div>
+      <div class="card">
+        <div class="ctitle"><span class="cdot" style="background:var(--blue-light)"></span>Idas ao PF <span id="pf-count" style="margin-left:auto;font-size:10px;font-weight:600;color:var(--muted)"></span></div>
+        <div id="pf-config-wrap" style="display:none">
+          <div class="pf-config">
+            <label>Idas exigidas este mês:</label>
+            <input type="number" id="pf-exig" min="1" max="4" value="4" onchange="savePFExig()">
+            <small>(padrão 4, ajuste para meses com recesso)</small>
+          </div>
+        </div>
+        <ul class="pf-list" id="pfl"></ul>
+      </div>
       <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--gold)"></span>Diligências</div><div id="dill"></div></div>
       <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--accent)"></span>Locais Frequentes</div><div id="locais"></div></div>
     </div>
   </div>
 </main>
 <div class="toast" id="toast"></div>
+
 <!-- MODAL REGISTRO -->
 <div class="overlay" id="ov-form">
   <div class="modal">
     <div class="mhdr"><h2>Novo Registro de E/R</h2><button class="mclose" onclick="closeOv('ov-form')">✕</button></div>
     <div class="mbody">
-      <div class="hint">As 4 primeiras E/R do mês são gratuitas (pacote). A partir da 5ª: R$60 cada. Gráfica: R$15 por ida (sempre cobrada, mesmo no pacote).</div>
+      <div class="hint">As 4 primeiras E/R do mês são gratuitas (pacote). A partir da 5ª: R$60 cada. Gráfica: R$15 por ida (cobrada sempre, inclusive nas do pacote).</div>
       <div class="frow">
         <div class="fg"><label>Mês</label><select id="f-mes"></select></div>
         <div class="fg"><label>Data</label><input type="date" id="f-data"></div>
@@ -287,6 +312,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
     <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-form')">Cancelar</button><button class="btn btn-save" onclick="saveReg()">Salvar</button></div>
   </div>
 </div>
+
 <!-- MODAL PF/DIL -->
 <div class="overlay" id="ov-manage">
   <div class="modal">
@@ -307,6 +333,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
     <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-manage')">Fechar</button></div>
   </div>
 </div>
+
 <!-- MODAL RELATÓRIO -->
 <div class="overlay" id="ov-report">
   <div class="modal wide">
@@ -322,6 +349,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
     </div>
   </div>
 </div>
+
 <script>
 // ════════════════════
 // CONFIG
@@ -329,57 +357,76 @@ tbody td{padding:8px 11px;vertical-align:middle}
 const API_URL = 'https://script.google.com/macros/s/AKfycbw_Qt5d5-RWpcSErChlyj99NUnQzLpkIc6Vb2fxawChpoyliH7y2NpU8u7IQ_MdnZUO/exec';
 const _ap = ['3Us','oui','ncr','iv3','l!'];
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
-const LSKEY = 'cpf_esc26_v3';
-const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15, IDAS_PF = 4;
+const LSKEY = 'cpf_esc26_v4';
+const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
+
+// Configurações por mês: idas exigidas e se está em andamento
+const MES_CONFIG_DEFAULT = {
+  idasExigidas: 4,   // padrão
+  emAndamento: false
+};
 
 let DB = {}, isAdmin = false, curMonth = 'Janeiro', curFilter = 'todos', mmode = 'pf';
 
 // ════════════════════
-// CÁLCULO CENTRAL — lógica validada contra todos os 6 meses da planilha
+// CÁLCULO CENTRAL
+// Regras validadas contra planilha real (todos os 6 meses):
+// - Bruto = er_avulsas × R$60 + total_gráficas × R$15
+// - Crédito por não-ida = 3 E/R + 3 gráficas
+// - Desconto = min(er_av, credito_er) E/R + min(graf_t, credito_graf) gráficas
+// - Se mês em andamento: não aplica desconto de não-idas
+// - Diligências nunca são descontadas
 // ════════════════════
 function calcMes(mes) {
   const d = DB[mes] || emptyMonth();
+  const cfg = d.config || {};
+  const idasExig = cfg.idasExigidas !== undefined ? cfg.idasExigidas : 4;
+  const emAndamento = cfg.emAndamento || false;
+
   const regs = d.registros;
-  const er_av = Math.max(0, regs.length - PACOTE); // E/R avulsas (acima do pacote)
-  const graf_t = regs.filter(r => r.grafica === 'Sim').length; // total gráficas do mês
-  const nao_idas = Math.max(0, IDAS_PF - d.idasPF.length);
-  const bruto = er_av * VAL_ER + graf_t * VAL_GRAF;
+  const er_av = Math.max(0, regs.length - PACOTE);
+  const graf_t = regs.filter(r => r.grafica === 'Sim').length;
+  const idasPF = d.idasPF.length;
+  const nao_idas = Math.max(0, idasExig - idasPF);
   const dilig = d.diligencias.reduce((s, x) => s + (x.valor || 0), 0);
+  const bruto = er_av * VAL_ER + graf_t * VAL_GRAF;
 
-  // Regra de desconto (validada contra planilha real):
-  // Aplica desconto quando: nao_idas > 0 E er_av >= max(1, nao_idas-1)
-  // Se er_av < nao_idas → desconta bruto total
-  // Se er_av >= nao_idas → desconta floor(er_av/3)×3 E/R + todas gráficas
-  let desconto = 0;
-  let er_desc = 0, graf_desc = 0;
+  let er_abatidas = 0, graf_abatidas = 0, desconto = 0;
 
-  const aplica = nao_idas > 0 && er_av >= Math.max(1, nao_idas - 1);
-  if (aplica) {
-    if (er_av < nao_idas) {
-      desconto = bruto;
-      er_desc = er_av;
-      graf_desc = graf_t;
-    } else {
-      const nao_ef = Math.floor(er_av / 3);
-      const nao_aplic = Math.min(nao_idas, nao_ef);
-      er_desc = nao_aplic * 3;
-      graf_desc = nao_aplic > 0 ? graf_t : 0;
-      desconto = Math.min(bruto, er_desc * VAL_ER + graf_desc * VAL_GRAF);
-    }
+  if (!emAndamento && nao_idas > 0) {
+    const credito_er   = nao_idas * 3;
+    const credito_graf = nao_idas * 3;
+    er_abatidas   = Math.min(credito_er,   er_av);
+    graf_abatidas = Math.min(credito_graf, graf_t);
+    desconto = er_abatidas * VAL_ER + graf_abatidas * VAL_GRAF;
   }
 
-  const total = bruto - desconto + dilig;
+  const er_cobradas   = er_av   - er_abatidas;
+  const graf_cobradas = graf_t  - graf_abatidas;
+  const subtotalER    = er_cobradas * VAL_ER + graf_cobradas * VAL_GRAF;
+  const total         = subtotalER + dilig;
 
-  // Status de cada registro
-  const statuses = regs.map((_, i) => {
+  // Status de cada registro para colorir a tabela
+  // E/R abatidas = as últimas er_abatidas avulsas
+  // Gráficas abatidas = as primeiras graf_abatidas do mês (ordem cronológica)
+  const statuses = regs.map((r, i) => {
     if (i < PACOTE) return 'pacote';
-    const avIdx = i - PACOTE;
-    // Os er_desc últimos avulsos são descontados
-    const firstDesc = er_av - er_desc;
+    const avIdx = i - PACOTE; // índice entre as avulsas
+    const firstDesc = er_av - er_abatidas;
     return avIdx >= firstDesc ? 'desc' : 'cobrado';
   });
 
-  return { regs, er_av, graf_t, nao_idas, bruto, desconto, dilig, total, er_desc, graf_desc, statuses, idasPF: d.idasPF.length };
+  // Quais gráficas são abatidas (as primeiras graf_abatidas do mês)
+  let grafDesc = 0;
+  const grafStatuses = regs.map(r => {
+    if (r.grafica !== 'Sim') return 'no-graf';
+    if (grafDesc < graf_abatidas) { grafDesc++; return 'graf-desc'; }
+    return 'graf-cob';
+  });
+
+  return { regs, er_av, graf_t, nao_idas, idasPF, idasExig, emAndamento,
+           bruto, desconto, dilig, total, er_abatidas, graf_abatidas,
+           er_cobradas, graf_cobradas, subtotalER, statuses, grafStatuses };
 }
 
 // ════════════════════
@@ -387,7 +434,7 @@ function calcMes(mes) {
 // ════════════════════
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 function fmtD(iso) { if (!iso) return ''; const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; }
-function R(v) { return 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 0 }); }
+function R(v) { return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 0 }); }
 function toast(msg, err = false) {
   const t = document.getElementById('toast');
   t.textContent = (err ? '⚠ ' : '✓ ') + msg;
@@ -402,7 +449,11 @@ function sync(state, msg = '') {
 }
 function closeOv(id) { document.getElementById(id).classList.remove('open'); }
 function closeLogin() { document.getElementById('login-screen').classList.remove('open'); }
-function emptyMonth() { return { registros: [], idasPF: [], diligencias: [] }; }
+function emptyMonth() { return { registros: [], idasPF: [], diligencias: [], config: {} }; }
+function getConfig(mes) {
+  const d = DB[mes] || emptyMonth();
+  return { idasExigidas: d.config?.idasExigidas ?? 4, emAndamento: d.config?.emAndamento ?? false };
+}
 
 // ════════════════════
 // API
@@ -426,7 +477,11 @@ async function apiLoad() {
     if (j && j.ok && j.data && Object.keys(j.data).length > 0) { DB = j.data; lsSave(); sync('ok'); return; }
     throw new Error();
   } catch (e) {
-    try { const r = await fetch(API_URL, { cache: 'no-cache' }); const j = await r.json(); if (j.ok && j.data && Object.keys(j.data).length > 0) { DB = j.data; lsSave(); sync('ok'); return; } } catch (e2) { }
+    try {
+      const r = await fetch(API_URL, { cache: 'no-cache' });
+      const j = await r.json();
+      if (j.ok && j.data && Object.keys(j.data).length > 0) { DB = j.data; lsSave(); sync('ok'); return; }
+    } catch (e2) { }
     const l = lsLoad(); DB = l || buildSeed(); sync(l ? 'ok' : 'err', l ? 'Dados locais' : 'Sem conexão');
   }
 }
@@ -439,10 +494,14 @@ function lsSave() { try { localStorage.setItem(LSKEY, JSON.stringify(DB)); } cat
 function lsLoad() { try { const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
 
 // ════════════════════
-// SEED DATA — dados reais da planilha atualizada
+// SEED DATA — dados reais da planilha
 // ════════════════════
 function buildSeed() {
   const o = {}; MONTHS.forEach(m => { o[m] = emptyMonth(); });
+
+  // Fevereiro: recesso carnaval → 3 idas exigidas (teve 2 → 1 não-ida)
+  // Junho: recesso São João → 3 idas exigidas + em andamento
+
   o['Janeiro'].registros = [
     {id:uid(),data:'06/01/2026',tipo:'Entrega',  escrevente:'',local:'Santa Helena',              grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'07/01/2026',tipo:'Retirada', escrevente:'',local:'Santa Helena',              grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -463,6 +522,8 @@ function buildSeed() {
     {id:uid(),data:'29/01/2026',desc:'Recolhimento de Assinatura no Bairro da Graça',valor:130},
     {id:uid(),data:'28/01/2026',desc:'Pegar documentação no Shopping + Entrega de Chave de roda e Documentação na HAUS BMW',valor:130},
   ];
+  o['Janeiro'].config = {idasExigidas:4, emAndamento:false};
+
   o['Fevereiro'].registros = [
     {id:uid(),data:'04/02/2026',tipo:'Entrega', escrevente:'',local:'Imbassaí Privilege',grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'05/02/2026',tipo:'Retirada',escrevente:'',local:'Imbassaí Privilege',grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -478,6 +539,8 @@ function buildSeed() {
     {id:uid(),data:'04/02/2026',desc:'Recolhimento de Assinatura no bairro do Imbuí',valor:130},
     {id:uid(),data:'04/02/2026',desc:'Entrega de Escritura no bairro do Alto do Itaigara',valor:130},
   ];
+  o['Fevereiro'].config = {idasExigidas:3, emAndamento:false}; // recesso carnaval
+
   o['Março'].registros = [
     {id:uid(),data:'03/03/2026',tipo:'Entrega',         escrevente:'',local:'Santa Helena', grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'05/03/2026',tipo:'Retirada',        escrevente:'',local:'Costa Andrade',grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -494,6 +557,8 @@ function buildSeed() {
   ];
   o['Março'].idasPF = [{id:uid(),data:'06/03/2026'},{id:uid(),data:'12/03/2026'},{id:uid(),data:'20/03/2026'},{id:uid(),data:'26/03/2026'}];
   o['Março'].diligencias = [{id:uid(),data:'23/03/2026',desc:'Ida na Gráfica entregar cartão',valor:30}];
+  o['Março'].config = {idasExigidas:4, emAndamento:false};
+
   o['Abril'].registros = [
     {id:uid(),data:'09/04/2026',tipo:'Entrega',         escrevente:'Ilana', local:'Santa Fé',      grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'15/04/2026',tipo:'Retirada',        escrevente:'Ilana', local:'Santa Fé',      grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -504,6 +569,8 @@ function buildSeed() {
   ];
   o['Abril'].idasPF = [{id:uid(),data:'30/04/2026'}];
   o['Abril'].diligencias = [{id:uid(),data:'14/04/2026',desc:'Recolhimento de assinaturas nos bairros de Patamares e Caminho das Árvores. Cliente: Dr. Helder (Alexandre e Dani)',valor:130}];
+  o['Abril'].config = {idasExigidas:4, emAndamento:false};
+
   o['Maio'].registros = [
     {id:uid(),data:'18/05/2026',tipo:'Entrega', escrevente:'Deyse/Ilana',local:'Imbassaí Privilege',grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'19/05/2026',tipo:'Retirada',escrevente:'Deyse/Ilana',local:'Imbassaí Privilege',grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -512,6 +579,8 @@ function buildSeed() {
   ];
   o['Maio'].idasPF = [{id:uid(),data:'08/05/2026'},{id:uid(),data:'21/05/2026'},{id:uid(),data:'26/05/2026'}];
   o['Maio'].diligencias = [];
+  o['Maio'].config = {idasExigidas:4, emAndamento:false};
+
   o['Junho'].registros = [
     {id:uid(),data:'01/06/2026',tipo:'Entrega', escrevente:'Álvaro',local:'Santa Helena',      grafica:'Não',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'02/06/2026',tipo:'Entrega', escrevente:'Débora',local:'Santa Helena',      grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -521,13 +590,15 @@ function buildSeed() {
   ];
   o['Junho'].idasPF = [{id:uid(),data:'03/06/2026'}];
   o['Junho'].diligencias = [];
+  o['Junho'].config = {idasExigidas:3, emAndamento:true}; // recesso São João + em andamento
+
   return o;
 }
 
 // ════════════════════
 // AUTH
 // ════════════════════
-function toggleAdmin() { isAdmin ? exitAdmin() : document.getElementById('login-screen').classList.add('open'); setTimeout(() => document.getElementById('lpw').focus(), 100); }
+function toggleAdmin() { isAdmin ? exitAdmin() : (document.getElementById('login-screen').classList.add('open'), setTimeout(() => document.getElementById('lpw').focus(), 100)); }
 function doLogin() {
   if (document.getElementById('lpw').value === _ap.join('')) {
     isAdmin = true; closeLogin();
@@ -536,6 +607,7 @@ function doLogin() {
     document.getElementById('hsub').textContent = 'Cartório Praia do Forte · 2026 · Modo Admin';
     document.getElementById('abar').style.display = 'flex';
     document.getElementById('th-del').style.display = '';
+    document.getElementById('pf-config-wrap').style.display = '';
     document.getElementById('atbtn').textContent = '🔓';
     renderAll(); toast('Modo admin ativado');
   } else {
@@ -551,8 +623,26 @@ function exitAdmin() {
   document.getElementById('hsub').textContent = 'Cartório Praia do Forte · 2026 · Visualização';
   document.getElementById('abar').style.display = 'none';
   document.getElementById('th-del').style.display = 'none';
+  document.getElementById('pf-config-wrap').style.display = 'none';
   document.getElementById('atbtn').textContent = '⚙';
   renderAll(); toast('Modo leitura ativado');
+}
+
+// ════════════════════
+// CONFIG PF EXIGIDAS
+// ════════════════════
+function savePFExig() {
+  const val = parseInt(document.getElementById('pf-exig').value) || 4;
+  if (!DB[curMonth]) DB[curMonth] = emptyMonth();
+  if (!DB[curMonth].config) DB[curMonth].config = {};
+  DB[curMonth].config.idasExigidas = val;
+  apiSave(); renderAll(); toast(`Idas exigidas em ${curMonth}: ${val}`);
+}
+function saveEmAndamento(val) {
+  if (!DB[curMonth]) DB[curMonth] = emptyMonth();
+  if (!DB[curMonth].config) DB[curMonth].config = {};
+  DB[curMonth].config.emAndamento = val;
+  apiSave(); renderAll(); toast(val ? 'Mês marcado como em andamento' : 'Mês marcado como fechado');
 }
 
 // ════════════════════
@@ -566,17 +656,19 @@ function populateSels() {
 }
 
 // ════════════════════
-// RENDERS
+// RENDER ANNUAL
 // ════════════════════
 function renderAnnual() {
   const vals = MONTHS.map(m => calcMes(m).total);
   const mx = Math.max(...vals, 1);
   document.getElementById('annual-grid').innerHTML = MONTHS.map((m, i) => {
     const c = calcMes(m); const has = c.regs.length > 0 || c.dilig > 0;
-    return `<div class="ac ${m === curMonth ? 'sel' : ''}" onclick="sw('${m}')">
+    const emAnd = c.emAndamento;
+    return `<div class="ac ${m === curMonth ? 'sel' : ''} ${emAnd ? 'em-and' : ''}" onclick="sw('${m}')">
+      ${emAnd ? '<div class="ac-badge">Em andamento</div>' : ''}
       <div class="ac-month">${m}</div>
       <div class="ac-val" style="color:${has ? 'var(--navy)' : 'var(--slate)'}">${has ? R(c.total) : '—'}</div>
-      <div class="ac-sub">${c.regs.length} E/R · ${c.idasPF} PF</div>
+      <div class="ac-sub">${c.regs.length} E/R · ${c.idasPF}/${c.idasExig} PF</div>
       <div class="ac-bar"><div class="ac-fill" style="width:${(vals[i] / mx * 100).toFixed(0)}%"></div></div>
     </div>`;
   }).join('');
@@ -587,19 +679,20 @@ function renderTabs() {
     `<button class="tab ${m === curMonth ? 'active' : ''}" onclick="sw('${m}')">${m.slice(0, 3)}</button>`
   ).join('');
 }
-
 function sw(m) { curMonth = m; curFilter = 'todos'; document.querySelectorAll('.fbtn').forEach((b, i) => b.classList.toggle('on', i === 0)); renderAll(); }
 function setFilter(f, el) { curFilter = f; document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on')); el.classList.add('on'); renderTable(); }
 
+// ════════════════════
+// RENDER KPI
+// ════════════════════
 function renderKPI() {
   const c = calcMes(curMonth);
-  const grafVal = c.graf_t * VAL_GRAF;
   const kpis = [
-    { l: 'Total a Receber', v: R(c.total), s: 'Valor líquido do mês', color: 'var(--green)', i: '💰' },
-    { l: 'Bruto E/R + Gráfica', v: R(c.bruto), s: `${c.er_av} avulsas + ${c.graf_t} gráfica(s)`, color: 'var(--blue)', i: '📦' },
-    { l: 'Desconto não-idas', v: c.desconto > 0 ? '− ' + R(c.desconto) : R(0), s: `${c.nao_idas} não-ida(s) PF`, color: c.desconto > 0 ? 'var(--red)' : 'var(--green)', i: '📍' },
-    { l: 'Diligências', v: R(c.dilig), s: `${(DB[curMonth] || emptyMonth()).diligencias.length} item(ns)`, color: 'var(--gold)', i: '🚗' },
-    { l: 'Idas ao PF', v: `${c.idasPF}/${IDAS_PF}`, s: `${c.nao_idas} não-ida(s) neste mês`, color: c.nao_idas > 0 ? 'var(--red)' : 'var(--green)', i: '🗓' },
+    { l: 'Total a Receber',     v: R(c.total),   s: c.emAndamento ? 'Mês em andamento' : 'Valor líquido do mês',     color: 'var(--green)',  i: '💰' },
+    { l: 'E/R Cobradas',        v: c.er_cobradas + ' × ' + R(VAL_ER), s: `${c.regs.length} total · ${Math.min(c.regs.length,PACOTE)} pacote · ${c.er_abatidas} abatidas`, color: 'var(--blue)', i: '📦' },
+    { l: 'Gráficas Cobradas',   v: R(c.graf_cobradas * VAL_GRAF), s: `${c.graf_t} total · ${c.graf_abatidas} abatida(s)`, color: 'var(--purple)', i: '🖨️' },
+    { l: 'Diligências',         v: R(c.dilig),   s: `${(DB[curMonth]||emptyMonth()).diligencias.length} item(ns)`,   color: 'var(--gold)',   i: '🚗' },
+    { l: 'Idas ao PF',          v: `${c.idasPF}/${c.idasExig}`, s: c.nao_idas > 0 ? `⚠ ${c.nao_idas} não-ida(s) → desc. ${R(c.desconto)}` : '✓ Todas realizadas', color: c.nao_idas > 0 ? 'var(--red)' : 'var(--green)', i: '📍' },
   ];
   document.getElementById('kpi-grid').innerHTML = kpis.map(k => `
     <div class="kc" style="--kc:${k.color}">
@@ -610,10 +703,14 @@ function renderKPI() {
     </div>`).join('');
 }
 
+// ════════════════════
+// RENDER TABLE
+// ════════════════════
 function renderTable() {
   const d = DB[curMonth] || emptyMonth();
   const c = calcMes(curMonth);
-  let pairs = d.registros.map((r, i) => ({ r, i, status: c.statuses[i] }));
+
+  let pairs = d.registros.map((r, i) => ({ r, i, status: c.statuses[i], grafStatus: c.grafStatuses[i] }));
 
   if (curFilter === 'pacote') pairs = pairs.filter(p => p.status === 'pacote');
   else if (curFilter === 'avulso') pairs = pairs.filter(p => p.status !== 'pacote');
@@ -621,14 +718,20 @@ function renderTable() {
 
   const tipoBadge = t => t === 'Entrega' ? '<span class="badge be">↑ Entrega</span>' : t === 'Retirada' ? '<span class="badge br">↓ Retirada</span>' : '<span class="badge ba">↕ Ambos</span>';
   const statusBadge = s => s === 'pacote' ? '<span class="badge bs">🟢 Pacote</span>' : s === 'desc' ? '<span class="badge" style="background:#FFF1F2;color:#991B1B">🔴 Descontado</span>' : '<span class="badge" style="background:#FFFBEB;color:#92400E">🟡 Cobrado</span>';
+
   const tbody = document.getElementById('tbody');
   if (!pairs.length) { tbody.innerHTML = `<tr><td colspan="11" class="nodata">Nenhum registro</td></tr>`; return; }
 
-  tbody.innerHTML = pairs.map(({ r, i, status }) => {
+  tbody.innerHTML = pairs.map(({ r, i, status, grafStatus }) => {
     const rowCls = status === 'pacote' ? 'tr-pacote' : status === 'desc' ? 'tr-desc' : 'tr-cobrado';
     const erVal = status === 'cobrado' ? R(VAL_ER) : status === 'desc' ? `<s style="color:var(--muted)">${R(VAL_ER)}</s>` : '—';
-    // Gráfica: sempre tem valor se Sim, mas pode estar descontada no total geral
-    const grafVal = r.grafica === 'Sim' ? (status === 'desc' ? `<s style="color:var(--muted)">${R(VAL_GRAF)}</s>` : `<span style="color:var(--purple);font-weight:700">${R(VAL_GRAF)}</span>`) : '—';
+    let grafVal = '—';
+    if (r.grafica === 'Sim') {
+      const isDescGraf = grafStatus === 'graf-desc';
+      grafVal = isDescGraf
+        ? `<s style="color:var(--muted)">${R(VAL_GRAF)}</s>`
+        : `<span style="color:var(--purple);font-weight:700">${R(VAL_GRAF)}</span>`;
+    }
     return `<tr class="${rowCls}">
       <td style="color:var(--muted);font-size:10px">${i + 1}</td>
       <td style="font-weight:600;white-space:nowrap;color:var(--navy)">${r.data}</td>
@@ -645,28 +748,58 @@ function renderTable() {
   }).join('');
 }
 
+// ════════════════════
+// RENDER CALC SIDEBAR
+// ════════════════════
 function renderCalc() {
   const c = calcMes(curMonth);
   document.getElementById('calc-content').innerHTML = `
     <div class="calc-box">
-      <div class="calc-row"><span class="calc-label">E/R no pacote (${Math.min(c.regs.length, PACOTE)} de 4)</span><span class="calc-val c-green">R$ 0</span></div>
+      <div class="calc-row"><span class="calc-label">E/R no pacote (${Math.min(c.regs.length, PACOTE)}/4 gratuitas)</span><span class="calc-val c-green">R$ 0</span></div>
       <div class="calc-row"><span class="calc-label">E/R avulsas (${c.er_av} × ${R(VAL_ER)})</span><span class="calc-val c-blue">${R(c.er_av * VAL_ER)}</span></div>
       <div class="calc-row"><span class="calc-label">Gráficas (${c.graf_t} × ${R(VAL_GRAF)})</span><span class="calc-val c-purple">${R(c.graf_t * VAL_GRAF)}</span></div>
-      <div class="calc-row sep"><span class="calc-label">Bruto E/R + Gráfica</span><span class="calc-val">${R(c.bruto)}</span></div>
-      ${c.desconto > 0 ? `<div class="calc-row"><span class="calc-label">Desconto (${c.nao_idas} não-ida${c.nao_idas > 1 ? 's' : ''} PF)</span><span class="calc-val c-red">− ${R(c.desconto)}</span></div>` : `<div class="calc-row"><span class="calc-label">Desconto não-idas PF</span><span class="calc-val c-green">R$ 0</span></div>`}
-      <div class="calc-row sep"><span class="calc-label">Subtotal E/R</span><span class="calc-val c-blue">${R(c.bruto - c.desconto)}</span></div>
+      <div class="calc-row sep"><span class="calc-label">Bruto</span><span class="calc-val">${R(c.bruto)}</span></div>
+      ${c.emAndamento
+        ? `<div class="calc-row"><span class="calc-label" style="color:var(--gold)">⏳ Em andamento — desconto pendente</span><span class="calc-val">—</span></div>`
+        : c.desconto > 0
+          ? `<div class="calc-row"><span class="calc-label">Abatimento (${c.nao_idas} não-ida${c.nao_idas>1?'s':''} × 3 E/R + 3 gráf.)</span><span class="calc-val c-red">− ${R(c.desconto)}</span></div>
+             <div class="calc-row"><span class="calc-label" style="font-size:10px;color:var(--muted)">&nbsp;↳ ${c.er_abatidas} E/R + ${c.graf_abatidas} gráfica(s) abatidas</span><span></span></div>`
+          : `<div class="calc-row"><span class="calc-label">Abatimento não-idas PF</span><span class="calc-val c-green">R$ 0</span></div>`
+      }
+      <div class="calc-row sep"><span class="calc-label">Subtotal E/R</span><span class="calc-val c-blue">${R(c.subtotalER)}</span></div>
       <div class="calc-row"><span class="calc-label">Diligências</span><span class="calc-val c-gold">${R(c.dilig)}</span></div>
     </div>
     <div class="total-row"><span>Total a Receber</span><span>${R(c.total)}</span></div>`;
 }
 
+// ════════════════════
+// RENDER PF
+// ════════════════════
 function renderPF() {
   const d = DB[curMonth] || emptyMonth(); const c = calcMes(curMonth);
-  document.getElementById('pf-count').textContent = `${c.idasPF}/${IDAS_PF}`;
-  document.getElementById('pfl').innerHTML = d.idasPF.length
-    ? d.idasPF.map(p => `<li><span class="pdot"></span>${p.data}</li>`).join('') +
-      (c.nao_idas > 0 ? `<li style="color:var(--red);font-size:10.5px">⚠ ${c.nao_idas} não-ida(s) — desconto de ${R(c.desconto)}</li>` : `<li style="color:var(--green);font-size:10.5px">✓ Todas as idas realizadas</li>`)
-    : '<li style="color:var(--muted);font-size:11px">Nenhuma ida registrada</li>';
+  document.getElementById('pf-count').textContent = `${c.idasPF}/${c.idasExig}`;
+
+  // Config input (só visível pra admin)
+  if (isAdmin) document.getElementById('pf-exig').value = c.idasExig;
+
+  // Botão em andamento (só admin)
+  const emAndBtn = isAdmin ? `<li style="padding:6px 0">
+    <label style="display:flex;align-items:center;gap:8px;font-size:11.5px;cursor:pointer">
+      <input type="checkbox" ${c.emAndamento ? 'checked' : ''} onchange="saveEmAndamento(this.checked)">
+      Mês em andamento (não calcular não-idas)
+    </label>
+  </li>` : '';
+
+  document.getElementById('pfl').innerHTML =
+    d.idasPF.map(p => `<li><span class="pdot" style="background:var(--green)"></span>${p.data} ✓</li>`).join('') +
+    (c.nao_idas > 0 && !c.emAndamento
+      ? `<li style="color:var(--red);font-size:10.5px">⚠ ${c.nao_idas} não-ida(s) → abate ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf. = ${R(c.desconto)}</li>`
+      : c.emAndamento ? '<li style="color:var(--gold);font-size:10.5px">⏳ Mês em andamento</li>'
+      : '<li style="color:var(--green);font-size:10.5px">✓ Idas completas — sem abatimento</li>') +
+    emAndBtn;
+
+  // Aviso em andamento
+  document.getElementById('aviso-and').style.display = c.emAndamento ? '' : 'none';
 }
 
 function renderDil() {
@@ -696,28 +829,28 @@ function openReport() { document.getElementById('rep-mes').value = curMonth; ren
 function renderReport() {
   const mes = document.getElementById('rep-mes').value;
   document.getElementById('rep-title').textContent = mes + ' 2026';
-  const d = DB[mes] || emptyMonth();
-  const c = calcMes(mes);
+  const d = DB[mes] || emptyMonth(); const c = calcMes(mes);
   document.getElementById('rep-body').innerHTML = `
     <div class="rep-sec">
-      <h3>📊 Resumo — ${mes} 2026</h3>
+      <h3>📊 Resumo — ${mes} 2026${c.emAndamento ? ' ⏳ Em andamento' : ''}</h3>
       <div class="rep-grid">
         <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--green)">${R(c.total)}</div><div class="rep-kpi-label">Total a Receber</div></div>
         <div class="rep-kpi"><div class="rep-kpi-val">${c.regs.length}</div><div class="rep-kpi-label">Total E/R realizadas</div></div>
         <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--gold)">${R(c.dilig)}</div><div class="rep-kpi-label">Diligências</div></div>
-        <div class="rep-kpi"><div class="rep-kpi-val" style="color:${c.nao_idas > 0 ? 'var(--red)' : 'var(--green)'}">${c.idasPF}/${IDAS_PF}</div><div class="rep-kpi-label">Idas ao PF</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:${c.nao_idas>0?'var(--red)':'var(--green)'}">${c.idasPF}/${c.idasExig}</div><div class="rep-kpi-label">Idas ao PF</div></div>
       </div>
     </div>
     ${isAdmin ? `
     <div class="rep-sec">
       <h3>🧮 Cálculo Detalhado</h3>
       <div class="calc-detail">
-        <div class="calc-detail-row"><span>E/R no pacote (${Math.min(c.regs.length, PACOTE)} gratuitas)</span><span>R$ 0,00</span></div>
-        <div class="calc-detail-row"><span>E/R avulsas: ${c.er_av} × ${R(VAL_ER)}</span><span>${R(c.er_av * VAL_ER)}</span></div>
-        <div class="calc-detail-row"><span>Gráficas: ${c.graf_t} × ${R(VAL_GRAF)}</span><span>${R(c.graf_t * VAL_GRAF)}</span></div>
-        <div class="calc-detail-row" style="font-weight:600"><span>Bruto E/R + Gráfica</span><span>${R(c.bruto)}</span></div>
-        ${c.desconto > 0 ? `<div class="calc-detail-row" style="color:var(--red)"><span>Desconto ${c.nao_idas} não-ida(s) PF</span><span>− ${R(c.desconto)}</span></div>` : ''}
-        <div class="calc-detail-row" style="color:var(--blue-light)"><span>Subtotal E/R líquido</span><span>${R(c.bruto - c.desconto)}</span></div>
+        <div class="calc-detail-row"><span>E/R no pacote (${Math.min(c.regs.length,PACOTE)} gratuitas)</span><span>R$ 0</span></div>
+        <div class="calc-detail-row"><span>E/R avulsas: ${c.er_av} × ${R(VAL_ER)}</span><span>${R(c.er_av*VAL_ER)}</span></div>
+        <div class="calc-detail-row"><span>Gráficas: ${c.graf_t} × ${R(VAL_GRAF)}</span><span>${R(c.graf_t*VAL_GRAF)}</span></div>
+        <div class="calc-detail-row" style="font-weight:600"><span>Bruto</span><span>${R(c.bruto)}</span></div>
+        ${c.emAndamento ? '<div class="calc-detail-row" style="color:var(--gold)"><span>Mês em andamento — abatimento pendente</span><span>—</span></div>'
+          : c.desconto>0 ? `<div class="calc-detail-row" style="color:var(--red)"><span>Abatimento: ${c.nao_idas} não-ida(s) × (3 E/R + 3 gráf.) = ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf.</span><span>− ${R(c.desconto)}</span></div>` : ''}
+        <div class="calc-detail-row" style="color:var(--blue-light)"><span>Subtotal E/R</span><span>${R(c.subtotalER)}</span></div>
         <div class="calc-detail-row" style="color:var(--gold)"><span>Diligências</span><span>${R(c.dilig)}</span></div>
         <div class="calc-detail-row"><span>TOTAL A RECEBER</span><span style="color:var(--green)">${R(c.total)}</span></div>
       </div>
@@ -725,38 +858,39 @@ function renderReport() {
     <div class="rep-sec">
       <h3>📋 Entregas & Retiradas (${c.regs.length})</h3>
       <table class="rep-table">
-        <thead><tr><th>#</th><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráfica</th><th>Status</th>${isAdmin ? '<th>Valor</th>' : ''}</tr></thead>
-        <tbody>${d.registros.map((r, i) => {
-          const st = c.statuses[i];
-          const rowCls = st === 'pacote' ? 'pacote-row' : st === 'desc' ? 'desc-row' : 'cobrado-row';
-          const stLabel = st === 'pacote' ? '🟢 Pacote' : st === 'desc' ? '🔴 Descontado' : '🟡 Cobrado';
-          const val = st === 'pacote' ? 'R$ 0' : st === 'desc' ? '—' : R(VAL_ER + (r.grafica === 'Sim' ? VAL_GRAF : 0));
-          return `<tr class="${rowCls}"><td>${i + 1}</td><td>${r.data}</td><td>${r.tipo}</td><td>${r.escrevente || '—'}</td><td>${r.local}</td><td>${r.grafica}</td><td>${stLabel}</td>${isAdmin ? `<td>${val}</td>` : ''}</tr>`;
+        <thead><tr><th>#</th><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráfica</th><th>Status</th>${isAdmin?'<th>E/R</th><th>Gráf.</th>':''}</tr></thead>
+        <tbody>${d.registros.map((r,i)=>{
+          const st=c.statuses[i]; const gs=c.grafStatuses[i];
+          const rc=st==='pacote'?'pacote-row':st==='desc'?'desc-row':'cobrado-row';
+          const sl=st==='pacote'?'🟢 Pacote':st==='desc'?'🔴 Descontado':'🟡 Cobrado';
+          const ev=st==='cobrado'?R(VAL_ER):st==='desc'?'—':'R$ 0';
+          const gv=r.grafica==='Sim'?(gs==='graf-desc'?'Abatida':R(VAL_GRAF)):'—';
+          return`<tr class="${rc}"><td>${i+1}</td><td>${r.data}</td><td>${r.tipo}</td><td>${r.escrevente||'—'}</td><td>${r.local}</td><td>${r.grafica}</td><td>${sl}</td>${isAdmin?`<td>${ev}</td><td>${gv}</td>`:''}</tr>`;
         }).join('')}</tbody>
       </table>
     </div>
-    ${d.idasPF.length > 0 ? `
+    ${d.idasPF.length>0?`
     <div class="rep-sec">
-      <h3>📍 Idas ao PF (${c.idasPF}/${IDAS_PF})</h3>
+      <h3>📍 Idas ao PF (${c.idasPF}/${c.idasExig}${c.idasExig<4?' — recesso':''})</h3>
       <table class="rep-table">
         <thead><tr><th>Data</th><th>Status</th></tr></thead>
         <tbody>
-          ${d.idasPF.map(p => `<tr><td>${p.data}</td><td style="color:var(--green);font-weight:700">✓ Realizada</td></tr>`).join('')}
-          ${c.nao_idas > 0 ? `<tr><td colspan="2" style="color:var(--red);font-weight:700">⚠ ${c.nao_idas} não-ida(s) → desconto de ${R(c.desconto)}</td></tr>` : ''}
+          ${d.idasPF.map(p=>`<tr><td>${p.data}</td><td style="color:var(--green);font-weight:700">✓ Realizada</td></tr>`).join('')}
+          ${c.nao_idas>0&&!c.emAndamento?`<tr><td colspan="2" style="color:var(--red);font-weight:700">⚠ ${c.nao_idas} não-ida(s) → abateu ${c.er_abatidas} E/R + ${c.graf_abatidas} gráfica(s) = ${R(c.desconto)}</td></tr>`:''}
         </tbody>
       </table>
-    </div>` : ''}
-    ${d.diligencias.length > 0 ? `
+    </div>`:''}
+    ${d.diligencias.length>0?`
     <div class="rep-sec">
-      <h3>🚗 Diligências</h3>
+      <h3>🚗 Diligências (não sofrem abatimento)</h3>
       <table class="rep-table">
         <thead><tr><th>Data</th><th>Descrição</th><th>Valor</th></tr></thead>
         <tbody>
-          ${d.diligencias.map(x => `<tr><td>${x.data}</td><td>${x.desc}</td><td style="font-weight:700;color:var(--gold)">${R(x.valor || 130)}</td></tr>`).join('')}
-          <tr style="font-weight:700"><td colspan="2">Total Diligências</td><td style="color:var(--gold)">${R(c.dilig)}</td></tr>
+          ${d.diligencias.map(x=>`<tr><td>${x.data}</td><td>${x.desc}</td><td style="font-weight:700;color:var(--gold)">${R(x.valor||130)}</td></tr>`).join('')}
+          <tr style="font-weight:700"><td colspan="2">Total</td><td style="color:var(--gold)">${R(c.dilig)}</td></tr>
         </tbody>
       </table>
-    </div>` : ''}`;
+    </div>`:''}`;
 }
 
 // ════════════════════
@@ -764,7 +898,7 @@ function renderReport() {
 // ════════════════════
 function openForm() {
   document.getElementById('f-mes').value = curMonth;
-  ['f-data', 'f-esc', 'f-local', 'f-obs'].forEach(id => document.getElementById(id).value = '');
+  ['f-data','f-esc','f-local','f-obs'].forEach(id=>document.getElementById(id).value='');
   document.getElementById('f-tipo').value = 'Entrega';
   document.getElementById('f-graf').value = 'Não';
   document.getElementById('ov-form').classList.add('open');
@@ -786,8 +920,7 @@ async function saveReg() {
   });
   curMonth = mes; closeOv('ov-form');
   await apiSave(); renderAll();
-  const c = calcMes(mes);
-  toast(`Registro #${n} — ${isPacote ? 'No pacote (gratuito)' : 'Avulso: ' + R(VAL_ER) + (document.getElementById ? '' : '')}`);
+  toast(`Registro #${n} — ${isPacote ? 'No pacote (gratuito)' : 'Avulso: ' + R(VAL_ER)}`);
 }
 async function delReg(id) {
   if (!confirm('Excluir este registro?')) return;
@@ -810,7 +943,7 @@ function renderML() {
   const d = DB[mes] || emptyMonth();
   const items = mmode === 'pf' ? d.idasPF : d.diligencias;
   document.getElementById('mlist').innerHTML = items.length
-    ? items.map(it => `<div class="mi"><div><div class="mi-label">${mmode === 'pf' ? it.data : it.desc}</div><div class="mi-date">${it.data}${mmode === 'dil' ? ' · ' + R(it.valor || 130) : ''}</div></div><button class="btn btn-danger" onclick="delML('${it.id}','${mes}')">Excluir</button></div>`).join('')
+    ? items.map(it => `<div class="mi"><div><div class="mi-label">${mmode==='pf'?it.data:it.desc}</div><div class="mi-date">${it.data}${mmode==='dil'?' · '+R(it.valor||130):''}</div></div><button class="btn btn-danger" onclick="delML('${it.id}','${mes}')">Excluir</button></div>`).join('')
     : '<div class="nodata">Nenhum item</div>';
 }
 async function saveML() {
@@ -835,8 +968,8 @@ async function delML(id, mes) {
   else DB[mes].diligencias = DB[mes].diligencias.filter(x => x.id !== id);
   await apiSave(); renderML(); renderAll();
 }
-['ov-form', 'ov-manage', 'ov-report', 'login-screen'].forEach(id => {
-  document.getElementById(id).addEventListener('click', function (e) { if (e.target === this) this.classList.remove('open'); });
+['ov-form','ov-manage','ov-report','login-screen'].forEach(id => {
+  document.getElementById(id).addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
 });
 
 // ════════════════════
