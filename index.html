@@ -488,23 +488,46 @@ async function apiLoad() {
 async function apiSave() {
   lsSave();
   if (!API_URL || API_URL === 'COLE_SUA_URL_AQUI') { sync('ok', 'Salvo localmente'); return; }
-  // Usa JSONP GET com dados comprimidos para evitar bloqueio CORS no POST
   return new Promise((resolve) => {
     try {
       sync('sync', 'Salvando...');
-      const cb = 'save_' + Date.now();
-      const s = document.createElement('script');
-      const t = setTimeout(() => {
-        delete window[cb]; s.remove();
-        // Timeout não é necessariamente erro — no-cors GET pode não retornar
+      // Cria iframe oculto como target do form (evita redirect da página)
+      const iframeId = 'save_iframe_' + Date.now();
+      const iframe = document.createElement('iframe');
+      iframe.name = iframeId;
+      iframe.style.display = 'none';
+      document.body.appendChild(iframe);
+
+      // Cria form que faz POST sem restrição CORS
+      const form = document.createElement('form');
+      form.method = 'POST';
+      form.action = API_URL;
+      form.target = iframeId;
+      form.style.display = 'none';
+
+      const input = document.createElement('input');
+      input.type = 'hidden';
+      input.name = 'data';
+      input.value = JSON.stringify(DB);
+      form.appendChild(input);
+      document.body.appendChild(form);
+
+      // Timeout para limpar — form POST via iframe não tem callback confiável
+      const cleanup = setTimeout(() => {
+        try { form.remove(); iframe.remove(); } catch(e) {}
         sync('ok'); resolve();
-      }, 5000);
-      window[cb] = () => { clearTimeout(t); delete window[cb]; s.remove(); sync('ok'); resolve(); };
-      const encoded = encodeURIComponent(JSON.stringify(DB));
-      s.src = API_URL + '?action=save&callback=' + cb + '&payload=' + encoded + '&t=' + Date.now();
-      s.onerror = () => { clearTimeout(t); delete window[cb]; s.remove(); sync('ok'); resolve(); };
-      document.head.appendChild(s);
-    } catch(e) { sync('ok'); resolve(); }
+      }, 3000);
+
+      iframe.onload = () => {
+        clearTimeout(cleanup);
+        try { form.remove(); iframe.remove(); } catch(e) {}
+        sync('ok'); resolve();
+      };
+
+      form.submit();
+    } catch(e) {
+      sync('ok'); resolve();
+    }
   });
 }
 function lsSave() { try { localStorage.setItem(LSKEY, JSON.stringify(DB)); } catch (e) { } }
