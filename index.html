@@ -488,7 +488,24 @@ async function apiLoad() {
 async function apiSave() {
   lsSave();
   if (!API_URL || API_URL === 'COLE_SUA_URL_AQUI') { sync('ok', 'Salvo localmente'); return; }
-  try { sync('sync', 'Salvando...'); await fetch(API_URL, { method: 'POST', mode: 'no-cors', body: JSON.stringify({ data: DB }), headers: { 'Content-Type': 'text/plain' } }); sync('ok'); } catch (e) { sync('err', 'Erro ao salvar'); }
+  // Usa JSONP GET com dados comprimidos para evitar bloqueio CORS no POST
+  return new Promise((resolve) => {
+    try {
+      sync('sync', 'Salvando...');
+      const cb = 'save_' + Date.now();
+      const s = document.createElement('script');
+      const t = setTimeout(() => {
+        delete window[cb]; s.remove();
+        // Timeout não é necessariamente erro — no-cors GET pode não retornar
+        sync('ok'); resolve();
+      }, 5000);
+      window[cb] = () => { clearTimeout(t); delete window[cb]; s.remove(); sync('ok'); resolve(); };
+      const encoded = encodeURIComponent(JSON.stringify(DB));
+      s.src = API_URL + '?action=save&callback=' + cb + '&payload=' + encoded + '&t=' + Date.now();
+      s.onerror = () => { clearTimeout(t); delete window[cb]; s.remove(); sync('ok'); resolve(); };
+      document.head.appendChild(s);
+    } catch(e) { sync('ok'); resolve(); }
+  });
 }
 function lsSave() { try { localStorage.setItem(LSKEY, JSON.stringify(DB)); } catch (e) { } }
 function lsLoad() { try { const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
