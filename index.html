@@ -264,10 +264,10 @@ tbody td{padding:8px 11px;vertical-align:middle}
       </div>
     </div>
     <div class="sidebar">
-      <div id="aviso-and" style="display:none" class="aviso-andamento">⏳ <strong>Mês em andamento</strong> — o cálculo de não-idas ao PF será aplicado apenas ao fechar o mês.</div>
+      <div id="aviso-and" style="display:none" class="aviso-andamento">⏳ <strong>Mês em andamento</strong> — o cálculo de não-idas a PF será aplicado apenas ao fechar o mês.</div>
       <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--green)"></span>Cálculo do Mês</div><div id="calc-content"></div></div>
       <div class="card">
-        <div class="ctitle"><span class="cdot" style="background:var(--blue-light)"></span>Idas ao PF <span id="pf-count" style="margin-left:auto;font-size:10px;font-weight:600;color:var(--muted)"></span></div>
+        <div class="ctitle"><span class="cdot" style="background:var(--blue-light)"></span>Idas a PF <span id="pf-count" style="margin-left:auto;font-size:10px;font-weight:600;color:var(--muted)"></span></div>
         <div id="pf-config-wrap" style="display:none">
           <div class="pf-config">
             <label>Idas exigidas este mês:</label>
@@ -731,8 +731,8 @@ function renderKPI() {
     { l: 'Total a Receber',     v: R(c.total),   s: c.emAndamento ? 'Mês em andamento' : 'Valor líquido do mês',     color: 'var(--green)',  i: '💰' },
     { l: 'E/R Cobradas',        v: c.er_cobradas + ' × ' + R(VAL_ER), s: `${c.regs.length} total · ${Math.min(c.regs.length,PACOTE)} pacote · ${c.er_abatidas} abatidas`, color: 'var(--blue)', i: '📦' },
     { l: 'Gráficas Cobradas',   v: R(c.graf_cobradas * VAL_GRAF), s: `${c.graf_t} total · ${c.graf_abatidas} abatida(s)`, color: 'var(--purple)', i: '🖨️' },
-    { l: 'Diligências',         v: R(c.dilig),   s: `${(DB[curMonth]||emptyMonth()).diligencias.length} item(ns)`,   color: 'var(--gold)',   i: '🚗' },
-    { l: 'Idas ao PF',          v: `${c.idasPF}/${c.idasExig}`, s: c.nao_idas > 0 ? `⚠ ${c.nao_idas} não-ida(s) → desc. ${R(c.desconto)}` : '✓ Todas realizadas', color: c.nao_idas > 0 ? 'var(--red)' : 'var(--green)', i: '📍' },
+    { l: 'Diligências',         v: R(c.dilig),   s: `${(DB[curMonth]||emptyMonth()).diligencias.length} item(ns)`,   color: 'var(--gold)',   i: '🛵' },
+    { l: 'Idas a PF',          v: `${c.idasPF}/${c.idasExig}`, s: c.nao_idas > 0 ? `⚠ ${c.nao_idas} não-ida(s) → desc. ${R(c.desconto)}` : '✓ Todas realizadas', color: c.nao_idas > 0 ? 'var(--red)' : 'var(--green)', i: '📍' },
   ];
   document.getElementById('kpi-grid').innerHTML = kpis.map(k => `
     <div class="kc" style="--kc:${k.color}">
@@ -818,11 +818,8 @@ function renderCalc() {
 function renderPF() {
   const d = DB[curMonth] || emptyMonth(); const c = calcMes(curMonth);
   document.getElementById('pf-count').textContent = `${c.idasPF}/${c.idasExig}`;
-
-  // Config input (só visível pra admin)
   if (isAdmin) document.getElementById('pf-exig').value = c.idasExig;
 
-  // Botão em andamento (só admin)
   const emAndBtn = isAdmin ? `<li style="padding:6px 0">
     <label style="display:flex;align-items:center;gap:8px;font-size:11.5px;cursor:pointer">
       <input type="checkbox" ${c.emAndamento ? 'checked' : ''} onchange="saveEmAndamento(this.checked)">
@@ -830,22 +827,37 @@ function renderPF() {
     </label>
   </li>` : '';
 
+  // Idas PF com botão excluir inline (admin)
+  const pfItems = d.idasPF.map(p => `
+    <li style="display:flex;justify-content:space-between;align-items:center">
+      <span style="display:flex;align-items:center;gap:7px">
+        <span class="pdot" style="background:var(--green)"></span>${p.data} ✓
+      </span>
+      ${isAdmin ? `<button onclick="delMLInline('${p.id}','${curMonth}','pf')" style="background:none;border:none;cursor:pointer;color:var(--slate);font-size:13px;padding:2px 4px;border-radius:4px" title="Excluir">🗑</button>` : ''}
+    </li>`).join('');
+
   document.getElementById('pfl').innerHTML =
-    d.idasPF.map(p => `<li><span class="pdot" style="background:var(--green)"></span>${p.data} ✓</li>`).join('') +
+    pfItems +
     (c.nao_idas > 0 && !c.emAndamento
       ? `<li style="color:var(--red);font-size:10.5px">⚠ ${c.nao_idas} não-ida(s) → abate ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf. = ${R(c.desconto)}</li>`
       : c.emAndamento ? '<li style="color:var(--gold);font-size:10.5px">⏳ Mês em andamento</li>'
       : '<li style="color:var(--green);font-size:10.5px">✓ Idas completas — sem abatimento</li>') +
     emAndBtn;
 
-  // Aviso em andamento
   document.getElementById('aviso-and').style.display = c.emAndamento ? '' : 'none';
 }
 
 function renderDil() {
   const d = DB[curMonth] || emptyMonth();
   document.getElementById('dill').innerHTML = d.diligencias.length
-    ? d.diligencias.map(x => `<div class="di"><div class="di-date">📅 ${x.data} · ${R(x.valor || 130)}</div>${x.desc}</div>`).join('')
+    ? d.diligencias.map(x => `
+        <div class="di" style="position:relative">
+          <div class="di-date" style="display:flex;justify-content:space-between;align-items:center">
+            <span>📅 ${x.data} · ${R(x.valor || 130)}</span>
+            ${isAdmin ? `<button onclick="delMLInline('${x.id}','${curMonth}','dil')" style="background:none;border:none;cursor:pointer;color:#92400E;font-size:13px;padding:0 2px;opacity:.7" title="Excluir">🗑</button>` : ''}
+          </div>
+          ${x.desc}
+        </div>`).join('')
     : '<div style="color:var(--muted);font-size:11px;padding:4px 0">Nenhuma diligência</div>';
 }
 
@@ -877,7 +889,7 @@ function renderReport() {
         <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--green)">${R(c.total)}</div><div class="rep-kpi-label">Total a Receber</div></div>
         <div class="rep-kpi"><div class="rep-kpi-val">${c.regs.length}</div><div class="rep-kpi-label">Total E/R realizadas</div></div>
         <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--gold)">${R(c.dilig)}</div><div class="rep-kpi-label">Diligências</div></div>
-        <div class="rep-kpi"><div class="rep-kpi-val" style="color:${c.nao_idas>0?'var(--red)':'var(--green)'}">${c.idasPF}/${c.idasExig}</div><div class="rep-kpi-label">Idas ao PF</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:${c.nao_idas>0?'var(--red)':'var(--green)'}">${c.idasPF}/${c.idasExig}</div><div class="rep-kpi-label">Idas a PF</div></div>
       </div>
     </div>
     ${isAdmin ? `
@@ -911,7 +923,7 @@ function renderReport() {
     </div>
     ${d.idasPF.length>0?`
     <div class="rep-sec">
-      <h3>📍 Idas ao PF (${c.idasPF}/${c.idasExig}${c.idasExig<4?' — recesso':''})</h3>
+      <h3>📍 Idas a PF (${c.idasPF}/${c.idasExig}${c.idasExig<4?' — recesso':''})</h3>
       <table class="rep-table">
         <thead><tr><th>Data</th><th>Status</th></tr></thead>
         <tbody>
@@ -922,7 +934,7 @@ function renderReport() {
     </div>`:''}
     ${d.diligencias.length>0?`
     <div class="rep-sec">
-      <h3>🚗 Diligências (não sofrem abatimento)</h3>
+      <h3>🛵 Diligências (não sofrem abatimento)</h3>
       <table class="rep-table">
         <thead><tr><th>Data</th><th>Descrição</th><th>Valor</th></tr></thead>
         <tbody>
@@ -969,7 +981,7 @@ async function delReg(id) {
 }
 function openManage(mode) {
   mmode = mode;
-  document.getElementById('mtitle').textContent = mode === 'pf' ? 'Idas ao PF' : 'Diligências';
+  document.getElementById('mtitle').textContent = mode === 'pf' ? 'Idas a PF' : 'Diligências';
   document.getElementById('m-mes').value = curMonth;
   document.getElementById('m-data').value = '';
   document.getElementById('m-desc').value = '';
@@ -993,7 +1005,7 @@ async function saveML() {
   if (!DB[mes]) DB[mes] = emptyMonth();
   if (mmode === 'pf') {
     DB[mes].idasPF.push({ id: uid(), data: fmtD(iso) });
-    toast(`Ida ao PF adicionada em ${mes}`);
+    toast(`Ida a PF adicionada em ${mes}`);
   } else {
     const desc = document.getElementById('m-desc').value.trim();
     if (!desc) { toast('Informe a descrição', true); return; }
@@ -1007,6 +1019,16 @@ async function delML(id, mes) {
   if (mmode === 'pf') DB[mes].idasPF = DB[mes].idasPF.filter(x => x.id !== id);
   else DB[mes].diligencias = DB[mes].diligencias.filter(x => x.id !== id);
   await apiSave(); renderML(); renderAll();
+}
+
+// Excluir direto da sidebar (sem abrir modal)
+async function delMLInline(id, mes, type) {
+  if (!confirm('Excluir este item?')) return;
+  if (!DB[mes]) return;
+  if (type === 'pf') DB[mes].idasPF = DB[mes].idasPF.filter(x => x.id !== id);
+  else DB[mes].diligencias = DB[mes].diligencias.filter(x => x.id !== id);
+  await apiSave(); renderAll();
+  toast(type === 'pf' ? 'Ida a PF excluída' : 'Diligência excluída');
 }
 ['ov-form','ov-manage','ov-report','login-screen'].forEach(id => {
   document.getElementById(id).addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
