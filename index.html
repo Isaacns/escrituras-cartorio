@@ -3,6 +3,13 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#F59E0B">
+<link rel="apple-touch-icon" href="icon-192.png">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-title" content="Escrituras">
+
 <title>Escrituras 2026 — Cartório Praia do Forte</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -1046,6 +1053,12 @@ async function init() {
   setInterval(async () => { if (!isAdmin) { await apiLoad(); renderAll(); } }, 60000);
 }
 init();
+</script>
+<style>#iospwa{position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#1f2a44;color:#fff;border:1px solid #F59E0B;border-radius:12px;padding:12px 14px;font:13px/1.45 system-ui,-apple-system,sans-serif;display:none;box-shadow:0 8px 24px rgba(0,0,0,.35)}#iospwa b{color:#FCD34D}#iospwa .x{float:right;cursor:pointer;opacity:.6;margin-left:10px}</style>
+<div id="iospwa"><span class="x">✕</span>📲 Instale como app: toque em <b>Compartilhar</b> e depois <b>"Adicionar à Tela de Início"</b>.</div>
+<script>
+if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
+(function(){try{var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);var st=('standalone' in navigator)&&navigator.standalone;if(ios&&!st&&localStorage.getItem('iospwa_x')!=='1'){var el=document.getElementById('iospwa');el.style.display='block';el.querySelector('.x').addEventListener('click',function(){el.remove();try{localStorage.setItem('iospwa_x','1')}catch(e){}});}}catch(e){}})();
 </script>
 </body>
 </html>
