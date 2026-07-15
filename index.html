@@ -465,6 +465,12 @@ function calcMes(mes) {
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 function fmtD(iso) { if (!iso) return ''; const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; }
 function R(v) { return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 0 }); }
+// Escapa dado vindo do servidor antes de entrar em innerHTML (contexto HTML e de atributo).
+// NUNCA usar para montar código dentro de onclick="..." — ali o parser decodifica a entidade
+// antes do JS ler, e o escape não protege. Nesses casos: data-* + dataset.
+function esc(v) {
+  return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
 function toast(msg, err = false) {
   const t = document.getElementById('toast');
   t.textContent = (err ? '⚠ ' : '✓ ') + msg;
@@ -482,7 +488,13 @@ function closeLogin() { document.getElementById('login-screen').classList.remove
 function emptyMonth() { return { registros: [], idasPF: [], diligencias: [], config: {} }; }
 function getConfig(mes) {
   const d = DB[mes] || emptyMonth();
-  return { idasExigidas: d.config?.idasExigidas ?? 4, emAndamento: d.config?.emAndamento ?? false };
+  // Coerção na fronteira: idasExigidas vem do servidor e é interpolada em innerHTML.
+  // Forçar número aqui neutraliza injeção na origem, em vez de escapar em cada render.
+  const n = Number(d.config?.idasExigidas);
+  return {
+    idasExigidas: Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), 0), 4) : 4,
+    emAndamento: d.config?.emAndamento === true
+  };
 }
 
 // ════════════════════
@@ -806,16 +818,16 @@ function renderTable() {
     }
     return `<tr class="${rowCls}">
       <td data-l="#" style="color:var(--muted);font-size:10px">${i + 1}</td>
-      <td data-l="Data" style="font-weight:600;white-space:nowrap;color:var(--navy)">${r.data}</td>
+      <td data-l="Data" style="font-weight:600;white-space:nowrap;color:var(--navy)">${esc(r.data)}</td>
       <td data-l="Tipo">${tipoBadge(r.tipo)}</td>
-      <td data-l="Escrevente" style="color:var(--muted)">${r.escrevente || '—'}</td>
-      <td data-l="Local" style="font-weight:500">${r.local}</td>
+      <td data-l="Escrevente" style="color:var(--muted)">${esc(r.escrevente || '—')}</td>
+      <td data-l="Local" style="font-weight:500">${esc(r.local)}</td>
       <td data-l="Gráfica">${r.grafica === 'Sim' ? '<span class="badge bs">✓ Sim</span>' : '<span class="badge bn">— Não</span>'}</td>
       <td data-l="Status">${statusBadge(status)}</td>
       <td data-l="Valor E/R">${erVal}</td>
       <td data-l="Valor Graf.">${grafVal}</td>
-      <td data-l="Obs." style="font-size:10px;color:var(--muted)">${r.obs || ''}</td>
-      ${isAdmin ? `<td class="td-del"><button class="del-btn" onclick="delReg('${r.id}')">🗑</button></td>` : '<td class="td-del"></td>'}
+      <td data-l="Obs." style="font-size:10px;color:var(--muted)">${esc(r.obs || '')}</td>
+      ${isAdmin ? `<td class="td-del"><button class="del-btn" data-id="${esc(r.id)}" onclick="delReg(this.dataset.id)">🗑</button></td>` : '<td class="td-del"></td>'}
     </tr>`;
   }).join('');
 }
@@ -863,9 +875,9 @@ function renderPF() {
   const pfItems = d.idasPF.map(p => `
     <li style="display:flex;justify-content:space-between;align-items:center">
       <span style="display:flex;align-items:center;gap:7px">
-        <span class="pdot" style="background:var(--green)"></span>${p.data} ✓
+        <span class="pdot" style="background:var(--green)"></span>${esc(p.data)} ✓
       </span>
-      ${isAdmin ? `<button onclick="delMLInline('${p.id}','${curMonth}','pf')" style="background:none;border:none;cursor:pointer;color:var(--slate);font-size:13px;padding:2px 4px;border-radius:4px" title="Excluir">🗑</button>` : ''}
+      ${isAdmin ? `<button data-id="${esc(p.id)}" data-m="${esc(curMonth)}" onclick="delMLInline(this.dataset.id,this.dataset.m,'pf')" style="background:none;border:none;cursor:pointer;color:var(--slate);font-size:13px;padding:2px 4px;border-radius:4px" title="Excluir">🗑</button>` : ''}
     </li>`).join('');
 
   document.getElementById('pfl').innerHTML =
@@ -885,10 +897,10 @@ function renderDil() {
     ? d.diligencias.map(x => `
         <div class="di" style="position:relative">
           <div class="di-date" style="display:flex;justify-content:space-between;align-items:center">
-            <span>📅 ${x.data} · ${R(x.valor || 130)}</span>
-            ${isAdmin ? `<button onclick="delMLInline('${x.id}','${curMonth}','dil')" style="background:none;border:none;cursor:pointer;color:#92400E;font-size:13px;padding:0 2px;opacity:.7" title="Excluir">🗑</button>` : ''}
+            <span>📅 ${esc(x.data)} · ${R(x.valor || 130)}</span>
+            ${isAdmin ? `<button data-id="${esc(x.id)}" data-m="${esc(curMonth)}" onclick="delMLInline(this.dataset.id,this.dataset.m,'dil')" style="background:none;border:none;cursor:pointer;color:#92400E;font-size:13px;padding:0 2px;opacity:.7" title="Excluir">🗑</button>` : ''}
           </div>
-          ${x.desc}
+          ${esc(x.desc)}
         </div>`).join('')
     : '<div style="color:var(--muted);font-size:11px;padding:4px 0">Nenhuma diligência</div>';
 }
@@ -900,7 +912,7 @@ function renderLocais() {
   const mx = s[0]?.[1] || 1;
   const cols = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444', '#06B6D4'];
   document.getElementById('locais').innerHTML = s.length
-    ? s.map(([l, n], i) => `<div class="cr-row"><span class="cr-label" title="${l}">${l}</span><div class="cr-wrap"><div class="cr-bar" style="width:${(n / mx * 100).toFixed(0)}%;background:${cols[i]}"><span>${n}x</span></div></div></div>`).join('')
+    ? s.map(([l, n], i) => `<div class="cr-row"><span class="cr-label" title="${esc(l)}">${esc(l)}</span><div class="cr-wrap"><div class="cr-bar" style="width:${(n / mx * 100).toFixed(0)}%;background:${cols[i]}"><span>${n}x</span></div></div></div>`).join('')
     : '<div class="nodata">Sem dados</div>';
 }
 
@@ -949,7 +961,7 @@ function renderReport() {
           const sl=st==='pacote'?'🟢 Pacote':st==='desc'?'🔴 Descontado':'🟡 Cobrado';
           const ev=st==='cobrado'?R(VAL_ER):st==='desc'?'—':'R$ 0';
           const gv=r.grafica==='Sim'?(gs==='graf-desc'?'Abatida':R(VAL_GRAF)):'—';
-          return`<tr class="${rc}"><td>${i+1}</td><td>${r.data}</td><td>${r.tipo}</td><td>${r.escrevente||'—'}</td><td>${r.local}</td><td>${r.grafica}</td><td>${sl}</td>${isAdmin?`<td>${ev}</td><td>${gv}</td>`:''}</tr>`;
+          return`<tr class="${rc}"><td>${i+1}</td><td>${esc(r.data)}</td><td>${esc(r.tipo)}</td><td>${esc(r.escrevente||'—')}</td><td>${esc(r.local)}</td><td>${esc(r.grafica)}</td><td>${sl}</td>${isAdmin?`<td>${ev}</td><td>${gv}</td>`:''}</tr>`;
         }).join('')}</tbody>
       </table>
     </div>
@@ -959,7 +971,7 @@ function renderReport() {
       <table class="rep-table">
         <thead><tr><th>Data</th><th>Status</th></tr></thead>
         <tbody>
-          ${d.idasPF.map(p=>`<tr><td>${p.data}</td><td style="color:var(--green);font-weight:700">✓ Realizada</td></tr>`).join('')}
+          ${d.idasPF.map(p=>`<tr><td>${esc(p.data)}</td><td style="color:var(--green);font-weight:700">✓ Realizada</td></tr>`).join('')}
           ${c.nao_idas>0&&!c.emAndamento?`<tr><td colspan="2" style="color:var(--red);font-weight:700">⚠ ${c.nao_idas} não-ida(s) → abateu ${c.er_abatidas} E/R + ${c.graf_abatidas} gráfica(s) = ${R(c.desconto)}</td></tr>`:''}
         </tbody>
       </table>
@@ -970,7 +982,7 @@ function renderReport() {
       <table class="rep-table">
         <thead><tr><th>Data</th><th>Descrição</th><th>Valor</th></tr></thead>
         <tbody>
-          ${d.diligencias.map(x=>`<tr><td>${x.data}</td><td>${x.desc}</td><td style="font-weight:700;color:var(--gold)">${R(x.valor||130)}</td></tr>`).join('')}
+          ${d.diligencias.map(x=>`<tr><td>${esc(x.data)}</td><td>${esc(x.desc)}</td><td style="font-weight:700;color:var(--gold)">${R(x.valor||130)}</td></tr>`).join('')}
           <tr style="font-weight:700"><td colspan="2">Total</td><td style="color:var(--gold)">${R(c.dilig)}</td></tr>
         </tbody>
       </table>
@@ -1027,7 +1039,7 @@ function renderML() {
   const d = DB[mes] || emptyMonth();
   const items = mmode === 'pf' ? d.idasPF : d.diligencias;
   document.getElementById('mlist').innerHTML = items.length
-    ? items.map(it => `<div class="mi"><div><div class="mi-label">${mmode==='pf'?it.data:it.desc}</div><div class="mi-date">${it.data}${mmode==='dil'?' · '+R(it.valor||130):''}</div></div><button class="btn btn-danger" onclick="delML('${it.id}','${mes}')">Excluir</button></div>`).join('')
+    ? items.map(it => `<div class="mi"><div><div class="mi-label">${esc(mmode==='pf'?it.data:it.desc)}</div><div class="mi-date">${esc(it.data)}${mmode==='dil'?' · '+R(it.valor||130):''}</div></div><button class="btn btn-danger" data-id="${esc(it.id)}" data-m="${esc(mes)}" onclick="delML(this.dataset.id,this.dataset.m)">Excluir</button></div>`).join('')
     : '<div class="nodata">Nenhum item</div>';
 }
 async function saveML() {
