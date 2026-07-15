@@ -3,13 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#F59E0B">
-<link rel="apple-touch-icon" href="icon-192.png">
-<meta name="apple-mobile-web-app-capable" content="yes">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-title" content="Escrituras">
-
 <title>Escrituras 2026 — Cartório Praia do Forte</title>
 <style>
 *{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
@@ -199,6 +192,35 @@ tbody td{padding:8px 11px;vertical-align:middle}
 .loading p{font-size:12px;color:var(--muted);font-weight:600}
 @media(max-width:900px){.annual-grid{grid-template-columns:repeat(3,1fr)}.kpi-grid{grid-template-columns:repeat(2,1fr)}.cg{grid-template-columns:1fr}.sidebar{order:2}.frow{grid-template-columns:1fr}}
 @media(max-width:480px){.annual-grid{grid-template-columns:repeat(2,1fr)}.kpi-grid{grid-template-columns:1fr 1fr}}
+
+/* ══ MOBILE ≤768px — ver §9.6 de PADROES-DEV-INPERSON.md ══ */
+/* Tabela de 10 colunas vira cards empilhados: mata o scroll horizontal no celular */
+@media(max-width:768px){
+  .tw{overflow-x:visible}
+  .tw table,.tw tbody,.tw tr,.tw td{display:block;width:100%}
+  .tw thead{display:none}
+  .tw tr{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:8px 12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(13,27,62,.07)}
+  .tw td{border:none;padding:6px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:right;min-height:32px}
+  .tw td::before{content:attr(data-l);font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:left;flex:0 0 auto}
+  .tw td:empty{display:none}
+  .tw td.td-del{justify-content:flex-end}
+  .tw td.td-del::before{content:none}
+  .tw td.nodata{justify-content:center;text-align:center}
+  .tw td.nodata::before{content:none}
+  /* 12 abas de mês não cabem: scroll horizontal com snap em vez de quebrar linha */
+  .tabs{width:auto;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+  .tabs::-webkit-scrollbar{display:none}
+  .tab{flex:0 0 auto;scroll-snap-align:center;padding:9px 15px}
+  /* espaço para o FAB não cobrir o último card */
+  body.is-admin main{padding-bottom:84px}
+  body.is-admin .fab{display:flex}
+}
+/* FAB — ação primária na zona do polegar. Só admin, só mobile. */
+.fab{display:none;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:150;
+  width:56px;height:56px;border-radius:50%;border:none;background:var(--gold);color:var(--navy);
+  font-size:28px;font-weight:700;line-height:1;align-items:center;justify-content:center;
+  box-shadow:0 6px 20px rgba(13,27,62,.3);cursor:pointer;touch-action:manipulation}
+.fab:active{transform:scale(.94)}
 </style>
 </head>
 <body>
@@ -289,6 +311,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
     </div>
   </div>
 </main>
+<button class="fab" id="fab" onclick="openForm()" aria-label="Novo registro" title="Novo registro">+</button>
 <div class="toast" id="toast"></div>
 
 <!-- MODAL REGISTRO -->
@@ -653,6 +676,7 @@ function doLogin() {
     document.getElementById('mbadge').textContent = '🔑 Admin';
     document.getElementById('hsub').textContent = 'Cartório Praia do Forte · 2026 · Modo Admin';
     document.getElementById('abar').style.display = 'flex';
+    document.body.classList.add('is-admin');
     document.getElementById('th-del').style.display = '';
     document.getElementById('pf-config-wrap').style.display = '';
     document.getElementById('atbtn').textContent = '🔓';
@@ -669,6 +693,7 @@ function exitAdmin() {
   document.getElementById('mbadge').textContent = '👁 Leitura';
   document.getElementById('hsub').textContent = 'Cartório Praia do Forte · 2026 · Visualização';
   document.getElementById('abar').style.display = 'none';
+  document.body.classList.remove('is-admin');
   document.getElementById('th-del').style.display = 'none';
   document.getElementById('pf-config-wrap').style.display = 'none';
   document.getElementById('atbtn').textContent = '⚙';
@@ -780,17 +805,17 @@ function renderTable() {
         : `<span style="color:var(--purple);font-weight:700">${R(VAL_GRAF)}</span>`;
     }
     return `<tr class="${rowCls}">
-      <td style="color:var(--muted);font-size:10px">${i + 1}</td>
-      <td style="font-weight:600;white-space:nowrap;color:var(--navy)">${r.data}</td>
-      <td>${tipoBadge(r.tipo)}</td>
-      <td style="color:var(--muted)">${r.escrevente || '—'}</td>
-      <td style="font-weight:500">${r.local}</td>
-      <td>${r.grafica === 'Sim' ? '<span class="badge bs">✓ Sim</span>' : '<span class="badge bn">— Não</span>'}</td>
-      <td>${statusBadge(status)}</td>
-      <td>${erVal}</td>
-      <td>${grafVal}</td>
-      <td style="font-size:10px;color:var(--muted)">${r.obs || ''}</td>
-      ${isAdmin ? `<td><button class="del-btn" onclick="delReg('${r.id}')">🗑</button></td>` : '<td></td>'}
+      <td data-l="#" style="color:var(--muted);font-size:10px">${i + 1}</td>
+      <td data-l="Data" style="font-weight:600;white-space:nowrap;color:var(--navy)">${r.data}</td>
+      <td data-l="Tipo">${tipoBadge(r.tipo)}</td>
+      <td data-l="Escrevente" style="color:var(--muted)">${r.escrevente || '—'}</td>
+      <td data-l="Local" style="font-weight:500">${r.local}</td>
+      <td data-l="Gráfica">${r.grafica === 'Sim' ? '<span class="badge bs">✓ Sim</span>' : '<span class="badge bn">— Não</span>'}</td>
+      <td data-l="Status">${statusBadge(status)}</td>
+      <td data-l="Valor E/R">${erVal}</td>
+      <td data-l="Valor Graf.">${grafVal}</td>
+      <td data-l="Obs." style="font-size:10px;color:var(--muted)">${r.obs || ''}</td>
+      ${isAdmin ? `<td class="td-del"><button class="del-btn" onclick="delReg('${r.id}')">🗑</button></td>` : '<td class="td-del"></td>'}
     </tr>`;
   }).join('');
 }
@@ -1053,12 +1078,6 @@ async function init() {
   setInterval(async () => { if (!isAdmin) { await apiLoad(); renderAll(); } }, 60000);
 }
 init();
-</script>
-<style>#iospwa{position:fixed;left:12px;right:12px;bottom:12px;z-index:9999;background:#1f2a44;color:#fff;border:1px solid #F59E0B;border-radius:12px;padding:12px 14px;font:13px/1.45 system-ui,-apple-system,sans-serif;display:none;box-shadow:0 8px 24px rgba(0,0,0,.35)}#iospwa b{color:#FCD34D}#iospwa .x{float:right;cursor:pointer;opacity:.6;margin-left:10px}</style>
-<div id="iospwa"><span class="x">✕</span>📲 Instale como app: toque em <b>Compartilhar</b> e depois <b>"Adicionar à Tela de Início"</b>.</div>
-<script>
-if('serviceWorker' in navigator){navigator.serviceWorker.register('sw.js').catch(function(){});}
-(function(){try{var ios=/iphone|ipad|ipod/i.test(navigator.userAgent);var st=('standalone' in navigator)&&navigator.standalone;if(ios&&!st&&localStorage.getItem('iospwa_x')!=='1'){var el=document.getElementById('iospwa');el.style.display='block';el.querySelector('.x').addEventListener('click',function(){el.remove();try{localStorage.setItem('iospwa_x','1')}catch(e){}});}}catch(e){}})();
 </script>
 </body>
 </html>
