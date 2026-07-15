@@ -17,9 +17,13 @@ header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,var(
   padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
   box-shadow:0 4px 20px rgba(13,27,62,.45);position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:8px}
 .h-left{display:flex;align-items:center;gap:12px}
-.logo{width:42px;height:42px;background:linear-gradient(135deg,var(--gold),var(--gold-light));
+/* Chip branco: a marca do Cartório é verde-escura e sumiria sobre o header navy.
+   O fundo branco preserva o logo original sem recolorir nem recortar. */
+.logo{height:42px;padding:0 10px;background:#fff;
   border-radius:11px;display:flex;align-items:center;justify-content:center;
-  font-size:18px;color:var(--navy);box-shadow:0 4px 10px rgba(245,158,11,.4);flex-shrink:0}
+  box-shadow:0 4px 10px rgba(13,27,62,.28);flex-shrink:0}
+.logo img{height:26px;width:auto;display:block}
+@media(max-width:768px){.logo{height:38px;padding:0 8px}.logo img{height:22px}}
 .h-title{color:#fff;font-size:15px;font-weight:700;line-height:1.2}
 .h-sub{color:rgba(255,255,255,.55);font-size:11px;margin-top:2px}
 .h-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
@@ -238,7 +242,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 <div class="loading" id="loading"><div class="spin"></div><p>Carregando...</p></div>
 <header>
   <div class="h-left">
-    <div class="logo">📋</div>
+    <div class="logo"><img src="logo-cartorio.png" alt="Cartório Praia do Forte"></div>
     <div>
       <div class="h-title">Entregas & Retiradas de Escrituras</div>
       <div class="h-sub" id="hsub">Cartório Praia do Forte · 2026 · Visualização</div>
