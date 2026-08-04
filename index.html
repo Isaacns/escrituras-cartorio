@@ -389,6 +389,7 @@ tbody td{padding:8px 11px;vertical-align:middle}
 // CONFIG
 // ════════════════════
 const API_URL = 'https://script.google.com/macros/s/AKfycbw_Qt5d5-RWpcSErChlyj99NUnQzLpkIc6Vb2fxawChpoyliH7y2NpU8u7IQ_MdnZUO/exec';
+const API_TOKEN = 'esc26_Iwixi5YcF50Oii1LpmYtdAEJmts4HDeXGZKu8kWryCA';
 const _ap = ['For','te!','Car','tor','io#','202','6vZ','9'];
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY = 'cpf_esc26_v4';
@@ -510,7 +511,7 @@ function jsonpLoad() {
     const s = document.createElement('script');
     const t = setTimeout(() => { delete window[cb]; s.remove(); reject(); }, 8000);
     window[cb] = d => { clearTimeout(t); delete window[cb]; s.remove(); resolve(d); };
-    s.src = API_URL + '?callback=' + cb + '&t=' + Date.now();
+    s.src = API_URL + '?callback=' + cb + '&token=' + encodeURIComponent(API_TOKEN) + '&t=' + Date.now();
     s.onerror = () => { clearTimeout(t); delete window[cb]; s.remove(); reject(); };
     document.head.appendChild(s);
   });
@@ -524,7 +525,7 @@ async function apiLoad() {
     throw new Error();
   } catch (e) {
     try {
-      const r = await fetch(API_URL, { cache: 'no-cache' });
+      const r = await fetch(API_URL + '?token=' + encodeURIComponent(API_TOKEN), { cache: 'no-cache' });
       const j = await r.json();
       if (j.ok && j.data && Object.keys(j.data).length > 0) { DB = j.data; lsSave(); sync('ok'); return; }
     } catch (e2) { }
@@ -556,6 +557,12 @@ async function apiSave() {
       input.name = 'data';
       input.value = JSON.stringify(DB);
       form.appendChild(input);
+
+      const inputToken = document.createElement('input');
+      inputToken.type = 'hidden';
+      inputToken.name = 'token';
+      inputToken.value = API_TOKEN;
+      form.appendChild(inputToken);
       document.body.appendChild(form);
 
       // Timeout para limpar — form POST via iframe não tem callback confiável
