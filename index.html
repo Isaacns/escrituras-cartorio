@@ -2,416 +2,425 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
-<title>Escrituras 2026 — Cartório Praia do Forte</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box;-webkit-tap-highlight-color:transparent}
-:root{
-  --navy:#0D1B3E;--navy-mid:#16285A;--blue:#1A4DA8;--blue-light:#2563EB;
-  --accent:#3B82F6;--gold:#F59E0B;--gold-light:#FCD34D;--green:#10B981;
-  --red:#EF4444;--bg:#F1F5F9;--card:#fff;--border:#E2E8F0;
-  --text:#1E293B;--muted:#64748B;--slate:#94A3B8;--purple:#8B5CF6;
-}
-body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--text);min-height:100vh;font-size:14px}
-header{background:linear-gradient(135deg,var(--navy) 0%,var(--navy-mid) 55%,var(--blue) 100%);
-  padding:16px 20px;display:flex;align-items:center;justify-content:space-between;
-  box-shadow:0 4px 20px rgba(13,27,62,.45);position:sticky;top:0;z-index:50;flex-wrap:wrap;gap:8px}
-.h-left{display:flex;align-items:center;gap:12px}
-/* Chip branco: a marca do Cartório é verde-escura e sumiria sobre o header navy.
-   O fundo branco preserva o logo original sem recolorir nem recortar. */
-.logo{height:42px;padding:0 10px;background:#fff;
-  border-radius:11px;display:flex;align-items:center;justify-content:center;
-  box-shadow:0 4px 10px rgba(13,27,62,.28);flex-shrink:0}
-.logo img{height:26px;width:auto;display:block}
-@media(max-width:768px){.logo{height:38px;padding:0 8px}.logo img{height:22px}}
-.h-title{color:#fff;font-size:15px;font-weight:700;line-height:1.2}
-.h-sub{color:rgba(255,255,255,.55);font-size:11px;margin-top:2px}
-.h-right{display:flex;align-items:center;gap:8px;flex-wrap:wrap}
-.mode-badge{padding:4px 11px;border-radius:18px;font-size:10px;font-weight:700;text-transform:uppercase;white-space:nowrap}
-.m-client{background:rgba(255,255,255,.12);color:rgba(255,255,255,.8);border:1px solid rgba(255,255,255,.2)}
-.m-admin{background:var(--gold);color:var(--navy)}
-.btn-hdr{padding:8px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:700;transition:all .2s;white-space:nowrap;touch-action:manipulation}
-.btn-gold{background:var(--gold);color:var(--navy)}.btn-gold:hover{background:var(--gold-light)}
-.btn-out{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2)}
-.btn-ghost{background:none;border:none;color:rgba(255,255,255,.6);cursor:pointer;font-size:16px;padding:4px 6px}
-.btn-ghost:hover{color:#fff}
-.admin-bar{display:none;gap:6px;align-items:center;flex-wrap:wrap}
-.sync-bar{background:#EFF6FF;border-bottom:1px solid #BFDBFE;padding:7px 20px;display:flex;align-items:center;gap:8px;font-size:11px;color:#1D4ED8}
-.sdot{width:7px;height:7px;border-radius:50%;background:var(--green);flex-shrink:0}
-.sdot.sync{background:var(--gold);animation:pulse .8s infinite}
-.sdot.err{background:var(--red)}
-@keyframes pulse{0%,100%{opacity:1}50%{opacity:.35}}
-.sync-time{margin-left:auto;color:#93C5FD;font-size:10px}
-main{max-width:1300px;margin:0 auto;padding:20px 16px 60px}
-.stitle{font-size:13px;font-weight:800;color:var(--navy);margin-bottom:12px;display:flex;align-items:center;gap:8px}
-.stitle::after{content:'';flex:1;height:1px;background:var(--border)}
-.annual-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px;margin-bottom:20px}
-.ac{background:var(--card);border-radius:11px;padding:14px 12px;box-shadow:0 1px 5px rgba(0,0,0,.07);
-  border:1px solid var(--border);cursor:pointer;transition:all .15s;position:relative}
-.ac:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(0,0,0,.1)}
-.ac.sel{border:2px solid var(--navy)}
-.ac.em-and{border-top:3px solid var(--gold)}
-.ac-month{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:4px}
-.ac-val{font-size:17px;font-weight:800;color:var(--navy)}
-.ac-sub{font-size:9.5px;color:var(--muted);margin-top:2px}
-.ac-bar{height:3px;background:var(--bg);border-radius:3px;margin-top:8px;overflow:hidden}
-.ac-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--blue),var(--accent))}
-.ac-badge{position:absolute;top:6px;right:6px;background:var(--gold);color:var(--navy);
-  font-size:8px;font-weight:800;padding:1px 5px;border-radius:8px;text-transform:uppercase}
-.tabs{display:flex;gap:4px;margin-bottom:18px;background:var(--card);padding:4px;border-radius:11px;
-  box-shadow:0 1px 5px rgba(0,0,0,.07);width:fit-content;flex-wrap:wrap}
-.tab{padding:7px 14px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:600;
-  transition:all .2s;color:var(--muted);background:transparent;touch-action:manipulation}
-.tab.active{background:var(--navy);color:#fff;box-shadow:0 2px 8px rgba(13,27,62,.3)}
-.tab:hover:not(.active){background:var(--bg)}
-.kpi-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:10px;margin-bottom:18px}
-.kc{background:var(--card);border-radius:11px;padding:16px;box-shadow:0 1px 5px rgba(0,0,0,.07);
-  border:1px solid var(--border);position:relative;overflow:hidden}
-.kc::before{content:'';position:absolute;top:0;left:0;right:0;height:3px;background:var(--kc,var(--blue))}
-.kc-label{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.7px;color:var(--muted);margin-bottom:6px}
-.kc-val{font-size:22px;font-weight:800;color:var(--text);line-height:1}
-.kc-sub{font-size:10px;color:var(--muted);margin-top:4px}
-.kc-icon{position:absolute;top:12px;right:12px;font-size:18px;opacity:.12}
-.cg{display:grid;grid-template-columns:1fr 310px;gap:14px}
-.card{background:var(--card);border-radius:11px;padding:18px;box-shadow:0 1px 5px rgba(0,0,0,.07);border:1px solid var(--border)}
-.ctitle{font-size:12px;font-weight:700;color:var(--text);margin-bottom:12px;display:flex;align-items:center;gap:6px;flex-wrap:wrap}
-.cdot{width:6px;height:6px;border-radius:50%;background:var(--accent);flex-shrink:0}
-.fbar{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px;align-items:center}
-.flabel{font-size:10px;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.4px}
-.fbtn{padding:4px 10px;border-radius:14px;border:1.5px solid var(--border);background:var(--card);
-  font-size:10.5px;font-weight:600;cursor:pointer;transition:all .18s;color:var(--muted);touch-action:manipulation}
-.fbtn.on{border-color:var(--navy);background:var(--navy);color:#fff}
-.tw{overflow-x:auto;-webkit-overflow-scrolling:touch}
-table{width:100%;border-collapse:collapse;font-size:12px}
-thead th{text-align:left;padding:8px 11px;background:var(--bg);font-size:9px;font-weight:700;
-  text-transform:uppercase;letter-spacing:.5px;color:var(--muted);border-bottom:1px solid var(--border);white-space:nowrap}
-tbody tr{border-bottom:1px solid var(--border);transition:background .12s}
-tbody tr:hover{background:#F8FAFC}
-tbody tr.tr-pacote{background:#F0FDF4}
-tbody tr.tr-cobrado{background:#FFFBEB}
-tbody tr.tr-desc{background:#FFF1F2;opacity:.8}
-tbody tr:last-child{border-bottom:none}
-tbody td{padding:8px 11px;vertical-align:middle}
-.del-btn{background:none;border:none;cursor:pointer;color:var(--slate);font-size:13px;padding:3px 6px;border-radius:4px}
-.del-btn:hover{color:var(--red);background:#FEF2F2}
-.badge{display:inline-flex;align-items:center;gap:3px;padding:2px 7px;border-radius:14px;font-size:10px;font-weight:700;white-space:nowrap}
-.be{background:#EFF6FF;color:#1D4ED8}.br{background:#F5F3FF;color:#6D28D9}.ba{background:#FFF7ED;color:#C2410C}
-.bs{background:#ECFDF5;color:#065F46}.bn{background:#F1F5F9;color:#475569}
-.sidebar{display:flex;flex-direction:column;gap:12px}
-/* Aviso mês em andamento */
-.aviso-andamento{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:1px solid #FDE68A;
-  border-radius:9px;padding:10px 13px;font-size:11.5px;color:#78350F;margin-bottom:10px;line-height:1.5}
-/* Configuração PF */
-.pf-config{background:var(--bg);border-radius:8px;padding:10px 12px;margin-bottom:10px;display:flex;align-items:center;gap:8px;font-size:12px}
-.pf-config label{color:var(--muted);font-weight:600;white-space:nowrap}
-.pf-config input{width:48px;padding:4px 8px;border:1.5px solid var(--border);border-radius:6px;font-size:13px;text-align:center;outline:none}
-.pf-config input:focus{border-color:var(--blue-light)}
-.pf-config small{color:var(--muted);font-size:10px}
-/* Calc box */
-.calc-box{background:var(--bg);border-radius:9px;padding:12px;margin-bottom:10px}
-.calc-row{display:flex;justify-content:space-between;align-items:center;padding:5px 0;font-size:12px;border-bottom:1px solid rgba(0,0,0,.06)}
-.calc-row:last-child{border:none}
-.calc-row.sep{border-top:2px solid var(--border);margin-top:4px;padding-top:8px;font-weight:700}
-.calc-label{color:var(--muted)}
-.calc-val{font-weight:700}
-.c-blue{color:var(--blue-light)}.c-gold{color:var(--gold)}.c-red{color:var(--red)}.c-green{color:var(--green)}.c-purple{color:var(--purple)}
-.total-row{background:var(--navy);margin:10px -18px -18px;padding:13px 18px;border-radius:0 0 11px 11px;display:flex;justify-content:space-between;align-items:center}
-.total-row span:first-child{color:rgba(255,255,255,.65);font-size:12px;font-weight:600}
-.total-row span:last-child{color:var(--gold-light);font-size:18px;font-weight:800}
-.pf-list{list-style:none}
-.pf-list li{padding:6px 9px;background:var(--bg);border-radius:7px;margin-bottom:4px;font-size:12px;display:flex;align-items:center;gap:7px}
-.pdot{width:7px;height:7px;border-radius:50%;flex-shrink:0}
-.di{background:linear-gradient(135deg,#FFFBEB,#FEF9C3);border:1px solid #FDE68A;border-radius:8px;padding:9px 11px;font-size:11px;line-height:1.5;margin-bottom:6px;color:#78350F}
-.di-date{font-weight:700;font-size:10px;margin-bottom:2px}
-.cr-row{display:flex;align-items:center;gap:8px;margin-bottom:6px}
-.cr-label{font-size:10px;color:var(--muted);width:88px;flex-shrink:0;text-align:right;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.cr-wrap{flex:1;background:var(--bg);border-radius:4px;height:17px;overflow:hidden}
-.cr-bar{height:100%;border-radius:4px;display:flex;align-items:center;padding-left:5px;transition:width .4s}
-.cr-bar span{font-size:9.5px;font-weight:700;color:#fff}
-.nodata{text-align:center;padding:28px;color:var(--muted);font-size:12px}
-/* Modals */
-.overlay{position:fixed;inset:0;background:rgba(13,27,62,.62);z-index:200;display:none;align-items:center;justify-content:center;padding:12px;backdrop-filter:blur(4px)}
-.overlay.open{display:flex}
-.modal{background:var(--card);border-radius:14px;width:100%;max-width:540px;box-shadow:0 24px 60px rgba(0,0,0,.3);overflow:hidden;max-height:94vh;display:flex;flex-direction:column}
-.modal.wide{max-width:720px}
-.mhdr{background:linear-gradient(135deg,var(--navy),var(--blue));padding:16px 20px;display:flex;justify-content:space-between;align-items:center;flex-shrink:0}
-.mhdr h2{color:#fff;font-size:14px;font-weight:700}
-.mclose{background:none;border:none;color:rgba(255,255,255,.65);font-size:20px;cursor:pointer;padding:2px 6px}
-.mclose:hover{color:#fff}
-.mbody{padding:20px;overflow-y:auto;flex:1}
-.mfoot{padding:13px 20px;border-top:1px solid var(--border);display:flex;gap:8px;justify-content:flex-end;flex-shrink:0;flex-wrap:wrap}
-.frow{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin-bottom:11px}
-.frow.s{grid-template-columns:1fr}
-.fg{display:flex;flex-direction:column;gap:4px}
-.fg label{font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.4px;color:var(--muted)}
-.fg input,.fg select,.fg textarea{padding:8px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:13px;font-family:inherit;color:var(--text);background:var(--bg);outline:none;transition:border-color .2s;-webkit-appearance:none}
-.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--blue-light);background:#fff}
-.fg textarea{resize:vertical;min-height:60px}
-.fg select{background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 24 24' fill='none' stroke='%2364748B' stroke-width='2'%3E%3Cpath d='M6 9l6 6 6-6'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 10px center;padding-right:28px}
-.btn{padding:9px 16px;border-radius:8px;border:none;cursor:pointer;font-size:12px;font-weight:700;transition:all .2s;touch-action:manipulation}
-.btn-save{background:var(--navy);color:#fff}.btn-save:hover{background:var(--blue)}
-.btn-cancel{background:var(--bg);color:var(--muted)}.btn-cancel:hover{background:var(--border)}
-.btn-add{background:var(--green);color:#fff;margin-bottom:16px;width:100%;padding:10px}
-.btn-danger{background:#FEF2F2;color:var(--red);border:1px solid #FECACA;font-size:11px;padding:4px 10px;flex-shrink:0}
-.btn-danger:hover{background:var(--red);color:#fff}
-.btn-rep{background:linear-gradient(135deg,var(--purple),#6D28D9);color:#fff}
-.hint{background:#F0FDF4;border:1px solid #86EFAC;border-radius:8px;padding:10px 12px;font-size:11.5px;color:#166534;margin-bottom:12px;line-height:1.6}
-.mi{display:flex;justify-content:space-between;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--border);gap:10px}
-.mi:last-child{border-bottom:none}
-.mi-label{font-size:12px;font-weight:600}.mi-date{font-size:10px;color:var(--muted);margin-top:2px}
-/* Relatório */
-.rep-sec{margin-bottom:20px}
-.rep-sec h3{font-size:13px;font-weight:700;color:var(--navy);margin-bottom:10px;padding-bottom:6px;border-bottom:2px solid var(--border)}
-.rep-grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-bottom:12px}
-.rep-kpi{background:var(--bg);border-radius:8px;padding:12px;text-align:center}
-.rep-kpi-val{font-size:20px;font-weight:800;color:var(--navy)}
-.rep-kpi-label{font-size:10px;color:var(--muted);margin-top:3px}
-.rep-table{width:100%;border-collapse:collapse;font-size:11px}
-.rep-table th{background:var(--navy);color:#fff;padding:7px 10px;text-align:left;font-size:9.5px;text-transform:uppercase;letter-spacing:.4px}
-.rep-table td{padding:6px 10px;border-bottom:1px solid var(--border)}
-.rep-table tr:last-child td{border-bottom:none}
-.rep-table tr.pacote-row td{background:#F0FDF4}
-.rep-table tr.cobrado-row td{background:#FFFBEB}
-.rep-table tr.desc-row td{background:#FFF1F2}
-.calc-detail{background:var(--bg);border-radius:8px;padding:12px;font-size:12px}
-.calc-detail-row{display:flex;justify-content:space-between;padding:5px 0;border-bottom:1px solid var(--border)}
-.calc-detail-row:last-child{border:none;font-weight:700;font-size:13px;padding-top:8px}
-/* Toast / Login / Loading */
-.toast{position:fixed;bottom:20px;right:20px;z-index:500;background:var(--navy);color:#fff;padding:10px 16px;border-radius:9px;font-size:12px;font-weight:600;box-shadow:0 8px 24px rgba(0,0,0,.22);transform:translateY(70px);opacity:0;transition:all .3s;max-width:280px}
-.toast.show{transform:translateY(0);opacity:1}.toast.err{background:var(--red)}
-.login-screen{position:fixed;inset:0;background:linear-gradient(135deg,var(--navy),var(--navy-mid) 60%,var(--blue));z-index:999;display:none;align-items:center;justify-content:center}
-.login-screen.open{display:flex}
-.lbox{background:var(--card);border-radius:16px;padding:32px 28px;width:100%;max-width:340px;box-shadow:0 24px 60px rgba(0,0,0,.4);text-align:center;margin:16px}
-.licon{font-size:36px;margin-bottom:14px}
-.lbox h2{font-size:16px;font-weight:800;color:var(--navy);margin-bottom:5px}
-.lbox p{font-size:12px;color:var(--muted);margin-bottom:20px}
-.lbox input{width:100%;padding:11px;border:1.5px solid var(--border);border-radius:9px;font-size:16px;text-align:center;letter-spacing:2px;outline:none;margin-bottom:12px;-webkit-appearance:none}
-.lbox input:focus{border-color:var(--blue-light)}
-.lbtn{width:100%;padding:12px;border-radius:9px;border:none;cursor:pointer;background:linear-gradient(135deg,var(--navy),var(--blue));color:#fff;font-size:14px;font-weight:700}
-.lerr{color:var(--red);font-size:12px;margin-top:8px;display:none}
-.loading{position:fixed;inset:0;background:rgba(255,255,255,.88);z-index:400;display:none;align-items:center;justify-content:center;flex-direction:column;gap:10px}
-.loading.open{display:flex}
-.spin{width:34px;height:34px;border:3px solid var(--border);border-top-color:var(--blue);border-radius:50%;animation:spin .7s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-.loading p{font-size:12px;color:var(--muted);font-weight:600}
-@media(max-width:900px){.annual-grid{grid-template-columns:repeat(3,1fr)}.kpi-grid{grid-template-columns:repeat(2,1fr)}.cg{grid-template-columns:1fr}.sidebar{order:2}.frow{grid-template-columns:1fr}}
-@media(max-width:480px){.annual-grid{grid-template-columns:repeat(2,1fr)}.kpi-grid{grid-template-columns:1fr 1fr}}
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Escrituras 2026 — v2 (staging)</title>
+<meta name="stage" content="v2-stage1-logo-real">
 
-/* ══ MOBILE ≤768px — ver §9.6 de PADROES-DEV-INPERSON.md ══ */
-/* Tabela de 10 colunas vira cards empilhados: mata o scroll horizontal no celular */
-@media(max-width:768px){
-  .tw{overflow-x:visible}
-  .tw table,.tw tbody,.tw tr,.tw td{display:block;width:100%}
-  .tw thead{display:none}
-  .tw tr{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:8px 12px;margin-bottom:10px;box-shadow:0 1px 4px rgba(13,27,62,.07)}
-  .tw td{border:none;padding:6px 0;display:flex;justify-content:space-between;align-items:center;gap:12px;text-align:right;min-height:32px}
-  .tw td::before{content:attr(data-l);font-size:10px;font-weight:700;color:var(--muted);text-transform:uppercase;letter-spacing:.04em;text-align:left;flex:0 0 auto}
-  .tw td:empty{display:none}
-  .tw td.td-del{justify-content:flex-end}
-  .tw td.td-del::before{content:none}
-  .tw td.nodata{justify-content:center;text-align:center}
-  .tw td.nodata::before{content:none}
-  /* 12 abas de mês não cabem: scroll horizontal com snap em vez de quebrar linha */
-  .tabs{width:auto;flex-wrap:nowrap;overflow-x:auto;scroll-snap-type:x proximity;-webkit-overflow-scrolling:touch;scrollbar-width:none}
-  .tabs::-webkit-scrollbar{display:none}
-  .tab{flex:0 0 auto;scroll-snap-align:center;padding:9px 15px}
-  /* espaço para o FAB não cobrir o último card */
-  body.is-admin main{padding-bottom:84px}
-  body.is-admin .fab{display:flex}
+<!--
+  STAGING — index-v2.html · Estágio 1 da Versão C (command center).
+  NÃO é produção. A lógica sensível (calcMes, API+token, CRUD, buildSeed, _ap,
+  esc/getConfig) é COPIADA VERBATIM do index.html de produção (HEAD com token).
+  A casca (login Aura 2 + command center) e a camada de render das seções são novas.
+-->
+<style>
+:root{
+  --graf:#0c1210; --graf-2:#0a1a13;
+  --areia:#CBBBA0; --areia-bg:#F6F2EA;
+  --txt:#1d2721; --muted:#6b7a70; --border:#e2ddd1;
+  --bg:#F1EEE6; --card:#ffffff; --card-2:#faf7f0;
+  --verde:#0f6b43; --verde-cl:#18a367; --verde-gl:#25c47f; --gold:#c9b27a;
+  --navy:#274b73; --blue:#2f6fb0; --purple:#7c5cc4; --red:#a8342a;
+  --warn:#9a7d1e; --warn-bg:#fbf3d9; --pac:#0f6b43; --pac-bg:#e3f1e9;
+  --danger:#a8342a; --danger-bg:#f9e5e2;
+  --sh:0 1px 3px rgba(20,40,30,.08),0 6px 20px rgba(20,40,30,.06);
+  --sh-2:0 12px 36px rgba(20,40,30,.16);
+  --ff-serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --ff-sans:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;
+  --logo:url("data:image/png;base64,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");
 }
-/* FAB — ação primária na zona do polegar. Só admin, só mobile. */
-.fab{display:none;position:fixed;right:16px;bottom:calc(16px + env(safe-area-inset-bottom));z-index:150;
-  width:56px;height:56px;border-radius:50%;border:none;background:var(--gold);color:var(--navy);
-  font-size:28px;font-weight:700;line-height:1;align-items:center;justify-content:center;
-  box-shadow:0 6px 20px rgba(13,27,62,.3);cursor:pointer;touch-action:manipulation}
-.fab:active{transform:scale(.94)}
+:root[data-theme="dark"]{
+  --areia:#8a7c63; --areia-bg:#1c1e1a; --txt:#e9ede8; --muted:#9aa89e; --border:#30352d;
+  --bg:#14160f; --card:#1d201a; --card-2:#22261f;
+  --verde:#0f6b43; --verde-cl:#18a367; --verde-gl:#25c47f;
+  --navy:#8db6e0; --blue:#7fb0e6; --purple:#b39ae0; --red:#e08379;
+  --warn:#d9c05f; --warn-bg:#2c2814; --pac:#48c48a; --pac-bg:#14301f;
+  --danger:#e08379; --danger-bg:#331e1b;
+  --sh:0 1px 3px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
+  --sh-2:0 12px 36px rgba(0,0,0,.5);
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  --areia:#8a7c63; --areia-bg:#1c1e1a; --txt:#e9ede8; --muted:#9aa89e; --border:#30352d;
+  --bg:#14160f; --card:#1d201a; --card-2:#22261f;
+  --navy:#8db6e0; --blue:#7fb0e6; --purple:#b39ae0; --red:#e08379;
+  --warn:#d9c05f; --warn-bg:#2c2814; --pac:#48c48a; --pac-bg:#14301f;
+  --danger:#e08379; --danger-bg:#331e1b;
+  --sh:0 1px 3px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
+  --sh-2:0 12px 36px rgba(0,0,0,.5);
+}}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:var(--ff-sans);background:var(--bg);color:var(--txt);line-height:1.5;-webkit-font-smoothing:antialiased;font-size:13px}
+button{font-family:inherit;cursor:pointer;border:none;background:none;color:inherit}
+input,select{font-family:inherit}
+svg{display:block}
+.hide{display:none!important}
+::-webkit-scrollbar{height:9px;width:9px}::-webkit-scrollbar-thumb{background:var(--areia);border-radius:8px}
+
+.stagebar{background:var(--warn-bg);color:var(--warn);font-size:11px;font-weight:700;text-align:center;padding:4px 12px;letter-spacing:.02em}
+
+/* ─── LOGIN (Aura 2) ─── */
+.login{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;
+  background:radial-gradient(1100px 620px at 50% -10%,rgba(24,163,103,.14),transparent 60%),linear-gradient(160deg,#0c1210,#0a1a13 55%,#101a15);transition:opacity .5s}
+.login.gone{opacity:0;pointer-events:none}
+.lcard{position:relative;width:100%;max-width:384px;background:linear-gradient(180deg,#141c17,#182219);border:1px solid #25332a;border-radius:22px;padding:12px 30px 26px;box-shadow:0 30px 70px rgba(0,0,0,.55);overflow:hidden;color:#e9efe9}
+.lcard::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--verde-gl),var(--gold),transparent);opacity:.55}
+.embwrap{position:relative;height:150px;display:grid;place-items:center;margin:4px 0 0}
+.aura{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
+.rings{position:absolute;width:216px;height:104px}
+.ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(37,196,127,.55);animation:ripple 3.2s ease-out infinite;opacity:0}
+.ring:nth-child(2){animation-delay:.8s}.ring:nth-child(3){animation-delay:1.6s}.ring:nth-child(4){animation-delay:2.4s;border-color:rgba(201,178,122,.5)}
+@keyframes ripple{0%{transform:scale(.55);opacity:.7}70%{opacity:.18}100%{transform:scale(2.7);opacity:0}}
+.particles{position:absolute;inset:0}
+.particle{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--verde-gl);opacity:.6;left:50%;top:50%;animation:floatP 6s ease-in-out infinite}
+.particle:nth-child(1){transform:translate(-96px,-22px);background:var(--gold)}
+.particle:nth-child(2){transform:translate(104px,-14px);animation-delay:.9s}
+.particle:nth-child(3){transform:translate(-110px,20px);animation-delay:1.8s}
+.particle:nth-child(4){transform:translate(92px,26px);animation-delay:2.6s;background:var(--gold)}
+.particle:nth-child(5){transform:translate(2px,-44px);animation-delay:3.3s}
+@keyframes floatP{0%,100%{opacity:.15;margin-top:0}50%{opacity:.7;margin-top:-8px}}
+.plate{position:relative;z-index:3;background:#fcfbf7;border-radius:16px;padding:14px 22px;display:grid;place-items:center;box-shadow:0 14px 34px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.5) inset,0 0 22px rgba(37,196,127,.15);border:1px solid rgba(255,255,255,.6);animation:breathe 4.6s ease-in-out infinite}
+.plate .logoimg{display:block;width:158px;height:70px;background:var(--logo) center/contain no-repeat}
+@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.055)}}
+.lhead{text-align:center;margin-top:6px}
+.lhead h1{font-family:var(--ff-serif);font-size:20px}
+.lhead .sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8ba396;font-weight:700;margin-top:5px}
+.lform{margin-top:18px;display:flex;flex-direction:column;gap:11px}
+.lfg label{font-size:11px;font-weight:700;color:#8ba396;margin-bottom:5px;display:block}
+.linp{display:flex;align-items:center;gap:9px;background:rgba(0,0,0,.28);border:1px solid #25332a;border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+.linp:focus-within{border-color:var(--verde-cl);box-shadow:0 0 0 3px rgba(24,163,103,.18)}
+.linp input{flex:1;background:none;border:none;outline:none;color:#e9efe9;font-size:14px}
+.linp input::placeholder{color:#5f7368}
+.lbtn{margin-top:4px;background:linear-gradient(150deg,var(--verde),var(--verde-cl));color:#fff;font-size:14.5px;font-weight:800;padding:13px;border-radius:12px;box-shadow:0 8px 22px rgba(24,163,103,.32);transition:transform .12s}
+.lbtn:hover{transform:translateY(-1px)}
+.lread{margin-top:2px;font-size:12px;color:#8ba396;text-align:center;padding:8px;font-weight:600}
+.lread:hover{color:var(--verde-gl)}
+.lerr{display:none;color:#e08379;font-size:12px;text-align:center;margin-top:4px;font-weight:600}
+.lfoot{text-align:center;margin-top:16px;font-size:10px;color:#5f7368;line-height:1.5}
+.lfoot b{color:#8ba396}
+
+/* ─── SHELL command center ─── */
+.shell{display:flex;min-height:calc(100vh - 25px)}
+.rail{width:66px;background:linear-gradient(180deg,#0b3324,#0a4e33);color:#fff;flex:none;display:flex;flex-direction:column;padding:12px 0;position:sticky;top:0;height:100vh;z-index:60;transition:width .18s;overflow:hidden;white-space:nowrap}
+.rail:hover{width:214px;box-shadow:var(--sh-2)}
+.rbrand{display:flex;align-items:center;gap:10px;padding:2px 0 14px 12px}
+.rbrand .brandplate{background:#fcfbf7;border-radius:9px;padding:6px 9px;box-shadow:0 2px 9px rgba(0,0,0,.3);display:inline-flex;align-items:center;flex:none}
+.rbrand .brandplate .logoimg{display:block;height:24px;width:56px;background:var(--logo) left center/contain no-repeat}
+.rbrand .bt{opacity:0;transition:.15s}.rail:hover .rbrand .bt{opacity:1}
+.rbrand b{font-family:var(--ff-serif);font-size:13.5px;display:block;line-height:1.1}
+.rbrand span{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700}
+.rnav{padding:5px 12px;display:flex;flex-direction:column;gap:2px;flex:1;margin-top:6px}
+.rnav button{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
+.rnav button .ico{width:20px;font-size:15px;display:grid;place-items:center;flex:none}
+.rnav button .lbl{opacity:0;transition:.15s}.rail:hover .rnav button .lbl{opacity:1}
+.rnav button:hover{background:rgba(255,255,255,.09)}
+.rnav button.on{background:rgba(255,255,255,.17);color:#fff;font-weight:700}
+.rnav button .cnt{margin-left:auto;font-size:10.5px;background:rgba(255,255,255,.18);padding:1px 7px;border-radius:100px;font-weight:800;opacity:0}
+.rail:hover .rnav button .cnt{opacity:1}
+.rfoot{padding:8px 0 2px 20px;font-size:9px;color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.12);margin-top:6px;opacity:0}
+.rail:hover .rfoot{opacity:1}
+.main{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--bg)}
+.topbar{display:flex;align-items:center;gap:12px;padding:10px 18px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:30}
+.topbar .ttl{min-width:0}
+.topbar .ttl h2{font-family:var(--ff-serif);font-size:17px;line-height:1}
+.topbar .ttl span{font-size:11px;color:var(--muted)}
+.topbar .sp{flex:1}
+.search{display:flex;align-items:center;gap:7px;background:var(--card-2);border:1px solid var(--border);border-radius:9px;padding:6px 11px;min-width:140px}
+.search input{border:none;background:none;outline:none;font-size:12.5px;color:var(--txt);width:100%}
+.mnav{display:flex;align-items:center;gap:4px;background:var(--card-2);border:1px solid var(--border);border-radius:9px;padding:3px}
+.mnav button{width:24px;height:24px;border-radius:6px;font-size:13px;color:var(--muted);display:grid;place-items:center}
+.mnav b{font-size:12.5px;font-weight:800;min-width:52px;text-align:center}
+.syncpill{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+.sdot{width:8px;height:8px;border-radius:50%;background:var(--verde-cl)}
+.sdot.sync{background:var(--gold);animation:blink 1s infinite}.sdot.err{background:var(--danger)}
+@keyframes blink{50%{opacity:.3}}
+.tgl{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card-2);display:grid;place-items:center;font-size:14px;flex:none}
+.burger{display:none;place-items:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card-2)}
+.view{padding:14px 16px}
+
+/* user menu */
+.user{position:relative}
+.user .ub{display:flex;align-items:center;gap:8px;padding:4px 8px 4px 4px;border-radius:100px;border:1px solid var(--border);background:var(--card-2)}
+.user .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(150deg,var(--verde-cl),var(--verde));color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
+.user .who{text-align:left;line-height:1.1}.user .who b{font-size:12px;display:block}.user .who span{font-size:9.5px;color:var(--muted)}
+@media(max-width:620px){.user .who{display:none}}
+.user .menu{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--sh-2);min-width:186px;padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.16s;z-index:90}
+.user.open .menu{opacity:1;visibility:visible;transform:none}
+.user .menu a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;color:var(--txt)}
+.user .menu a:hover{background:var(--areia-bg)}.user .menu a.out{color:var(--danger)}
+.user .menu .sep{height:1px;background:var(--border);margin:5px 4px}
+.user .menu .role{font-size:10.5px;color:var(--muted);padding:4px 11px 8px}
+
+/* componentes */
+.badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:6px}
+.be{background:#e6eef6;color:#274b73}.br{background:var(--areia-bg);color:#7a6a4a}.ba{background:#efe9df;color:#6b5a3a}
+.bs{background:var(--pac-bg);color:var(--pac)}.bn{background:var(--areia-bg);color:var(--muted)}
+:root[data-theme="dark"] .be{background:#1a2634;color:#8db6e0}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .be{background:#1a2634;color:#8db6e0}}
+.chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px}
+.chip.ok{background:var(--pac-bg);color:var(--pac)}.chip.and{background:var(--warn-bg);color:var(--warn)}
+.card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--sh)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;font-size:12.5px;font-weight:700;background:var(--verde);color:#fff;box-shadow:0 3px 10px rgba(15,107,67,.28)}
+.btn.ghost{background:var(--card);color:var(--txt);border:1px solid var(--border);box-shadow:none}
+.btn.danger{background:var(--danger);box-shadow:none}
+.toolbar{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
+.filters{display:inline-flex;gap:3px;background:var(--areia-bg);border:1px solid var(--border);border-radius:9px;padding:3px}
+.filters .fbtn{padding:6px 11px;border-radius:7px;font-size:12px;font-weight:700;color:var(--muted)}
+.filters .fbtn.on{background:var(--card);color:var(--txt);box-shadow:var(--sh)}
+.tbl{width:100%;border-collapse:collapse;font-size:12.5px}
+.tbl thead th{text-align:left;padding:8px 10px;font-size:9.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);background:var(--card-2);border-bottom:1px solid var(--border)}
+.tbl tbody td{padding:8px 10px;border-bottom:1px solid var(--border)}
+.tbl tbody tr:hover{background:var(--areia-bg)}
+.tbl .stripe{border-left:3px solid transparent}
+.tbl tr.pac .stripe{border-left-color:var(--pac)}.tbl tr.desc .stripe{border-left-color:var(--danger)}.tbl tr.cob .stripe{border-left-color:var(--warn)}
+.tbl s{color:var(--muted)}
+.delx{background:none;border:none;cursor:pointer;color:var(--muted);font-size:13px;padding:2px 5px;border-radius:5px}
+.delx:hover{color:var(--danger);background:var(--danger-bg)}
+.ph{display:flex;align-items:center;gap:8px;padding:9px 13px;border-bottom:1px solid var(--border)}
+.ph h3{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);flex:1}
+.ph .lnk{font-size:11px;font-weight:700;color:var(--verde-cl)}
+:root[data-theme="dark"] .ph .lnk{color:var(--pac)}
+.calc .cr{display:flex;justify-content:space-between;padding:11px 18px;border-bottom:1px solid var(--border);font-size:13.5px}
+.calc .cr:last-child{border-bottom:none}
+.calc .cr small{display:block;font-size:10.5px;color:var(--muted)}
+.calc .cr.tot{background:var(--verde);color:#fff;font-size:16px;font-weight:800;border:none}
+.calc .cr .vv{font-variant-numeric:tabular-nums;font-weight:700}
+.calc .cr .c-blue{color:var(--blue)}.calc .cr .c-purple{color:var(--purple)}.calc .cr .c-red{color:var(--red)}.calc .cr .c-gold{color:var(--gold)}.calc .cr .c-green{color:var(--pac)}
+.chips{display:flex;flex-wrap:wrap;gap:9px;padding:16px}
+.lchip{display:inline-flex;align-items:center;gap:8px;padding:7px 13px;border-radius:100px;border:1px solid var(--border);background:var(--card-2);font-size:12.5px;font-weight:600}
+.lchip .n{width:7px;height:7px;border-radius:50%;background:var(--verde-cl)}
+.score{display:flex;align-items:center;gap:20px;padding:22px;flex-wrap:wrap}
+.score .big{font-family:var(--ff-serif);font-size:42px;font-weight:700;line-height:1}
+.dots{display:flex;gap:8px}.dots i{width:18px;height:18px;border-radius:50%;border:2px solid var(--pac);display:inline-block}.dots i.f{background:var(--pac)}.dots i.x{border-color:var(--danger)}
+.mini2 .r{display:flex;align-items:center;gap:9px;padding:8px 13px;border-bottom:1px solid var(--border);font-size:12.5px}
+.mini2 .r:last-child{border-bottom:none}.mini2 .dot{width:8px;height:8px;border-radius:50%;flex:none}
+.mini2 .g{flex:1;min-width:0}.mini2 .g b{display:block;font-size:12.5px}.mini2 .g span{font-size:11px;color:var(--muted)}
+.mini2 .v{font-weight:800;font-variant-numeric:tabular-nums}
+
+/* KPIs densos */
+.kpis{display:grid;grid-template-columns:repeat(auto-fit,minmax(128px,1fr));gap:10px;margin-bottom:14px}
+.kpi{background:var(--card);border:1px solid var(--border);border-radius:11px;padding:11px 13px;box-shadow:var(--sh);position:relative;text-align:left;transition:.12s;width:100%}
+button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transform:translateY(-1px)}
+.kpi .ic{width:26px;height:26px;border-radius:7px;display:grid;place-items:center;font-size:13px;margin-bottom:7px}
+.kpi .k-lb{font-size:9.5px;font-weight:800;color:var(--muted);text-transform:uppercase;letter-spacing:.05em}
+.kpi .k-v{font-family:var(--ff-serif);font-size:22px;font-weight:700;line-height:1;margin-top:2px}
+.kpi .k-sub{font-size:10px;color:var(--muted);margin-top:2px}
+.kpi .ring{position:absolute;right:10px;top:10px;width:34px;height:34px;border-radius:50%;background:conic-gradient(var(--pac) calc(var(--p)*1%),var(--border) 0);display:grid;place-items:center;--p:0}
+.kpi .ring::after{content:"";position:absolute;inset:4px;border-radius:50%;background:var(--card)}
+.kpi .ring b{position:relative;z-index:1;font-size:9px;font-weight:800}
+.kpi.hero{background:linear-gradient(150deg,var(--verde),#0a4e33);color:#fff;border:none}
+.kpi.hero .k-lb,.kpi.hero .k-sub{color:rgba(255,255,255,.75)}.kpi.hero .ic{background:rgba(255,255,255,.16)}
+.cgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;align-items:start}
+@media(max-width:940px){.cgrid{grid-template-columns:1fr}}
+.chart{display:flex;align-items:flex-end;gap:8px;padding:16px 14px 12px;height:150px}
+.chart .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;cursor:pointer}
+.chart .stack{width:66%;max-width:30px;display:flex;flex-direction:column;justify-content:flex-end;border-radius:5px 5px 0 0;overflow:hidden;min-height:5px}
+.chart .seg-e{background:#274b73}.chart .seg-r{background:var(--areia)}
+.chart .col.cur .stack{outline:2px solid var(--verde-cl);outline-offset:1px}
+.chart .ml{font-size:9.5px;font-weight:700;color:var(--muted)}.chart .col.cur .ml{color:var(--verde-cl)}
+.legend{display:flex;gap:14px;padding:0 14px 12px;font-size:11px;color:var(--muted)}
+.legend i{width:9px;height:9px;border-radius:2px;display:inline-block;margin-right:5px}
+
+/* overlays / modais */
+.overlay{position:fixed;inset:0;background:rgba(8,16,12,.62);z-index:200;display:none;align-items:center;justify-content:center;padding:14px;backdrop-filter:blur(3px)}
+.overlay.open{display:flex}
+.modal{background:var(--card);border:1px solid var(--border);border-radius:16px;box-shadow:var(--sh-2);width:100%;max-width:440px;max-height:90vh;overflow:auto}
+.modal.wide{max-width:760px}
+.mhd{display:flex;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid var(--border)}
+.mhd h2{font-family:var(--ff-serif);font-size:17px;flex:1}
+.mcl{font-size:18px;color:var(--muted);width:30px;height:30px;border-radius:8px}
+.mbd{padding:18px 20px;display:flex;flex-direction:column;gap:12px}
+.fg label{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;display:block}
+.fg input,.fg select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:9px;background:var(--card-2);color:var(--txt);font-size:13px;outline:none}
+.fg input:focus,.fg select:focus{border-color:var(--verde-cl)}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.mft{display:flex;gap:9px;justify-content:flex-end;padding:14px 20px;border-top:1px solid var(--border)}
+.mi{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:8px}
+.mi-label{font-size:13px;font-weight:600}.mi-date{font-size:11px;color:var(--muted)}
+.nodata{color:var(--muted);font-size:12px;padding:14px;text-align:center}
+.toast{position:fixed;bottom:20px;right:20px;z-index:500;background:#12281c;color:#fff;padding:11px 16px;border-radius:10px;font-size:12.5px;font-weight:600;box-shadow:var(--sh-2);transform:translateY(70px);opacity:0;transition:.3s;max-width:300px}
+.toast.show{transform:none;opacity:1}.toast.err{background:#6a201b}
+.loading{position:fixed;inset:0;background:rgba(20,22,15,.5);z-index:350;display:none;place-items:center;color:#fff;font-size:13px}
+.loading.open{display:grid}
+
+/* report */
+.rep-sec{margin-bottom:18px}.rep-sec h3{font-family:var(--ff-serif);font-size:15px;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
+.rep-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:10px}
+.rep-kpi{background:var(--card-2);border:1px solid var(--border);border-radius:10px;padding:12px;text-align:center}
+.rep-kpi-val{font-family:var(--ff-serif);font-size:20px;font-weight:700}.rep-kpi-label{font-size:10.5px;color:var(--muted);margin-top:3px}
+.calc-detail-row{display:flex;justify-content:space-between;padding:6px 0;border-bottom:1px dashed var(--border);font-size:12.5px}
+.rep-table{width:100%;border-collapse:collapse;font-size:12px}
+.rep-table th{text-align:left;padding:6px 8px;background:var(--card-2);border-bottom:1px solid var(--border);font-size:10px;text-transform:uppercase;color:var(--muted)}
+.rep-table td{padding:6px 8px;border-bottom:1px solid var(--border)}
+.rep-table .pacote-row td:first-child{border-left:3px solid var(--pac)}
+.rep-table .desc-row td:first-child{border-left:3px solid var(--danger)}
+.rep-table .cobrado-row td:first-child{border-left:3px solid var(--warn)}
+
+@media(max-width:760px){
+  .rail{position:fixed;left:0;top:25px;bottom:0;transform:translateX(-100%);transition:.24s;z-index:70;width:214px}
+  .rail .rbrand .bt,.rail .rnav button .lbl,.rail .rnav button .cnt,.rail .rfoot{opacity:1}
+  .rail.open{transform:none}
+  .scrim{position:fixed;inset:0;background:rgba(4,68,44,.4);z-index:65;opacity:0;visibility:hidden;transition:.2s}
+  .scrim.on{opacity:1;visibility:visible}
+  .burger{display:grid}
+  .search{min-width:0;width:auto}
+  .cgrid{grid-template-columns:1fr}
+}
+@media print{
+  .stagebar,.rail,.topbar,.toolbar,.scrim,.toast,.burger,.mcl,.mft,.rep-mes-wrap{display:none!important}
+  body{background:#fff}
+  .overlay:not(.open){display:none!important}
+  .overlay.open{position:static;background:none;padding:0;display:block;backdrop-filter:none}
+  .modal{box-shadow:none;max-height:none;max-width:100%;border:none;border-radius:0}
+  .mhd{border-bottom:2px solid var(--verde)}
+  .view,.main{padding:0}
+}
+@media (prefers-reduced-motion:reduce){
+  .plate,.ring,.particle{animation:none!important}
+  .plate{transform:none}.ring{opacity:.22;transform:scale(1.15)}.particle{opacity:.4;margin-top:0}
+  .sdot.sync{animation:none}
+}
 </style>
 </head>
 <body>
-<div class="login-screen" id="login-screen">
-  <div class="lbox">
-    <div class="licon">🔐</div>
-    <h2>Acesso Administrativo</h2>
-    <p>Digite a senha para ativar o modo admin</p>
-    <input type="password" id="lpw" placeholder="••••••••" onkeydown="if(event.key==='Enter')doLogin()">
-    <button class="lbtn" onclick="doLogin()">Entrar</button>
-    <div class="lerr" id="lerr">Senha incorreta</div>
-    <button onclick="closeLogin()" style="margin-top:12px;background:none;border:none;color:var(--muted);cursor:pointer;font-size:12px">Cancelar</button>
-  </div>
-</div>
-<div class="loading" id="loading"><div class="spin"></div><p>Carregando...</p></div>
-<header>
-  <div class="h-left">
-    <div class="logo"><img src="logo-cartorio.png" alt="Cartório Praia do Forte"></div>
-    <div>
-      <div class="h-title">Entregas & Retiradas de Escrituras</div>
-      <div class="h-sub" id="hsub">Cartório Praia do Forte · 2026 · Visualização</div>
-    </div>
-  </div>
-  <div class="h-right">
-    <span class="mode-badge m-client" id="mbadge">👁 Leitura</span>
-    <div class="admin-bar" id="abar">
-      <button class="btn-hdr btn-out" onclick="openManage('pf')">+ Ida PF</button>
-      <button class="btn-hdr btn-out" onclick="openManage('dil')">+ Diligência</button>
-      <button class="btn-hdr btn-gold" onclick="openForm()">+ Registro</button>
-    </div>
-    <button class="btn-hdr btn-out" onclick="openReport()" style="font-size:11px">📊 Relatório</button>
-    <button class="btn-ghost" id="atbtn" onclick="toggleAdmin()">⚙</button>
-  </div>
-</header>
-<div class="sync-bar">
-  <span class="sdot" id="sdot"></span>
-  <span id="smsg">Carregando...</span>
-  <span class="sync-time" id="stime"></span>
-</div>
-<main>
-  <div class="stitle">Resumo Anual — 2026</div>
-  <div class="annual-grid" id="annual-grid"></div>
-  <div class="tabs" id="tabs"></div>
-  <div class="kpi-grid" id="kpi-grid"></div>
-  <div class="cg">
-    <div>
-      <div class="fbar">
-        <span class="flabel">Filtrar:</span>
-        <button class="fbtn on" onclick="setFilter('todos',this)">Todos</button>
-        <button class="fbtn" onclick="setFilter('Entrega',this)">Entrega</button>
-        <button class="fbtn" onclick="setFilter('Retirada',this)">Retirada</button>
-        <button class="fbtn" onclick="setFilter('Entrega/Retirada',this)">Ambos</button>
-        <button class="fbtn" onclick="setFilter('pacote',this)">Pacote</button>
-        <button class="fbtn" onclick="setFilter('avulso',this)">Avulso</button>
-      </div>
-      <div class="card">
-        <div class="ctitle"><span class="cdot"></span>Registros do Mês
-          <span style="margin-left:auto;font-size:10px;color:var(--muted);font-weight:400">🟢 Pacote &nbsp;🟡 Cobrado &nbsp;🔴 Descontado</span>
-        </div>
-        <div class="tw">
-          <table>
-            <thead><tr>
-              <th>#</th><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th>
-              <th>Gráfica</th><th>Status</th><th>Valor E/R</th><th>Valor Graf.</th><th>Obs.</th>
-              <th id="th-del" style="display:none"></th>
-            </tr></thead>
-            <tbody id="tbody"></tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-    <div class="sidebar">
-      <div id="aviso-and" style="display:none" class="aviso-andamento">⏳ <strong>Mês em andamento</strong> — o cálculo de não-idas a PF será aplicado apenas ao fechar o mês.</div>
-      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--green)"></span>Cálculo do Mês</div><div id="calc-content"></div></div>
-      <div class="card">
-        <div class="ctitle"><span class="cdot" style="background:var(--blue-light)"></span>Idas a PF <span id="pf-count" style="margin-left:auto;font-size:10px;font-weight:600;color:var(--muted)"></span></div>
-        <div id="pf-config-wrap" style="display:none">
-          <div class="pf-config">
-            <label>Idas exigidas este mês:</label>
-            <input type="number" id="pf-exig" min="1" max="4" value="4" onchange="savePFExig()">
-            <small>(padrão 4, ajuste para meses com recesso)</small>
-          </div>
-        </div>
-        <ul class="pf-list" id="pfl"></ul>
-      </div>
-      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--gold)"></span>Diligências</div><div id="dill"></div></div>
-      <div class="card"><div class="ctitle"><span class="cdot" style="background:var(--accent)"></span>Locais Frequentes</div><div id="locais"></div></div>
-    </div>
-  </div>
-</main>
-<button class="fab" id="fab" onclick="openForm()" aria-label="Novo registro" title="Novo registro">+</button>
-<div class="toast" id="toast"></div>
+<div class="stagebar">STAGING · index-v2 — casca Versão C sobre a lógica real (não é produção)</div>
 
-<!-- MODAL REGISTRO -->
+<!-- LOGIN -->
+<div class="login" id="login-screen">
+  <div class="lcard">
+    <div class="embwrap">
+      <div class="aura">
+        <div class="rings"><span class="ring"></span><span class="ring"></span><span class="ring"></span><span class="ring"></span></div>
+        <div class="particles"><span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span><span class="particle"></span></div>
+      </div>
+      <div class="plate"><i class="logoimg" role="img" aria-label="Cartório Praia do Forte"></i></div>
+    </div>
+    <div class="lhead"><h1>Cartório Praia do Forte</h1><div class="sub">Escrituras 2026</div></div>
+    <form class="lform" onsubmit="doLogin(event)">
+      <div class="lfg"><label>Usuário</label><div class="linp"><span style="color:#5f7368">&#128100;</span><input type="text" id="luser" value="isaac" autocomplete="username"></div></div>
+      <div class="lfg"><label>Senha</label><div class="linp"><span style="color:#5f7368">&#128274;</span><input type="password" id="lpw" placeholder="senha de administrador" autocomplete="current-password"></div></div>
+      <div class="lerr" id="lerr">Senha incorreta.</div>
+      <button type="submit" class="lbtn">Entrar &#8594;</button>
+    </form>
+    <div class="lfoot"><b>Acesso restrito</b> &middot; controle de entrega e retirada de escrituras<br>Sistema fornecido pela <b>INPERSON</b> Soluções em Tecnologia</div>
+  </div>
+</div>
+
+<!-- APP -->
+<div class="shell">
+  <aside class="rail" id="rail">
+    <div class="rbrand"><span class="brandplate"><i class="logoimg" role="img" aria-label="Cartório Praia do Forte"></i></span><div class="bt"><span>Escrituras 2026</span></div></div>
+    <nav class="rnav" id="rnav"></nav>
+    <div class="rfoot">INPERSON Soluções em Tecnologia</div>
+  </aside>
+  <div class="scrim" id="scrim" onclick="closeRail()"></div>
+  <div class="main">
+    <div class="topbar">
+      <button class="burger" onclick="openRail()">&#9776;</button>
+      <div class="ttl"><h2 id="tTitle">Visão Geral</h2><span id="tSub"></span></div>
+      <div class="sp"></div>
+      <div class="search"><span style="color:var(--muted);font-size:12px">&#128269;</span><input id="searchInp" placeholder="Buscar registro..." oninput="applySearch(this.value)"></div>
+      <div class="mnav"><button onclick="stepMonth(-1)">&#8249;</button><b id="moLabel">—</b><button onclick="stepMonth(1)">&#8250;</button></div>
+      <span id="tStatus"></span>
+      <div class="syncpill"><span class="sdot" id="sdot"></span><span id="smsg">—</span></div>
+      <span id="stime" style="display:none"></span>
+      <button class="tgl" onclick="toggleTheme()" title="Tema">&#9681;</button>
+      <div class="user" data-user><button class="ub" onclick="toggleUser(event)"><span class="av" id="uav">IN</span><span class="who"><b id="uname">—</b><span id="urole">—</span></span></button>
+        <div class="menu"><div class="role" id="umenu-role"></div><a href="#" onclick="openPerfil();return false"><span>&#128100;</span> Meu perfil</a><a href="#" class="out" onclick="logout();return false"><span>&#8618;</span> Sair</a></div>
+      </div>
+    </div>
+    <div class="view" id="view"></div>
+  </div>
+</div>
+
+<!-- MODAL: novo registro -->
 <div class="overlay" id="ov-form">
   <div class="modal">
-    <div class="mhdr"><h2>Novo Registro de E/R</h2><button class="mclose" onclick="closeOv('ov-form')">✕</button></div>
-    <div class="mbody">
-      <div class="hint">As 4 primeiras E/R do mês são gratuitas (pacote). A partir da 5ª: R$60 cada. Gráfica: R$15 por ida (cobrada sempre, inclusive nas do pacote).</div>
-      <div class="frow">
-        <div class="fg"><label>Mês</label><select id="f-mes"></select></div>
-        <div class="fg"><label>Data</label><input type="date" id="f-data"></div>
-      </div>
-      <div class="frow">
-        <div class="fg"><label>Tipo</label><select id="f-tipo"><option>Entrega</option><option>Retirada</option><option>Entrega/Retirada</option></select></div>
-        <div class="fg"><label>Escrevente</label><input type="text" id="f-esc" placeholder="Nome ou deixe em branco"></div>
-      </div>
-      <div class="frow">
-        <div class="fg"><label>Local / Empreendimento</label><input type="text" id="f-local" placeholder="Ex: Santa Helena"></div>
-        <div class="fg"><label>Houve ida à Gráfica?</label>
-          <select id="f-graf">
-            <option value="Não">Não — escritura já impressa</option>
-            <option value="Sim">Sim — impressão (+R$ 15,00)</option>
-          </select>
-        </div>
-      </div>
-      <div class="frow s"><div class="fg"><label>Observação</label><textarea id="f-obs" placeholder="Observação adicional..."></textarea></div></div>
+    <div class="mhd"><h2 id="f-title">Novo registro</h2><button class="mcl" onclick="closeOv('ov-form')">&times;</button></div>
+    <div class="mbd">
+      <div class="frow"><div class="fg"><label>Mês</label><select id="f-mes"></select></div><div class="fg"><label>Data</label><input type="date" id="f-data"></div></div>
+      <div class="frow"><div class="fg"><label>Tipo</label><select id="f-tipo"><option>Entrega</option><option>Retirada</option><option>Entrega/Retirada</option></select></div><div class="fg"><label>Gráfica</label><select id="f-graf"><option>Não</option><option>Sim</option></select></div></div>
+      <div class="fg"><label>Escrevente</label><input type="text" id="f-esc" placeholder="opcional"></div>
+      <div class="fg"><label>Local</label><input type="text" id="f-local" placeholder="empreendimento / local"></div>
+      <div class="fg"><label>Observação</label><input type="text" id="f-obs" placeholder="opcional"></div>
     </div>
-    <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-form')">Cancelar</button><button class="btn btn-save" onclick="saveReg()">Salvar</button></div>
+    <div class="mft"><button class="btn ghost" onclick="closeOv('ov-form')">Cancelar</button><button class="btn" onclick="saveReg()">Salvar registro</button></div>
   </div>
 </div>
 
-<!-- MODAL PF/DIL -->
+<!-- MODAL: gerenciar Idas PF / Diligências -->
 <div class="overlay" id="ov-manage">
   <div class="modal">
-    <div class="mhdr"><h2 id="mtitle">Gerenciar</h2><button class="mclose" onclick="closeOv('ov-manage')">✕</button></div>
-    <div class="mbody">
-      <div class="frow">
-        <div class="fg"><label>Mês</label><select id="m-mes" onchange="renderML()"></select></div>
-        <div class="fg"><label>Data</label><input type="date" id="m-data"></div>
-      </div>
-      <div class="frow s" id="m-dw"><div class="fg"><label>Descrição</label><textarea id="m-desc" placeholder="Descrição da diligência..."></textarea></div></div>
-      <div class="frow s" id="m-vw"><div class="fg"><label>Valor (R$)</label><input type="number" id="m-val" value="130" min="0" inputmode="numeric"></div></div>
-      <button class="btn btn-add" onclick="saveML()">+ Adicionar</button>
-      <div style="border-top:1px solid var(--border);padding-top:12px">
-        <div style="font-size:9.5px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--muted);margin-bottom:10px">Registrados neste mês</div>
-        <div id="mlist"></div>
-      </div>
+    <div class="mhd"><h2 id="mtitle">Idas a PF</h2><button class="mcl" onclick="closeOv('ov-manage')">&times;</button></div>
+    <div class="mbd">
+      <div class="frow"><div class="fg"><label>Mês</label><select id="m-mes"></select></div><div class="fg"><label>Data</label><input type="date" id="m-data"></div></div>
+      <div class="fg" id="m-dw"><label>Descrição</label><input type="text" id="m-desc" placeholder="descrição da diligência"></div>
+      <div class="fg" id="m-vw"><label>Valor (R$)</label><input type="number" id="m-val" value="130"></div>
+      <button class="btn" onclick="saveML()">+ Adicionar</button>
+      <div id="mlist" style="margin-top:6px"></div>
     </div>
-    <div class="mfoot"><button class="btn btn-cancel" onclick="closeOv('ov-manage')">Fechar</button></div>
+    <div class="mft"><button class="btn ghost" onclick="closeOv('ov-manage')">Fechar</button></div>
   </div>
 </div>
 
-<!-- MODAL RELATÓRIO -->
+<!-- MODAL: relatório -->
 <div class="overlay" id="ov-report">
   <div class="modal wide">
-    <div class="mhdr"><h2>📊 Relatório — <span id="rep-title"></span></h2><button class="mclose" onclick="closeOv('ov-report')">✕</button></div>
-    <div class="mbody" id="rep-body"></div>
-    <div class="mfoot">
-      <div class="fg" style="flex-direction:row;gap:8px;align-items:center">
-        <label style="font-size:11px;font-weight:700;color:var(--muted)">Mês:</label>
-        <select id="rep-mes" onchange="renderReport()" style="padding:6px 10px;border:1.5px solid var(--border);border-radius:7px;font-size:12px;background:var(--bg);outline:none"></select>
-      </div>
-      <button class="btn btn-cancel" onclick="closeOv('ov-report')">Fechar</button>
-      <button class="btn btn-rep" onclick="window.print()">🖨 Imprimir</button>
-    </div>
+    <div class="mhd"><h2>Relatório — <span id="rep-title"></span></h2><button class="mcl" onclick="closeOv('ov-report')">&times;</button></div>
+    <div class="mbd"><div class="rep-mes-wrap" style="margin-bottom:8px;display:flex;gap:10px;flex-wrap:wrap;align-items:center"><label style="font-size:11px;font-weight:700;color:var(--muted)">Período:</label><select id="rep-period" onchange="onPeriodChange()" style="padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--card-2);color:var(--txt)"><option value="mes">Mensal</option><option value="tri">Trimestral</option><option value="sem">Semestral</option><option value="ano">Anual</option></select><select id="rep-mes" onchange="renderReport()" style="padding:6px 10px;border:1px solid var(--border);border-radius:8px;background:var(--card-2);color:var(--txt)"></select></div><div id="rep-body"></div></div>
+    <div class="mft"><button class="btn ghost" onclick="closeOv('ov-report')">Fechar</button><button class="btn" onclick="window.print()">&#128424; Imprimir</button></div>
   </div>
 </div>
 
+<!-- MODAL: Meu perfil (Estágio 4) -->
+<div class="overlay" id="ov-perfil">
+  <div class="modal">
+    <div class="mhd"><h2>Meu perfil</h2><button class="mcl" onclick="closeOv('ov-perfil')">&times;</button></div>
+    <div class="mbd">
+      <div style="display:flex;align-items:center;gap:16px">
+        <div id="pf-avatar"></div>
+        <div>
+          <div id="pf-nome" style="font-family:var(--ff-serif);font-size:18px;font-weight:700"></div>
+          <div id="pf-papel" style="font-size:12px;color:var(--muted)"></div>
+          <label class="btn ghost" style="margin-top:9px;display:inline-flex;cursor:pointer">📷 Trocar foto<input type="file" id="pf-foto" accept="image/*" onchange="onFotoChange(this)" style="display:none"></label>
+        </div>
+      </div>
+      <div style="border-top:1px solid var(--border);margin-top:4px;padding-top:14px">
+        <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:10px">Alterar senha</div>
+        <div class="fg"><label>Senha atual</label><input type="password" id="pf-atual" autocomplete="current-password"></div>
+        <div class="fg" style="margin-top:8px"><label>Nova senha</label><input type="password" id="pf-nova" autocomplete="new-password"></div>
+        <div class="fg" style="margin-top:8px"><label>Confirmar nova senha</label><input type="password" id="pf-conf" autocomplete="new-password"></div>
+        <div id="pf-msg" style="font-size:12px;font-weight:600;margin-top:8px;min-height:16px"></div>
+        <button class="btn" style="margin-top:4px" onclick="salvarSenha()">Salvar nova senha</button>
+      </div>
+    </div>
+    <div class="mft"><button class="btn ghost" onclick="closeOv('ov-perfil')">Fechar</button><button class="btn danger" onclick="closeOv('ov-perfil');logout()">Sair</button></div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+<div class="loading" id="loading">Carregando dados…</div>
+
 <script>
-// ════════════════════
-// CONFIG
-// ════════════════════
+// ════════════════════════════════════════════════════════════════
+// CONFIG — VERBATIM de produção (index.html HEAD com token)
+// ════════════════════════════════════════════════════════════════
 const API_URL = 'https://script.google.com/macros/s/AKfycbw_Qt5d5-RWpcSErChlyj99NUnQzLpkIc6Vb2fxawChpoyliH7y2NpU8u7IQ_MdnZUO/exec';
 const API_TOKEN = 'esc26_Iwixi5YcF50Oii1LpmYtdAEJmts4HDeXGZKu8kWryCA';
 const _ap = ['For','te!','Car','tor','io#','202','6vZ','9'];
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY = 'cpf_esc26_v4';
+const UKEY = 'esc26_usuarios'; // Estágio 4: store de usuários (localStorage, FORA do blob — D1)
 const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
-
-// Configurações por mês: idas exigidas e se está em andamento
-const MES_CONFIG_DEFAULT = {
-  idasExigidas: 4,   // padrão
-  emAndamento: false
-};
+const MES_CONFIG_DEFAULT = { idasExigidas: 4, emAndamento: false };
 
 let DB = {}, isAdmin = false, curMonth = 'Janeiro', curFilter = 'todos', mmode = 'pf';
+let curSection = 'vis'; // novo (casca)
+let editRegId = null, editMLId = null; // Estágio 2: edição in-place
+let currentUser = null; // Estágio 4: usuário logado (do store localStorage)
 
-// ════════════════════
-// CÁLCULO CENTRAL
-// Regras validadas contra planilha real (todos os 6 meses):
-// - Bruto = er_avulsas × R$60 + total_gráficas × R$15
-// - Crédito por não-ida = 3 E/R + 3 gráficas
-// - Desconto = min(er_av, credito_er) E/R + min(graf_t, credito_graf) gráficas
-// - Se mês em andamento: não aplica desconto de não-idas
-// - Diligências nunca são descontadas
-// ════════════════════
+// ════════════════════════════════════════════════════════════════
+// CÁLCULO CENTRAL — VERBATIM (não alterar; validado contra planilha real)
+// ════════════════════════════════════════════════════════════════
 function calcMes(mes) {
   const d = DB[mes] || emptyMonth();
   const cfg = d.config || {};
@@ -441,17 +450,13 @@ function calcMes(mes) {
   const subtotalER    = er_cobradas * VAL_ER + graf_cobradas * VAL_GRAF;
   const total         = subtotalER + dilig;
 
-  // Status de cada registro para colorir a tabela
-  // E/R abatidas = as últimas er_abatidas avulsas
-  // Gráficas abatidas = as primeiras graf_abatidas do mês (ordem cronológica)
   const statuses = regs.map((r, i) => {
     if (i < PACOTE) return 'pacote';
-    const avIdx = i - PACOTE; // índice entre as avulsas
+    const avIdx = i - PACOTE;
     const firstDesc = er_av - er_abatidas;
     return avIdx >= firstDesc ? 'desc' : 'cobrado';
   });
 
-  // Quais gráficas são abatidas (as primeiras graf_abatidas do mês)
   let grafDesc = 0;
   const grafStatuses = regs.map(r => {
     if (r.grafica !== 'Sim') return 'no-graf';
@@ -464,17 +469,24 @@ function calcMes(mes) {
            er_cobradas, graf_cobradas, subtotalER, statuses, grafStatuses };
 }
 
-// ════════════════════
-// UTILS
-// ════════════════════
+// ════════════════════════════════════════════════════════════════
+// UTILS — VERBATIM (uid, fmtD, R, esc, emptyMonth, getConfig)
+// ════════════════════════════════════════════════════════════════
 function uid() { return Date.now().toString(36) + Math.random().toString(36).slice(2, 6); }
 function fmtD(iso) { if (!iso) return ''; const [y, m, d] = iso.split('-'); return `${d}/${m}/${y}`; }
+function toISO(br){ if(!br) return ''; const p=String(br).split('/'); if(p.length!==3) return ''; const [d,m,y]=p; return `${y}-${String(m).padStart(2,'0')}-${String(d).padStart(2,'0')}`; }
 function R(v) { return 'R$ ' + Number(v).toLocaleString('pt-BR', { minimumFractionDigits: 0 }); }
-// Escapa dado vindo do servidor antes de entrar em innerHTML (contexto HTML e de atributo).
-// NUNCA usar para montar código dentro de onclick="..." — ali o parser decodifica a entidade
-// antes do JS ler, e o escape não protege. Nesses casos: data-* + dataset.
 function esc(v) {
   return String(v ?? '').replace(/[&<>"']/g, c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[c]));
+}
+function emptyMonth() { return { registros: [], idasPF: [], diligencias: [], config: {} }; }
+function getConfig(mes) {
+  const d = DB[mes] || emptyMonth();
+  const n = Number(d.config?.idasExigidas);
+  return {
+    idasExigidas: Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), 0), 4) : 4,
+    emAndamento: d.config?.emAndamento === true
+  };
 }
 function toast(msg, err = false) {
   const t = document.getElementById('toast');
@@ -485,31 +497,19 @@ function toast(msg, err = false) {
 function sync(state, msg = '') {
   const d = document.getElementById('sdot'), s = document.getElementById('smsg');
   d.className = 'sdot' + (state === 'sync' ? ' sync' : state === 'err' ? ' err' : '');
-  s.textContent = msg || (state === 'ok' ? 'Dados sincronizados' : 'Sincronizando...');
+  s.textContent = msg || (state === 'ok' ? 'Sincronizado' : 'Sincronizando...');
   if (state === 'ok') document.getElementById('stime').textContent = 'Atualizado: ' + new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' });
 }
 function closeOv(id) { document.getElementById(id).classList.remove('open'); }
-function closeLogin() { document.getElementById('login-screen').classList.remove('open'); }
-function emptyMonth() { return { registros: [], idasPF: [], diligencias: [], config: {} }; }
-function getConfig(mes) {
-  const d = DB[mes] || emptyMonth();
-  // Coerção na fronteira: idasExigidas vem do servidor e é interpolada em innerHTML.
-  // Forçar número aqui neutraliza injeção na origem, em vez de escapar em cada render.
-  const n = Number(d.config?.idasExigidas);
-  return {
-    idasExigidas: Number.isFinite(n) ? Math.min(Math.max(Math.trunc(n), 0), 4) : 4,
-    emAndamento: d.config?.emAndamento === true
-  };
-}
 
-// ════════════════════
-// API
-// ════════════════════
+// ════════════════════════════════════════════════════════════════
+// API — VERBATIM (jsonpLoad, apiLoad, apiSave — JÁ COM TOKEN)
+// ════════════════════════════════════════════════════════════════
 function jsonpLoad() {
   return new Promise((resolve, reject) => {
     const cb = 'cb_' + Date.now();
     const s = document.createElement('script');
-    const t = setTimeout(() => { delete window[cb]; s.remove(); reject(); }, 8000);
+    const t = setTimeout(() => { window[cb] = ()=>{}; s.remove(); reject(); }, 8000); // no-op: evita ReferenceError se a resposta JSONP chegar após o timeout
     window[cb] = d => { clearTimeout(t); delete window[cb]; s.remove(); resolve(d); };
     s.src = API_URL + '?callback=' + cb + '&token=' + encodeURIComponent(API_TOKEN) + '&t=' + Date.now();
     s.onerror = () => { clearTimeout(t); delete window[cb]; s.remove(); reject(); };
@@ -538,63 +538,33 @@ async function apiSave() {
   return new Promise((resolve) => {
     try {
       sync('sync', 'Salvando...');
-      // Cria iframe oculto como target do form (evita redirect da página)
       const iframeId = 'save_iframe_' + Date.now();
       const iframe = document.createElement('iframe');
-      iframe.name = iframeId;
-      iframe.style.display = 'none';
+      iframe.name = iframeId; iframe.style.display = 'none';
       document.body.appendChild(iframe);
-
-      // Cria form que faz POST sem restrição CORS
       const form = document.createElement('form');
-      form.method = 'POST';
-      form.action = API_URL;
-      form.target = iframeId;
-      form.style.display = 'none';
-
+      form.method = 'POST'; form.action = API_URL; form.target = iframeId; form.style.display = 'none';
       const input = document.createElement('input');
-      input.type = 'hidden';
-      input.name = 'data';
-      input.value = JSON.stringify(DB);
+      input.type = 'hidden'; input.name = 'data'; input.value = JSON.stringify(DB);
       form.appendChild(input);
-
       const inputToken = document.createElement('input');
-      inputToken.type = 'hidden';
-      inputToken.name = 'token';
-      inputToken.value = API_TOKEN;
+      inputToken.type = 'hidden'; inputToken.name = 'token'; inputToken.value = API_TOKEN;
       form.appendChild(inputToken);
       document.body.appendChild(form);
-
-      // Timeout para limpar — form POST via iframe não tem callback confiável
-      const cleanup = setTimeout(() => {
-        try { form.remove(); iframe.remove(); } catch(e) {}
-        sync('ok'); resolve();
-      }, 3000);
-
-      iframe.onload = () => {
-        clearTimeout(cleanup);
-        try { form.remove(); iframe.remove(); } catch(e) {}
-        sync('ok'); resolve();
-      };
-
+      const cleanup = setTimeout(() => { try { form.remove(); iframe.remove(); } catch(e) {} sync('ok'); resolve(); }, 3000);
+      iframe.onload = () => { clearTimeout(cleanup); try { form.remove(); iframe.remove(); } catch(e) {} sync('ok'); resolve(); };
       form.submit();
-    } catch(e) {
-      sync('ok'); resolve();
-    }
+    } catch(e) { sync('ok'); resolve(); }
   });
 }
 function lsSave() { try { localStorage.setItem(LSKEY, JSON.stringify(DB)); } catch (e) { } }
 function lsLoad() { try { const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
 
-// ════════════════════
-// SEED DATA — dados reais da planilha
-// ════════════════════
+// ════════════════════════════════════════════════════════════════
+// SEED — VERBATIM (dados reais da planilha, usado só em fallback)
+// ════════════════════════════════════════════════════════════════
 function buildSeed() {
   const o = {}; MONTHS.forEach(m => { o[m] = emptyMonth(); });
-
-  // Fevereiro: recesso carnaval → 3 idas exigidas (teve 2 → 1 não-ida)
-  // Junho: recesso São João → 3 idas exigidas + em andamento
-
   o['Janeiro'].registros = [
     {id:uid(),data:'06/01/2026',tipo:'Entrega',  escrevente:'',local:'Santa Helena',              grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'07/01/2026',tipo:'Retirada', escrevente:'',local:'Santa Helena',              grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -616,7 +586,6 @@ function buildSeed() {
     {id:uid(),data:'28/01/2026',desc:'Pegar documentação no Shopping + Entrega de Chave de roda e Documentação na HAUS BMW',valor:130},
   ];
   o['Janeiro'].config = {idasExigidas:4, emAndamento:false};
-
   o['Fevereiro'].registros = [
     {id:uid(),data:'04/02/2026',tipo:'Entrega', escrevente:'',local:'Imbassaí Privilege',grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'05/02/2026',tipo:'Retirada',escrevente:'',local:'Imbassaí Privilege',grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -632,8 +601,7 @@ function buildSeed() {
     {id:uid(),data:'04/02/2026',desc:'Recolhimento de Assinatura no bairro do Imbuí',valor:130},
     {id:uid(),data:'04/02/2026',desc:'Entrega de Escritura no bairro do Alto do Itaigara',valor:130},
   ];
-  o['Fevereiro'].config = {idasExigidas:3, emAndamento:false}; // recesso carnaval
-
+  o['Fevereiro'].config = {idasExigidas:3, emAndamento:false};
   o['Março'].registros = [
     {id:uid(),data:'03/03/2026',tipo:'Entrega',         escrevente:'',local:'Santa Helena', grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'05/03/2026',tipo:'Retirada',        escrevente:'',local:'Costa Andrade',grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -651,7 +619,6 @@ function buildSeed() {
   o['Março'].idasPF = [{id:uid(),data:'06/03/2026'},{id:uid(),data:'12/03/2026'},{id:uid(),data:'20/03/2026'},{id:uid(),data:'26/03/2026'}];
   o['Março'].diligencias = [{id:uid(),data:'23/03/2026',desc:'Ida na Gráfica entregar cartão',valor:30}];
   o['Março'].config = {idasExigidas:4, emAndamento:false};
-
   o['Abril'].registros = [
     {id:uid(),data:'09/04/2026',tipo:'Entrega',         escrevente:'Ilana', local:'Santa Fé',      grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'15/04/2026',tipo:'Retirada',        escrevente:'Ilana', local:'Santa Fé',      grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -663,7 +630,6 @@ function buildSeed() {
   o['Abril'].idasPF = [{id:uid(),data:'30/04/2026'}];
   o['Abril'].diligencias = [{id:uid(),data:'14/04/2026',desc:'Recolhimento de assinaturas nos bairros de Patamares e Caminho das Árvores. Cliente: Dr. Helder (Alexandre e Dani)',valor:130}];
   o['Abril'].config = {idasExigidas:4, emAndamento:false};
-
   o['Maio'].registros = [
     {id:uid(),data:'18/05/2026',tipo:'Entrega', escrevente:'Deyse/Ilana',local:'Imbassaí Privilege',grafica:'Sim',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'19/05/2026',tipo:'Retirada',escrevente:'Deyse/Ilana',local:'Imbassaí Privilege',grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -673,7 +639,6 @@ function buildSeed() {
   o['Maio'].idasPF = [{id:uid(),data:'08/05/2026'},{id:uid(),data:'21/05/2026'},{id:uid(),data:'26/05/2026'}];
   o['Maio'].diligencias = [];
   o['Maio'].config = {idasExigidas:4, emAndamento:false};
-
   o['Junho'].registros = [
     {id:uid(),data:'01/06/2026',tipo:'Entrega', escrevente:'Álvaro',local:'Santa Helena',      grafica:'Não',obs:'Inclusa no pacote (1/4)'},
     {id:uid(),data:'02/06/2026',tipo:'Entrega', escrevente:'Débora',local:'Santa Helena',      grafica:'Não',obs:'Inclusa no pacote (2/4)'},
@@ -683,49 +648,145 @@ function buildSeed() {
   ];
   o['Junho'].idasPF = [{id:uid(),data:'03/06/2026'}];
   o['Junho'].diligencias = [];
-  o['Junho'].config = {idasExigidas:3, emAndamento:true}; // recesso São João + em andamento
-
+  o['Junho'].config = {idasExigidas:3, emAndamento:true};
   return o;
 }
 
-// ════════════════════
-// AUTH
-// ════════════════════
-function toggleAdmin() { isAdmin ? exitAdmin() : (document.getElementById('login-screen').classList.add('open'), setTimeout(() => document.getElementById('lpw').focus(), 100)); }
-function doLogin() {
-  if (document.getElementById('lpw').value === _ap.join('')) {
-    isAdmin = true; closeLogin();
-    document.getElementById('mbadge').className = 'mode-badge m-admin';
-    document.getElementById('mbadge').textContent = '🔑 Admin';
-    document.getElementById('hsub').textContent = 'Cartório Praia do Forte · 2026 · Modo Admin';
-    document.getElementById('abar').style.display = 'flex';
-    document.body.classList.add('is-admin');
-    document.getElementById('th-del').style.display = '';
-    document.getElementById('pf-config-wrap').style.display = '';
-    document.getElementById('atbtn').textContent = '🔓';
-    renderAll(); toast('Modo admin ativado');
+// ════════════════════════════════════════════════════════════════
+// AUTH (casca nova) — gate _ap preservado como porta de EDIÇÃO
+// ════════════════════════════════════════════════════════════════
+function doLogin(ev){
+  if(ev) ev.preventDefault();
+  const id = (document.getElementById('luser').value || '').trim().toLowerCase();
+  const pw = document.getElementById('lpw').value;
+  const users = usersLoad() || [];
+  const found = users.find(u => (u.login && u.login.toLowerCase() === id) || (u.nome && u.nome.toLowerCase() === id));
+  if (found && pw === found.senha) {
+    currentUser = found; isAdmin = (found.papel === 'admin'); revealApp();
   } else {
     document.getElementById('lerr').style.display = 'block';
     document.getElementById('lpw').value = '';
     document.getElementById('lpw').focus();
   }
 }
-function exitAdmin() {
-  isAdmin = false;
-  document.getElementById('mbadge').className = 'mode-badge m-client';
-  document.getElementById('mbadge').textContent = '👁 Leitura';
-  document.getElementById('hsub').textContent = 'Cartório Praia do Forte · 2026 · Visualização';
-  document.getElementById('abar').style.display = 'none';
-  document.body.classList.remove('is-admin');
-  document.getElementById('th-del').style.display = 'none';
-  document.getElementById('pf-config-wrap').style.display = 'none';
-  document.getElementById('atbtn').textContent = '⚙';
-  renderAll(); toast('Modo leitura ativado');
+function revealApp(){
+  document.getElementById('login-screen').classList.add('gone');
+  document.body.classList.toggle('is-admin', isAdmin);
+  renderUser();
+  curSection = 'vis';
+  renderApp();
+  toast((isAdmin ? 'Bem-vindo, ' : 'Modo leitura — ') + (currentUser ? currentUser.nome : ''));
+}
+function logout(){
+  isAdmin = false; currentUser = null;
+  document.getElementById('login-screen').classList.remove('gone');
+  document.getElementById('lpw').value = '';
+  document.getElementById('lerr').style.display = 'none';
+  closeMenus();
 }
 
-// ════════════════════
-// CONFIG PF EXIGIDAS
-// ════════════════════
+// ── Estágio 4: store de usuários no localStorage (D1: FORA do blob; sem PII no A2 público) ──
+function usersLoad(){ try{ const r = localStorage.getItem(UKEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
+function usersSave(a){ try{ localStorage.setItem(UKEY, JSON.stringify(a)); }catch(e){} }
+function seedUsers(){
+  const cur = usersLoad();
+  if (cur && Array.isArray(cur) && cur.length) return; // idempotente — não sobrescreve
+  usersSave([
+    { id:'u_admin', login:'isaac', nome:'Isaac', papel:'admin', senha:_ap.join(''), foto:null }
+  ]); // Login é exclusivo do admin (Isaac); o cartório usa o link consulta-v2.html (sem login)
+}
+function initials(nome){ const p = String(nome||'?').trim().split(/\s+/).filter(Boolean); return ((p[0]?p[0][0]:'') + (p[1]?p[1][0]:'')).toUpperCase() || '?'; }
+function renderUser(){
+  const u = currentUser, av = document.getElementById('uav');
+  if (u && u.foto){ av.textContent = ''; av.style.background = 'center/cover no-repeat url(' + u.foto + ')'; }
+  else { av.style.background = ''; av.textContent = u ? initials(u.nome) : '?'; }
+  document.getElementById('uname').textContent = u ? u.nome : '—';
+  document.getElementById('urole').textContent = u ? (u.papel === 'admin' ? 'Administrador' : 'Consulta') : '—';
+  document.getElementById('umenu-role').textContent = u ? (u.papel === 'admin' ? '🔑 Administrador (edição)' : '👁 Consulta (leitura)') : '';
+}
+
+// ── Estágio 4: painel "Meu perfil" (foto + alterar senha) — usuários no localStorage ──
+function avatarBig(u){
+  if (u && u.foto) return `<div style="width:78px;height:78px;border-radius:50%;background:center/cover no-repeat url('${u.foto}');border:2px solid var(--border)"></div>`;
+  return `<div style="width:78px;height:78px;border-radius:50%;background:linear-gradient(150deg,var(--verde-cl),var(--verde));color:#fff;display:grid;place-items:center;font-size:27px;font-weight:800;font-family:var(--ff-serif)">${esc(initials(u ? u.nome : ''))}</div>`;
+}
+function openPerfil(){ if(!currentUser) return; renderPerfil(); document.getElementById('ov-perfil').classList.add('open'); closeMenus(); }
+function renderPerfil(){
+  const u = currentUser; if(!u) return;
+  document.getElementById('pf-avatar').innerHTML = avatarBig(u);
+  document.getElementById('pf-nome').textContent = u.nome;
+  document.getElementById('pf-papel').textContent = u.papel === 'admin' ? 'Administrador (edição)' : 'Consulta (leitura)';
+  ['pf-atual','pf-nova','pf-conf'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  const m = document.getElementById('pf-msg'); if(m){ m.textContent=''; }
+}
+// Redimensiona no canvas p/ máx 256×256, JPEG 0.8 (evita estourar o localStorage)
+function resizeImage(file, cb){
+  const reader = new FileReader();
+  reader.onload = function(e){
+    const img = new Image();
+    img.onload = function(){
+      let w = img.width, h = img.height; const max = 256;
+      if (w >= h){ if (w > max){ h = Math.round(h*max/w); w = max; } }
+      else { if (h > max){ w = Math.round(w*max/h); h = max; } }
+      const cv = document.createElement('canvas'); cv.width = w; cv.height = h;
+      cv.getContext('2d').drawImage(img, 0, 0, w, h);
+      try { cb(cv.toDataURL('image/jpeg', 0.8)); } catch(err){ cb(null); }
+    };
+    img.onerror = function(){ cb(null); };
+    img.src = e.target.result;
+  };
+  reader.onerror = function(){ cb(null); };
+  reader.readAsDataURL(file);
+}
+function onFotoChange(input){
+  const f = input.files && input.files[0]; if(!f) return;
+  resizeImage(f, function(dataUri){
+    if(!dataUri){ toast('Não foi possível processar a imagem', true); return; }
+    const users = usersLoad() || []; const i = users.findIndex(x => x.id === currentUser.id);
+    if (i >= 0){ users[i].foto = dataUri; usersSave(users); currentUser.foto = dataUri; }
+    renderPerfil(); renderUser(); toast('Foto atualizada');
+    input.value = '';
+  });
+}
+function salvarSenha(){
+  const atual = document.getElementById('pf-atual').value;
+  const nova  = document.getElementById('pf-nova').value;
+  const conf  = document.getElementById('pf-conf').value;
+  const msg = document.getElementById('pf-msg');
+  const err = function(t){ msg.textContent = t; msg.style.color = 'var(--danger)'; };
+  if (atual !== currentUser.senha) return err('Senha atual incorreta.');
+  if (!nova || nova.length < 3)    return err('A nova senha deve ter ao menos 3 caracteres.');
+  if (nova !== conf)               return err('A confirmação não confere.');
+  const users = usersLoad() || []; const i = users.findIndex(x => x.id === currentUser.id);
+  if (i >= 0){ users[i].senha = nova; usersSave(users); currentUser.senha = nova; }
+  ['pf-atual','pf-nova','pf-conf'].forEach(id=>document.getElementById(id).value='');
+  msg.textContent = 'Senha alterada com sucesso.'; msg.style.color = 'var(--pac)';
+  toast('Senha alterada');
+}
+
+// ════════════════════════════════════════════════════════════════
+// CONFIG PF / EM ANDAMENTO — VERBATIM (renderAll => renderApp)
+// ════════════════════════════════════════════════════════════════
+// ── Estágio 3: Fechar/Reabrir mês (flag config.fechado, separado de emAndamento) ──
+function isFechado(mes){ const d = DB[mes]; return !!(d && d.config && d.config.fechado === true); }
+function canEdit(mes){ return isAdmin && !isFechado(mes || curMonth); }
+function avisoFechado(){ toast('Mês fechado — somente leitura e relatórios. Reabra para editar.', true); }
+function fecharMes(){
+  if(!isAdmin) return;
+  if(!confirm('Fechar o mês de '+curMonth+'? Ele ficará somente leitura até ser reaberto.')) return;
+  if(!DB[curMonth]) DB[curMonth] = emptyMonth();
+  if(!DB[curMonth].config) DB[curMonth].config = {};
+  DB[curMonth].config.fechado = true;
+  DB[curMonth].config.emAndamento = false; // consolida o cálculo ao fechar
+  apiSave(); renderAll(); toast('Mês '+curMonth+' fechado');
+}
+function reabrirMes(){
+  if(!isAdmin) return;
+  if(!DB[curMonth]) DB[curMonth] = emptyMonth();
+  if(!DB[curMonth].config) DB[curMonth].config = {};
+  DB[curMonth].config.fechado = false;
+  apiSave(); renderAll(); toast('Mês '+curMonth+' reaberto para edição');
+}
 function savePFExig() {
   const val = parseInt(document.getElementById('pf-exig').value) || 4;
   if (!DB[curMonth]) DB[curMonth] = emptyMonth();
@@ -740,272 +801,39 @@ function saveEmAndamento(val) {
   apiSave(); renderAll(); toast(val ? 'Mês marcado como em andamento' : 'Mês marcado como fechado');
 }
 
-// ════════════════════
-// POPULATE SELECTS
-// ════════════════════
+// ════════════════════════════════════════════════════════════════
+// CRUD — VERBATIM (openForm, saveReg, delReg, openManage, renderML,
+//                  saveML, delML, delMLInline) — usa os modais acima
+// ════════════════════════════════════════════════════════════════
 function populateSels() {
   ['f-mes', 'm-mes', 'rep-mes'].forEach(id => {
     const s = document.getElementById(id); if (!s) return;
     s.innerHTML = MONTHS.map(m => `<option value="${m}">${m}</option>`).join('');
   });
 }
-
-// ════════════════════
-// RENDER ANNUAL
-// ════════════════════
-function renderAnnual() {
-  const vals = MONTHS.map(m => calcMes(m).total);
-  const mx = Math.max(...vals, 1);
-  document.getElementById('annual-grid').innerHTML = MONTHS.map((m, i) => {
-    const c = calcMes(m); const has = c.regs.length > 0 || c.dilig > 0;
-    const emAnd = c.emAndamento;
-    return `<div class="ac ${m === curMonth ? 'sel' : ''} ${emAnd ? 'em-and' : ''}" onclick="sw('${m}')">
-      ${emAnd ? '<div class="ac-badge">Em andamento</div>' : ''}
-      <div class="ac-month">${m}</div>
-      <div class="ac-val" style="color:${has ? 'var(--navy)' : 'var(--slate)'}">${has ? R(c.total) : '—'}</div>
-      <div class="ac-sub">${c.regs.length} E/R · ${c.idasPF}/${c.idasExig} PF</div>
-      <div class="ac-bar"><div class="ac-fill" style="width:${(vals[i] / mx * 100).toFixed(0)}%"></div></div>
-    </div>`;
-  }).join('');
-}
-
-function renderTabs() {
-  document.getElementById('tabs').innerHTML = MONTHS.map(m =>
-    `<button class="tab ${m === curMonth ? 'active' : ''}" onclick="sw('${m}')">${m.slice(0, 3)}</button>`
-  ).join('');
-}
-function sw(m) { curMonth = m; curFilter = 'todos'; document.querySelectorAll('.fbtn').forEach((b, i) => b.classList.toggle('on', i === 0)); renderAll(); }
-function setFilter(f, el) { curFilter = f; document.querySelectorAll('.fbtn').forEach(b => b.classList.remove('on')); el.classList.add('on'); renderTable(); }
-
-// ════════════════════
-// RENDER KPI
-// ════════════════════
-function renderKPI() {
-  const c = calcMes(curMonth);
-  const kpis = [
-    { l: 'Total a Receber',     v: R(c.total),   s: c.emAndamento ? 'Mês em andamento' : 'Valor líquido do mês',     color: 'var(--green)',  i: '💰' },
-    { l: 'E/R Cobradas',        v: c.er_cobradas + ' × ' + R(VAL_ER), s: `${c.regs.length} total · ${Math.min(c.regs.length,PACOTE)} pacote · ${c.er_abatidas} abatidas`, color: 'var(--blue)', i: '📦' },
-    { l: 'Gráficas Cobradas',   v: R(c.graf_cobradas * VAL_GRAF), s: `${c.graf_t} total · ${c.graf_abatidas} abatida(s)`, color: 'var(--purple)', i: '🖨️' },
-    { l: 'Diligências',         v: R(c.dilig),   s: `${(DB[curMonth]||emptyMonth()).diligencias.length} item(ns)`,   color: 'var(--gold)',   i: '🛵' },
-    { l: 'Idas a PF',          v: `${c.idasPF}/${c.idasExig}`, s: c.nao_idas > 0 ? `⚠ ${c.nao_idas} não-ida(s) → desc. ${R(c.desconto)}` : '✓ Todas realizadas', color: c.nao_idas > 0 ? 'var(--red)' : 'var(--green)', i: '📍' },
-  ];
-  document.getElementById('kpi-grid').innerHTML = kpis.map(k => `
-    <div class="kc" style="--kc:${k.color}">
-      <div class="kc-label">${k.l}</div>
-      <div class="kc-val">${k.v}</div>
-      <div class="kc-sub">${k.s}</div>
-      <div class="kc-icon">${k.i}</div>
-    </div>`).join('');
-}
-
-// ════════════════════
-// RENDER TABLE
-// ════════════════════
-function renderTable() {
-  const d = DB[curMonth] || emptyMonth();
-  const c = calcMes(curMonth);
-
-  let pairs = d.registros.map((r, i) => ({ r, i, status: c.statuses[i], grafStatus: c.grafStatuses[i] }));
-
-  if (curFilter === 'pacote') pairs = pairs.filter(p => p.status === 'pacote');
-  else if (curFilter === 'avulso') pairs = pairs.filter(p => p.status !== 'pacote');
-  else if (['Entrega', 'Retirada', 'Entrega/Retirada'].includes(curFilter)) pairs = pairs.filter(p => p.r.tipo === curFilter);
-
-  const tipoBadge = t => t === 'Entrega' ? '<span class="badge be">↑ Entrega</span>' : t === 'Retirada' ? '<span class="badge br">↓ Retirada</span>' : '<span class="badge ba">↕ Ambos</span>';
-  const statusBadge = s => s === 'pacote' ? '<span class="badge bs">🟢 Pacote</span>' : s === 'desc' ? '<span class="badge" style="background:#FFF1F2;color:#991B1B">🔴 Descontado</span>' : '<span class="badge" style="background:#FFFBEB;color:#92400E">🟡 Cobrado</span>';
-
-  const tbody = document.getElementById('tbody');
-  if (!pairs.length) { tbody.innerHTML = `<tr><td colspan="11" class="nodata">Nenhum registro</td></tr>`; return; }
-
-  tbody.innerHTML = pairs.map(({ r, i, status, grafStatus }) => {
-    const rowCls = status === 'pacote' ? 'tr-pacote' : status === 'desc' ? 'tr-desc' : 'tr-cobrado';
-    const erVal = status === 'cobrado' ? R(VAL_ER) : status === 'desc' ? `<s style="color:var(--muted)">${R(VAL_ER)}</s>` : '—';
-    let grafVal = '—';
-    if (r.grafica === 'Sim') {
-      const isDescGraf = grafStatus === 'graf-desc';
-      grafVal = isDescGraf
-        ? `<s style="color:var(--muted)">${R(VAL_GRAF)}</s>`
-        : `<span style="color:var(--purple);font-weight:700">${R(VAL_GRAF)}</span>`;
+function openForm(id) {
+  if (isFechado(curMonth)) { avisoFechado(); return; }
+  editRegId = id || null;
+  const t = document.getElementById('f-title');
+  if (editRegId) {
+    const r = (DB[curMonth]||emptyMonth()).registros.find(x => x.id === editRegId);
+    if (r) {
+      document.getElementById('f-mes').value = curMonth;
+      document.getElementById('f-data').value = toISO(r.data);
+      document.getElementById('f-tipo').value = r.tipo || 'Entrega';
+      document.getElementById('f-esc').value = r.escrevente || '';
+      document.getElementById('f-local').value = r.local || '';
+      document.getElementById('f-graf').value = r.grafica || 'Não';
+      document.getElementById('f-obs').value = r.obs || '';
+      if (t) t.textContent = 'Editar registro';
+      document.getElementById('ov-form').classList.add('open');
+      return;
     }
-    return `<tr class="${rowCls}">
-      <td data-l="#" style="color:var(--muted);font-size:10px">${i + 1}</td>
-      <td data-l="Data" style="font-weight:600;white-space:nowrap;color:var(--navy)">${esc(r.data)}</td>
-      <td data-l="Tipo">${tipoBadge(r.tipo)}</td>
-      <td data-l="Escrevente" style="color:var(--muted)">${esc(r.escrevente || '—')}</td>
-      <td data-l="Local" style="font-weight:500">${esc(r.local)}</td>
-      <td data-l="Gráfica">${r.grafica === 'Sim' ? '<span class="badge bs">✓ Sim</span>' : '<span class="badge bn">— Não</span>'}</td>
-      <td data-l="Status">${statusBadge(status)}</td>
-      <td data-l="Valor E/R">${erVal}</td>
-      <td data-l="Valor Graf.">${grafVal}</td>
-      <td data-l="Obs." style="font-size:10px;color:var(--muted)">${esc(r.obs || '')}</td>
-      ${isAdmin ? `<td class="td-del"><button class="del-btn" data-id="${esc(r.id)}" onclick="delReg(this.dataset.id)">🗑</button></td>` : '<td class="td-del"></td>'}
-    </tr>`;
-  }).join('');
-}
-
-// ════════════════════
-// RENDER CALC SIDEBAR
-// ════════════════════
-function renderCalc() {
-  const c = calcMes(curMonth);
-  document.getElementById('calc-content').innerHTML = `
-    <div class="calc-box">
-      <div class="calc-row"><span class="calc-label">E/R no pacote (${Math.min(c.regs.length, PACOTE)}/4 gratuitas)</span><span class="calc-val c-green">R$ 0</span></div>
-      <div class="calc-row"><span class="calc-label">E/R avulsas (${c.er_av} × ${R(VAL_ER)})</span><span class="calc-val c-blue">${R(c.er_av * VAL_ER)}</span></div>
-      <div class="calc-row"><span class="calc-label">Gráficas (${c.graf_t} × ${R(VAL_GRAF)})</span><span class="calc-val c-purple">${R(c.graf_t * VAL_GRAF)}</span></div>
-      <div class="calc-row sep"><span class="calc-label">Bruto</span><span class="calc-val">${R(c.bruto)}</span></div>
-      ${c.emAndamento
-        ? `<div class="calc-row"><span class="calc-label" style="color:var(--gold)">⏳ Em andamento — desconto pendente</span><span class="calc-val">—</span></div>`
-        : c.desconto > 0
-          ? `<div class="calc-row"><span class="calc-label">Abatimento (${c.nao_idas} não-ida${c.nao_idas>1?'s':''} × 3 E/R + 3 gráf.)</span><span class="calc-val c-red">− ${R(c.desconto)}</span></div>
-             <div class="calc-row"><span class="calc-label" style="font-size:10px;color:var(--muted)">&nbsp;↳ ${c.er_abatidas} E/R + ${c.graf_abatidas} gráfica(s) abatidas</span><span></span></div>`
-          : `<div class="calc-row"><span class="calc-label">Abatimento não-idas PF</span><span class="calc-val c-green">R$ 0</span></div>`
-      }
-      <div class="calc-row sep"><span class="calc-label">Subtotal E/R</span><span class="calc-val c-blue">${R(c.subtotalER)}</span></div>
-      <div class="calc-row"><span class="calc-label">Diligências</span><span class="calc-val c-gold">${R(c.dilig)}</span></div>
-    </div>
-    <div class="total-row"><span>Total a Receber</span><span>${R(c.total)}</span></div>`;
-}
-
-// ════════════════════
-// RENDER PF
-// ════════════════════
-function renderPF() {
-  const d = DB[curMonth] || emptyMonth(); const c = calcMes(curMonth);
-  document.getElementById('pf-count').textContent = `${c.idasPF}/${c.idasExig}`;
-  if (isAdmin) document.getElementById('pf-exig').value = c.idasExig;
-
-  const emAndBtn = isAdmin ? `<li style="padding:6px 0">
-    <label style="display:flex;align-items:center;gap:8px;font-size:11.5px;cursor:pointer">
-      <input type="checkbox" ${c.emAndamento ? 'checked' : ''} onchange="saveEmAndamento(this.checked)">
-      Mês em andamento (não calcular não-idas)
-    </label>
-  </li>` : '';
-
-  // Idas PF com botão excluir inline (admin)
-  const pfItems = d.idasPF.map(p => `
-    <li style="display:flex;justify-content:space-between;align-items:center">
-      <span style="display:flex;align-items:center;gap:7px">
-        <span class="pdot" style="background:var(--green)"></span>${esc(p.data)} ✓
-      </span>
-      ${isAdmin ? `<button data-id="${esc(p.id)}" data-m="${esc(curMonth)}" onclick="delMLInline(this.dataset.id,this.dataset.m,'pf')" style="background:none;border:none;cursor:pointer;color:var(--slate);font-size:13px;padding:2px 4px;border-radius:4px" title="Excluir">🗑</button>` : ''}
-    </li>`).join('');
-
-  document.getElementById('pfl').innerHTML =
-    pfItems +
-    (c.nao_idas > 0 && !c.emAndamento
-      ? `<li style="color:var(--red);font-size:10.5px">⚠ ${c.nao_idas} não-ida(s) → abate ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf. = ${R(c.desconto)}</li>`
-      : c.emAndamento ? '<li style="color:var(--gold);font-size:10.5px">⏳ Mês em andamento</li>'
-      : '<li style="color:var(--green);font-size:10.5px">✓ Idas completas — sem abatimento</li>') +
-    emAndBtn;
-
-  document.getElementById('aviso-and').style.display = c.emAndamento ? '' : 'none';
-}
-
-function renderDil() {
-  const d = DB[curMonth] || emptyMonth();
-  document.getElementById('dill').innerHTML = d.diligencias.length
-    ? d.diligencias.map(x => `
-        <div class="di" style="position:relative">
-          <div class="di-date" style="display:flex;justify-content:space-between;align-items:center">
-            <span>📅 ${esc(x.data)} · ${R(x.valor || 130)}</span>
-            ${isAdmin ? `<button data-id="${esc(x.id)}" data-m="${esc(curMonth)}" onclick="delMLInline(this.dataset.id,this.dataset.m,'dil')" style="background:none;border:none;cursor:pointer;color:#92400E;font-size:13px;padding:0 2px;opacity:.7" title="Excluir">🗑</button>` : ''}
-          </div>
-          ${esc(x.desc)}
-        </div>`).join('')
-    : '<div style="color:var(--muted);font-size:11px;padding:4px 0">Nenhuma diligência</div>';
-}
-
-function renderLocais() {
-  const r = (DB[curMonth] || emptyMonth()).registros;
-  const c = {}; r.forEach(x => { c[x.local] = (c[x.local] || 0) + 1; });
-  const s = Object.entries(c).sort((a, b) => b[1] - a[1]).slice(0, 6);
-  const mx = s[0]?.[1] || 1;
-  const cols = ['#3B82F6', '#8B5CF6', '#10B981', '#F59E0B', '#EF4444', '#06B6D4'];
-  document.getElementById('locais').innerHTML = s.length
-    ? s.map(([l, n], i) => `<div class="cr-row"><span class="cr-label" title="${esc(l)}">${esc(l)}</span><div class="cr-wrap"><div class="cr-bar" style="width:${(n / mx * 100).toFixed(0)}%;background:${cols[i]}"><span>${n}x</span></div></div></div>`).join('')
-    : '<div class="nodata">Sem dados</div>';
-}
-
-function renderAll() { renderAnnual(); renderTabs(); renderKPI(); renderTable(); renderCalc(); renderPF(); renderDil(); renderLocais(); }
-
-// ════════════════════
-// RELATÓRIO
-// ════════════════════
-function openReport() { document.getElementById('rep-mes').value = curMonth; renderReport(); document.getElementById('ov-report').classList.add('open'); }
-function renderReport() {
-  const mes = document.getElementById('rep-mes').value;
-  document.getElementById('rep-title').textContent = mes + ' 2026';
-  const d = DB[mes] || emptyMonth(); const c = calcMes(mes);
-  document.getElementById('rep-body').innerHTML = `
-    <div class="rep-sec">
-      <h3>📊 Resumo — ${mes} 2026${c.emAndamento ? ' ⏳ Em andamento' : ''}</h3>
-      <div class="rep-grid">
-        <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--green)">${R(c.total)}</div><div class="rep-kpi-label">Total a Receber</div></div>
-        <div class="rep-kpi"><div class="rep-kpi-val">${c.regs.length}</div><div class="rep-kpi-label">Total E/R realizadas</div></div>
-        <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--gold)">${R(c.dilig)}</div><div class="rep-kpi-label">Diligências</div></div>
-        <div class="rep-kpi"><div class="rep-kpi-val" style="color:${c.nao_idas>0?'var(--red)':'var(--green)'}">${c.idasPF}/${c.idasExig}</div><div class="rep-kpi-label">Idas a PF</div></div>
-      </div>
-    </div>
-    ${isAdmin ? `
-    <div class="rep-sec">
-      <h3>🧮 Cálculo Detalhado</h3>
-      <div class="calc-detail">
-        <div class="calc-detail-row"><span>E/R no pacote (${Math.min(c.regs.length,PACOTE)} gratuitas)</span><span>R$ 0</span></div>
-        <div class="calc-detail-row"><span>E/R avulsas: ${c.er_av} × ${R(VAL_ER)}</span><span>${R(c.er_av*VAL_ER)}</span></div>
-        <div class="calc-detail-row"><span>Gráficas: ${c.graf_t} × ${R(VAL_GRAF)}</span><span>${R(c.graf_t*VAL_GRAF)}</span></div>
-        <div class="calc-detail-row" style="font-weight:600"><span>Bruto</span><span>${R(c.bruto)}</span></div>
-        ${c.emAndamento ? '<div class="calc-detail-row" style="color:var(--gold)"><span>Mês em andamento — abatimento pendente</span><span>—</span></div>'
-          : c.desconto>0 ? `<div class="calc-detail-row" style="color:var(--red)"><span>Abatimento: ${c.nao_idas} não-ida(s) × (3 E/R + 3 gráf.) = ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf.</span><span>− ${R(c.desconto)}</span></div>` : ''}
-        <div class="calc-detail-row" style="color:var(--blue-light)"><span>Subtotal E/R</span><span>${R(c.subtotalER)}</span></div>
-        <div class="calc-detail-row" style="color:var(--gold)"><span>Diligências</span><span>${R(c.dilig)}</span></div>
-        <div class="calc-detail-row"><span>TOTAL A RECEBER</span><span style="color:var(--green)">${R(c.total)}</span></div>
-      </div>
-    </div>` : ''}
-    <div class="rep-sec">
-      <h3>📋 Entregas & Retiradas (${c.regs.length})</h3>
-      <table class="rep-table">
-        <thead><tr><th>#</th><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráfica</th><th>Status</th>${isAdmin?'<th>E/R</th><th>Gráf.</th>':''}</tr></thead>
-        <tbody>${d.registros.map((r,i)=>{
-          const st=c.statuses[i]; const gs=c.grafStatuses[i];
-          const rc=st==='pacote'?'pacote-row':st==='desc'?'desc-row':'cobrado-row';
-          const sl=st==='pacote'?'🟢 Pacote':st==='desc'?'🔴 Descontado':'🟡 Cobrado';
-          const ev=st==='cobrado'?R(VAL_ER):st==='desc'?'—':'R$ 0';
-          const gv=r.grafica==='Sim'?(gs==='graf-desc'?'Abatida':R(VAL_GRAF)):'—';
-          return`<tr class="${rc}"><td>${i+1}</td><td>${esc(r.data)}</td><td>${esc(r.tipo)}</td><td>${esc(r.escrevente||'—')}</td><td>${esc(r.local)}</td><td>${esc(r.grafica)}</td><td>${sl}</td>${isAdmin?`<td>${ev}</td><td>${gv}</td>`:''}</tr>`;
-        }).join('')}</tbody>
-      </table>
-    </div>
-    ${d.idasPF.length>0?`
-    <div class="rep-sec">
-      <h3>📍 Idas a PF (${c.idasPF}/${c.idasExig}${c.idasExig<4?' — recesso':''})</h3>
-      <table class="rep-table">
-        <thead><tr><th>Data</th><th>Status</th></tr></thead>
-        <tbody>
-          ${d.idasPF.map(p=>`<tr><td>${esc(p.data)}</td><td style="color:var(--green);font-weight:700">✓ Realizada</td></tr>`).join('')}
-          ${c.nao_idas>0&&!c.emAndamento?`<tr><td colspan="2" style="color:var(--red);font-weight:700">⚠ ${c.nao_idas} não-ida(s) → abateu ${c.er_abatidas} E/R + ${c.graf_abatidas} gráfica(s) = ${R(c.desconto)}</td></tr>`:''}
-        </tbody>
-      </table>
-    </div>`:''}
-    ${d.diligencias.length>0?`
-    <div class="rep-sec">
-      <h3>🛵 Diligências (não sofrem abatimento)</h3>
-      <table class="rep-table">
-        <thead><tr><th>Data</th><th>Descrição</th><th>Valor</th></tr></thead>
-        <tbody>
-          ${d.diligencias.map(x=>`<tr><td>${esc(x.data)}</td><td>${esc(x.desc)}</td><td style="font-weight:700;color:var(--gold)">${R(x.valor||130)}</td></tr>`).join('')}
-          <tr style="font-weight:700"><td colspan="2">Total</td><td style="color:var(--gold)">${R(c.dilig)}</td></tr>
-        </tbody>
-      </table>
-    </div>`:''}`;
-}
-
-// ════════════════════
-// ADMIN ACTIONS
-// ════════════════════
-function openForm() {
+    editRegId = null; // id não encontrado → cai em modo criar
+  }
+  if (t) t.textContent = 'Novo registro';
   document.getElementById('f-mes').value = curMonth;
-  ['f-data','f-esc','f-local','f-obs'].forEach(id=>document.getElementById(id).value='');
+  ['f-data','f-esc','f-local','f-obs'].forEach(fid=>document.getElementById(fid).value='');
   document.getElementById('f-tipo').value = 'Entrega';
   document.getElementById('f-graf').value = 'Não';
   document.getElementById('ov-form').classList.add('open');
@@ -1015,6 +843,24 @@ async function saveReg() {
   const iso = document.getElementById('f-data').value;
   const local = document.getElementById('f-local').value.trim();
   if (!iso || !local) { toast('Preencha Data e Local', true); return; }
+  const _wm = editRegId ? curMonth : mes; // Estágio 3: mês fechado não grava
+  if (isFechado(_wm)) { avisoFechado(); closeOv('ov-form'); return; }
+  // Estágio 2: edição in-place — atualiza pelo id, preservando a posição no array
+  // (pacote/status dependem do índice; por isso NÃO removemos+push).
+  if (editRegId) {
+    const r = (DB[curMonth]||emptyMonth()).registros.find(x => x.id === editRegId);
+    if (r) {
+      r.data = fmtD(iso);
+      r.tipo = document.getElementById('f-tipo').value;
+      r.escrevente = document.getElementById('f-esc').value.trim();
+      r.local = local;
+      r.grafica = document.getElementById('f-graf').value;
+      r.obs = document.getElementById('f-obs').value.trim() || r.obs || '';
+    }
+    editRegId = null; closeOv('ov-form');
+    await apiSave(); renderAll();
+    toast('Registro atualizado'); return;
+  }
   if (!DB[mes]) DB[mes] = emptyMonth();
   const n = DB[mes].registros.length + 1;
   const isPacote = n <= PACOTE;
@@ -1030,19 +876,33 @@ async function saveReg() {
   toast(`Registro #${n} — ${isPacote ? 'No pacote (gratuito)' : 'Avulso: ' + R(VAL_ER)}`);
 }
 async function delReg(id) {
+  if (isFechado(curMonth)) { avisoFechado(); return; }
   if (!confirm('Excluir este registro?')) return;
   DB[curMonth].registros = DB[curMonth].registros.filter(x => x.id !== id);
   await apiSave(); renderAll(); toast('Registro excluído');
 }
-function openManage(mode) {
+function openManage(mode, editId) {
+  if (isFechado(curMonth)) { avisoFechado(); return; }
   mmode = mode;
-  document.getElementById('mtitle').textContent = mode === 'pf' ? 'Idas a PF' : 'Diligências';
+  editMLId = editId || null;
+  document.getElementById('mtitle').textContent = (editMLId ? 'Editar ' : '') + (mode === 'pf' ? 'Ida a PF' : (editMLId ? 'Diligência' : 'Diligências'));
   document.getElementById('m-mes').value = curMonth;
-  document.getElementById('m-data').value = '';
-  document.getElementById('m-desc').value = '';
-  document.getElementById('m-val').value = '130';
   document.getElementById('m-dw').style.display = mode === 'dil' ? '' : 'none';
   document.getElementById('m-vw').style.display = mode === 'dil' ? '' : 'none';
+  if (editMLId) {
+    const d = DB[curMonth] || emptyMonth();
+    const it = (mode === 'pf' ? d.idasPF : d.diligencias).find(x => x.id === editMLId);
+    if (it) {
+      document.getElementById('m-data').value = toISO(it.data);
+      document.getElementById('m-desc').value = it.desc || '';
+      document.getElementById('m-val').value = it.valor || 130;
+    } else { editMLId = null; }
+  }
+  if (!editMLId) {
+    document.getElementById('m-data').value = '';
+    document.getElementById('m-desc').value = '';
+    document.getElementById('m-val').value = '130';
+  }
   renderML(); document.getElementById('ov-manage').classList.add('open');
 }
 function renderML() {
@@ -1050,14 +910,30 @@ function renderML() {
   const d = DB[mes] || emptyMonth();
   const items = mmode === 'pf' ? d.idasPF : d.diligencias;
   document.getElementById('mlist').innerHTML = items.length
-    ? items.map(it => `<div class="mi"><div><div class="mi-label">${esc(mmode==='pf'?it.data:it.desc)}</div><div class="mi-date">${esc(it.data)}${mmode==='dil'?' · '+R(it.valor||130):''}</div></div><button class="btn btn-danger" data-id="${esc(it.id)}" data-m="${esc(mes)}" onclick="delML(this.dataset.id,this.dataset.m)">Excluir</button></div>`).join('')
+    ? items.map(it => `<div class="mi"><div><div class="mi-label">${esc(mmode==='pf'?it.data:it.desc)}</div><div class="mi-date">${esc(it.data)}${mmode==='dil'?' · '+R(it.valor||130):''}</div></div><div style="display:flex;gap:6px"><button class="btn ghost" data-id="${esc(it.id)}" onclick="openManage('${mmode}',this.dataset.id)">Editar</button><button class="btn danger" data-id="${esc(it.id)}" data-m="${esc(mes)}" onclick="delML(this.dataset.id,this.dataset.m)">Excluir</button></div></div>`).join('')
     : '<div class="nodata">Nenhum item</div>';
 }
 async function saveML() {
   const mes = document.getElementById('m-mes').value;
+  if (isFechado(mes)) { avisoFechado(); closeOv('ov-manage'); return; }
   const iso = document.getElementById('m-data').value;
   if (!iso) { toast('Informe a data', true); return; }
   if (!DB[mes]) DB[mes] = emptyMonth();
+  // Estágio 2: edição in-place de Ida PF / Diligência (atualiza pelo id)
+  if (editMLId) {
+    const it = (mmode === 'pf' ? DB[mes].idasPF : DB[mes].diligencias).find(x => x.id === editMLId);
+    if (it) {
+      it.data = fmtD(iso);
+      if (mmode === 'dil') {
+        const desc = document.getElementById('m-desc').value.trim();
+        if (!desc) { toast('Informe a descrição', true); return; }
+        it.desc = desc; it.valor = parseInt(document.getElementById('m-val').value) || 130;
+      }
+    }
+    editMLId = null; closeOv('ov-manage');
+    await apiSave(); renderAll();
+    toast(mmode === 'pf' ? 'Ida a PF atualizada' : 'Diligência atualizada'); return;
+  }
   if (mmode === 'pf') {
     DB[mes].idasPF.push({ id: uid(), data: fmtD(iso) });
     toast(`Ida a PF adicionada em ${mes}`);
@@ -1070,14 +946,14 @@ async function saveML() {
   await apiSave(); renderML(); renderAll();
 }
 async function delML(id, mes) {
+  if (isFechado(mes)) { avisoFechado(); return; }
   if (!confirm('Excluir?')) return;
   if (mmode === 'pf') DB[mes].idasPF = DB[mes].idasPF.filter(x => x.id !== id);
   else DB[mes].diligencias = DB[mes].diligencias.filter(x => x.id !== id);
   await apiSave(); renderML(); renderAll();
 }
-
-// Excluir direto da sidebar (sem abrir modal)
 async function delMLInline(id, mes, type) {
+  if (isFechado(mes)) { avisoFechado(); return; }
   if (!confirm('Excluir este item?')) return;
   if (!DB[mes]) return;
   if (type === 'pf') DB[mes].idasPF = DB[mes].idasPF.filter(x => x.id !== id);
@@ -1085,22 +961,293 @@ async function delMLInline(id, mes, type) {
   await apiSave(); renderAll();
   toast(type === 'pf' ? 'Ida a PF excluída' : 'Diligência excluída');
 }
-['ov-form','ov-manage','ov-report','login-screen'].forEach(id => {
-  document.getElementById(id).addEventListener('click', function(e) { if (e.target === this) this.classList.remove('open'); });
-});
 
-// ════════════════════
-// INIT
-// ════════════════════
-async function init() {
+// ════════════════════════════════════════════════════════════════
+// RELATÓRIO — VERBATIM (openReport / renderReport, com esc)
+// ════════════════════════════════════════════════════════════════
+function openReport() {
+  document.getElementById('rep-period').value = 'mes';
+  populateRepSel();
+  document.getElementById('rep-mes').value = curMonth;
+  renderReport();
+  document.getElementById('ov-report').classList.add('open');
+}
+function onPeriodChange() { populateRepSel(); renderReport(); }
+function populateRepSel() {
+  const p = document.getElementById('rep-period').value;
+  const sel = document.getElementById('rep-mes');
+  let opts;
+  if (p === 'mes') opts = MONTHS.map(m => [m, m]);
+  else if (p === 'tri') opts = [['T1','1º trim. (Jan–Mar)'],['T2','2º trim. (Abr–Jun)'],['T3','3º trim. (Jul–Set)'],['T4','4º trim. (Out–Dez)']];
+  else if (p === 'sem') opts = [['S1','1º sem. (Jan–Jun)'],['S2','2º sem. (Jul–Dez)']];
+  else opts = [['ano','Ano de 2026']];
+  sel.innerHTML = opts.map(o => `<option value="${o[0]}">${o[1]}</option>`).join('');
+  sel.style.display = p === 'ano' ? 'none' : '';
+}
+// Meses de cada período (usa a constante MONTHS: Jan..Dez). Retorna {label, months[]}.
+function periodMonths() {
+  const p = document.getElementById('rep-period').value;
+  const sel = document.getElementById('rep-mes').value;
+  if (p === 'mes') return { label: sel + ' 2026', months: [sel] };
+  if (p === 'tri') { const map = { T1:[0,3], T2:[3,6], T3:[6,9], T4:[9,12] }; const [a,b] = map[sel] || [0,3]; const ms = MONTHS.slice(a,b); return { label: sel + ' 2026 (' + ms[0].slice(0,3) + '–' + ms[ms.length-1].slice(0,3) + ')', months: ms }; }
+  if (p === 'sem') { const ms = sel === 'S2' ? MONTHS.slice(6,12) : MONTHS.slice(0,6); return { label: sel + ' 2026 (' + ms[0].slice(0,3) + '–' + ms[ms.length-1].slice(0,3) + ')', months: ms }; }
+  return { label: 'Ano de 2026', months: MONTHS.slice() };
+}
+// Agrega os meses do período somando os campos de calcMes (não reimplementa cálculo).
+function renderReportPeriodo(pm) {
+  const months = pm.months;
+  const agg = { total:0, dilig:0, regs:0, idasPF:0, idasExig:0, er_av:0, graf_t:0, subtotalER:0, bruto:0, desconto:0 };
+  const rows = months.map(m => {
+    const c = calcMes(m);
+    agg.total += c.total; agg.dilig += c.dilig; agg.regs += c.regs.length; agg.idasPF += c.idasPF; agg.idasExig += c.idasExig;
+    agg.er_av += c.er_av; agg.graf_t += c.graf_t; agg.subtotalER += c.subtotalER; agg.bruto += c.bruto; agg.desconto += c.desconto;
+    const mk = isFechado(m) ? ' 🔒' : (c.emAndamento ? ' ⏳' : '');
+    return `<tr><td>${m}${mk}</td><td>${c.regs.length}</td><td>${c.idasPF}/${c.idasExig}</td><td>${R(c.subtotalER)}</td><td>${R(c.dilig)}</td><td style="font-weight:700">${R(c.total)}</td></tr>`;
+  }).join('');
+  document.getElementById('rep-body').innerHTML = `
+    <div class="rep-sec"><h3>Resumo do período — ${pm.label}</h3>
+      <div class="rep-grid">
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--pac)">${R(agg.total)}</div><div class="rep-kpi-label">Total a Receber</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val">${agg.regs}</div><div class="rep-kpi-label">Total E/R</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--gold)">${R(agg.dilig)}</div><div class="rep-kpi-label">Diligências</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val">${agg.idasPF}/${agg.idasExig}</div><div class="rep-kpi-label">Idas a PF</div></div>
+      </div>
+    </div>
+    <div class="rep-sec"><h3>Detalhamento por mês (${months.length})</h3>
+      <table class="rep-table"><thead><tr><th>Mês</th><th>E/R</th><th>Idas PF</th><th>Subtotal E/R</th><th>Diligências</th><th>Total</th></tr></thead>
+      <tbody>${rows}
+        <tr style="font-weight:800;border-top:2px solid var(--verde)"><td>TOTAL</td><td>${agg.regs}</td><td>${agg.idasPF}/${agg.idasExig}</td><td>${R(agg.subtotalER)}</td><td>${R(agg.dilig)}</td><td style="color:var(--pac)">${R(agg.total)}</td></tr>
+      </tbody></table>
+    </div>
+    ${isAdmin ? `<div class="rep-sec"><h3>Composição do período</h3><div class="calc-detail">
+      <div class="calc-detail-row"><span>Bruto acumulado</span><span>${R(agg.bruto)}</span></div>
+      <div class="calc-detail-row" style="color:var(--red)"><span>Abatimentos (não-idas)</span><span>− ${R(agg.desconto)}</span></div>
+      <div class="calc-detail-row"><span>Subtotal E/R</span><span>${R(agg.subtotalER)}</span></div>
+      <div class="calc-detail-row" style="color:var(--gold)"><span>Diligências</span><span>${R(agg.dilig)}</span></div>
+      <div class="calc-detail-row" style="font-weight:700"><span>TOTAL DO PERÍODO</span><span style="color:var(--pac)">${R(agg.total)}</span></div>
+    </div></div>` : ''}`;
+}
+function renderReport() {
+  const p = document.getElementById('rep-period').value;
+  const pm = periodMonths();
+  document.getElementById('rep-title').textContent = pm.label;
+  if (p !== 'mes') { renderReportPeriodo(pm); return; }
+  renderReportMes(pm.months[0]);
+}
+function renderReportMes(mes) {
+  const d = DB[mes] || emptyMonth(); const c = calcMes(mes);
+  document.getElementById('rep-body').innerHTML = `
+    <div class="rep-sec">
+      <h3>Resumo — ${mes} 2026${c.emAndamento ? ' · em andamento' : ''}</h3>
+      <div class="rep-grid">
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--pac)">${R(c.total)}</div><div class="rep-kpi-label">Total a Receber</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val">${c.regs.length}</div><div class="rep-kpi-label">Total E/R realizadas</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:var(--gold)">${R(c.dilig)}</div><div class="rep-kpi-label">Diligências</div></div>
+        <div class="rep-kpi"><div class="rep-kpi-val" style="color:${c.nao_idas>0?'var(--red)':'var(--pac)'}">${c.idasPF}/${c.idasExig}</div><div class="rep-kpi-label">Idas a PF</div></div>
+      </div>
+    </div>
+    ${isAdmin ? `
+    <div class="rep-sec">
+      <h3>Cálculo Detalhado</h3>
+      <div class="calc-detail">
+        <div class="calc-detail-row"><span>E/R no pacote (${Math.min(c.regs.length,PACOTE)} gratuitas)</span><span>R$ 0</span></div>
+        <div class="calc-detail-row"><span>E/R avulsas: ${c.er_av} × ${R(VAL_ER)}</span><span>${R(c.er_av*VAL_ER)}</span></div>
+        <div class="calc-detail-row"><span>Gráficas: ${c.graf_t} × ${R(VAL_GRAF)}</span><span>${R(c.graf_t*VAL_GRAF)}</span></div>
+        <div class="calc-detail-row" style="font-weight:600"><span>Bruto</span><span>${R(c.bruto)}</span></div>
+        ${c.emAndamento ? '<div class="calc-detail-row" style="color:var(--gold)"><span>Mês em andamento — abatimento pendente</span><span>—</span></div>'
+          : c.desconto>0 ? `<div class="calc-detail-row" style="color:var(--red)"><span>Abatimento: ${c.nao_idas} não-ida(s) × (3 E/R + 3 gráf.) = ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf.</span><span>− ${R(c.desconto)}</span></div>` : ''}
+        <div class="calc-detail-row" style="color:var(--blue)"><span>Subtotal E/R</span><span>${R(c.subtotalER)}</span></div>
+        <div class="calc-detail-row" style="color:var(--gold)"><span>Diligências</span><span>${R(c.dilig)}</span></div>
+        <div class="calc-detail-row" style="font-weight:700"><span>TOTAL A RECEBER</span><span style="color:var(--pac)">${R(c.total)}</span></div>
+      </div>
+    </div>` : ''}
+    <div class="rep-sec">
+      <h3>Entregas & Retiradas (${c.regs.length})</h3>
+      <table class="rep-table">
+        <thead><tr><th>#</th><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráfica</th><th>Status</th>${isAdmin?'<th>E/R</th><th>Gráf.</th>':''}</tr></thead>
+        <tbody>${d.registros.map((r,i)=>{
+          const st=c.statuses[i]; const gs=c.grafStatuses[i];
+          const rc=st==='pacote'?'pacote-row':st==='desc'?'desc-row':'cobrado-row';
+          const sl=st==='pacote'?'🟢 Pacote':st==='desc'?'🔴 Descontado':'🟡 Cobrado';
+          const ev=st==='cobrado'?R(VAL_ER):st==='desc'?'—':'R$ 0';
+          const gv=r.grafica==='Sim'?(gs==='graf-desc'?'Abatida':R(VAL_GRAF)):'—';
+          return`<tr class="${rc}"><td>${i+1}</td><td>${esc(r.data)}</td><td>${esc(r.tipo)}</td><td>${esc(r.escrevente||'—')}</td><td>${esc(r.local)}</td><td>${esc(r.grafica)}</td><td>${sl}</td>${isAdmin?`<td>${ev}</td><td>${gv}</td>`:''}</tr>`;
+        }).join('')}</tbody>
+      </table>
+    </div>
+    ${d.idasPF.length>0?`
+    <div class="rep-sec">
+      <h3>Idas a PF (${c.idasPF}/${c.idasExig}${c.idasExig<4?' — recesso':''})</h3>
+      <table class="rep-table"><thead><tr><th>Data</th><th>Status</th></tr></thead><tbody>
+        ${d.idasPF.map(p=>`<tr><td>${esc(p.data)}</td><td style="color:var(--pac);font-weight:700">✓ Realizada</td></tr>`).join('')}
+        ${c.nao_idas>0&&!c.emAndamento?`<tr><td colspan="2" style="color:var(--red);font-weight:700">⚠ ${c.nao_idas} não-ida(s) → abateu ${c.er_abatidas} E/R + ${c.graf_abatidas} gráfica(s) = ${R(c.desconto)}</td></tr>`:''}
+      </tbody></table>
+    </div>`:''}
+    ${d.diligencias.length>0?`
+    <div class="rep-sec">
+      <h3>Diligências (não sofrem abatimento)</h3>
+      <table class="rep-table"><thead><tr><th>Data</th><th>Descrição</th><th>Valor</th></tr></thead><tbody>
+        ${d.diligencias.map(x=>`<tr><td>${esc(x.data)}</td><td>${esc(x.desc)}</td><td style="font-weight:700;color:var(--gold)">${R(x.valor||130)}</td></tr>`).join('')}
+        <tr style="font-weight:700"><td colspan="2">Total</td><td style="color:var(--gold)">${R(c.dilig)}</td></tr>
+      </tbody></table>
+    </div>`:''}`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// RENDER (casca nova — command center). Usa calcMes/esc/R verbatim.
+// ════════════════════════════════════════════════════════════════
+const NAV=[["vis","Visão Geral","&#128202;",false],["reg","Registros","&#128209;",true],["pf","Idas à PF","&#127963;",true],["dil","Diligências","&#128188;",true],["fech","Fechamento","&#9989;",false],["loc","Locais","&#128205;",false],["rel","Relatórios","&#128200;",false]];
+const TITLES={vis:["Visão Geral","Panorama do mês"],reg:["Registros","Entregas e retiradas"],pf:["Idas à Polícia Federal","Comparecimentos"],dil:["Diligências","Serviços avulsos"],fech:["Fechamento do mês","Apuração e status"],loc:["Locais","Empreendimentos"],rel:["Relatórios","Geração e impressão"]};
+
+function renderAll(){ renderApp(); }  // alias — handlers verbatim chamam renderAll()
+function renderApp(){
+  const c = calcMes(curMonth), d = DB[curMonth] || emptyMonth();
+  document.getElementById('moLabel').textContent = curMonth.slice(0,3)+' 26';
+  // nav
+  const counts={reg:d.registros.length,pf:d.idasPF.length,dil:d.diligencias.length};
+  document.getElementById('rnav').innerHTML = NAV.map(n=>{
+    const cnt=(n[3]&&counts[n[0]]!==undefined)?`<span class="cnt">${counts[n[0]]}</span>`:'';
+    return `<button class="${curSection===n[0]?'on':''}" onclick="go('${n[0]}')"><span class="ico">${n[2]}</span><span class="lbl">${n[1]}</span>${cnt}</button>`;
+  }).join('');
+  // topbar
+  const t=TITLES[curSection];
+  document.getElementById('tTitle').textContent=t[0];
+  document.getElementById('tSub').textContent=`${t[1]} · ${curMonth} 2026`;
+  document.getElementById('tStatus').innerHTML = isFechado(curMonth) ? '<span class="chip" style="background:var(--areia-bg);color:var(--muted)">🔒 Fechado</span>' : (c.emAndamento ? '<span class="chip and">⏳ Em andamento</span>' : '<span class="chip ok">✓ Aberto</span>');
+  // body
+  document.getElementById('view').innerHTML = sectionHTML(curSection,c,d);
+  applySearch(document.getElementById('searchInp').value);
+}
+
+function regTable(d,c,withValor,useFilter){
+  const ce=canEdit(curMonth);
+  let pairs=d.registros.map((r,i)=>({r,st:c.statuses[i]}));
+  if(useFilter){
+    if(curFilter==='pacote') pairs=pairs.filter(p=>p.st==='pacote');
+    else if(curFilter==='avulso') pairs=pairs.filter(p=>p.st!=='pacote');
+    else if(curFilter==='Entrega'||curFilter==='Retirada') pairs=pairs.filter(p=>p.r.tipo===curFilter);
+  }
+  const rows=pairs.map(({r,st})=>{
+    const cls=st==='pacote'?'pac':st==='desc'?'desc':'cob';
+    const erVal = st==='cobrado'?R(VAL_ER):st==='desc'?`<s>${R(VAL_ER)}</s>`:'—';
+    const tipoB = r.tipo==='Entrega'?'<span class="badge be">Entrega</span>':r.tipo==='Retirada'?'<span class="badge br">Retirada</span>':'<span class="badge ba">Ambos</span>';
+    const statB = st==='pacote'?'<span class="badge bs">Pacote</span>':st==='desc'?'<span class="badge" style="background:var(--danger-bg);color:var(--danger)">Descontado</span>':'<span class="badge" style="background:var(--warn-bg);color:var(--warn)">Cobrado</span>';
+    return `<tr class="${cls}"><td class="stripe">${esc(r.data)}</td><td>${tipoB}</td><td>${esc(r.escrevente||'—')}</td><td>${esc(r.local)}</td><td>${r.grafica==='Sim'?'<span class="badge bs">Sim</span>':'<span class="badge bn">Não</span>'}</td><td>${statB}</td><td style="font-size:11px;color:var(--muted);max-width:220px">${esc(r.obs||'')}</td>${withValor?`<td style="text-align:right;font-variant-numeric:tabular-nums">${erVal}</td>`:''}${ce?`<td style="text-align:right;white-space:nowrap"><button class="delx" title="Editar" data-id="${esc(r.id)}" onclick="openForm(this.dataset.id)">✏️</button><button class="delx" title="Excluir" data-id="${esc(r.id)}" onclick="delReg(this.dataset.id)">🗑</button></td>`:''}</tr>`;
+  }).join('') || `<tr><td colspan="10" class="nodata">Nenhum registro</td></tr>`;
+  return `<div class="card" style="overflow:auto"><table class="tbl v2reg"><thead><tr><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráf.</th><th>Status</th><th>Obs.</th>${withValor?'<th style="text-align:right">Valor E/R</th>':''}${ce?'<th></th>':''}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+function sectionHTML(s,c,d){
+  if(s==='vis') return dashHTML(c,d);
+  if(s==='reg'){
+    const flt=(v,lb)=>`<button class="fbtn ${curFilter===v?'on':''}" onclick="setFilter('${v}')">${lb}</button>`;
+    const filtros=`<div class="filters">${flt('todos','Todos')}${flt('pacote','Pacote')}${flt('avulso','Avulso')}${flt('Entrega','Entrega')}${flt('Retirada','Retirada')}</div>`;
+    return `<div class="toolbar">${canEdit(curMonth)?'<button class="btn" onclick="openForm()">+ Novo registro</button>':''}${filtros}</div>${regTable(d,c,true,true)}`;
+  }
+  if(s==='pf'){
+    let dots=''; for(let i=0;i<c.idasExig;i++){dots+=`<i class="${i<c.idasPF?'f':'x'}"></i>`;}
+    const cfg = canEdit(curMonth) ? `<div class="toolbar" style="margin-top:14px"><button class="btn" onclick="openManage('pf')">+ Registrar ida</button>
+      <label style="display:flex;align-items:center;gap:7px;font-size:12.5px">Idas exigidas <input id="pf-exig" type="number" min="0" max="4" value="${c.idasExig}" style="width:60px;padding:6px 8px;border:1px solid var(--border);border-radius:8px;background:var(--card-2);color:var(--txt)"> <button class="btn ghost" onclick="savePFExig()">Salvar</button></label>
+      <label style="display:flex;align-items:center;gap:7px;font-size:12.5px;cursor:pointer"><input type="checkbox" ${c.emAndamento?'checked':''} onchange="saveEmAndamento(this.checked)"> Mês em andamento</label></div>`
+      : '';
+    const list = d.idasPF.map(p=>`<div class="r"><span class="dot" style="background:var(--pac)"></span><div class="g"><b>Comparecimento à PF</b><span>${esc(p.data)}</span></div>${canEdit(curMonth)?`<button class="delx" title="Editar" data-id="${esc(p.id)}" onclick="openManage('pf',this.dataset.id)">✏️</button><button class="delx" title="Excluir" data-id="${esc(p.id)}" data-m="${esc(curMonth)}" onclick="delMLInline(this.dataset.id,this.dataset.m,'pf')">🗑</button>`:''}</div>`).join('')||'<div class="nodata">Nenhuma ida registrada</div>';
+    const aviso = (c.nao_idas>0&&!c.emAndamento)?`<div style="margin-top:12px;font-size:12px;color:var(--red)">⚠ ${c.nao_idas} não-ida(s) → abateu ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf. = ${R(c.desconto)}</div>`:c.emAndamento?'<div style="margin-top:12px;font-size:12px;color:var(--warn)">⏳ Mês em andamento — abatimento não aplicado</div>':'<div style="margin-top:12px;font-size:12px;color:var(--pac)">✓ Idas completas — sem abatimento</div>';
+    return `<div class="card score"><div><div class="big">${c.idasPF} <span style="font-size:19px;color:var(--muted)">de ${c.idasExig}</span></div><div style="color:var(--muted);font-size:12.5px;margin-top:4px">idas realizadas / exigidas</div>${aviso}</div><div class="dots">${dots}</div></div>${cfg}<div class="card mini2" style="margin-top:14px">${list}</div>`;
+  }
+  if(s==='dil'){
+    const list=d.diligencias.map(x=>`<div class="r"><span class="dot" style="background:var(--warn)"></span><div class="g"><b>${esc(x.desc)}</b><span>${esc(x.data)}</span></div><span class="v">${R(x.valor||130)}</span>${canEdit(curMonth)?`<button class="delx" title="Editar" data-id="${esc(x.id)}" onclick="openManage('dil',this.dataset.id)">✏️</button><button class="delx" title="Excluir" data-id="${esc(x.id)}" data-m="${esc(curMonth)}" onclick="delMLInline(this.dataset.id,this.dataset.m,'dil')">🗑</button>`:''}</div>`).join('')||'<div class="nodata">Nenhuma diligência</div>';
+    return `${canEdit(curMonth)?'<div class="toolbar"><button class="btn" onclick="openManage(\'dil\')">+ Nova diligência</button></div>':''}<div class="card mini2">${list}</div><div class="card" style="margin-top:12px;padding:12px 16px;display:flex;justify-content:space-between;font-weight:800"><span>Subtotal diligências</span><span>${R(c.dilig)}</span></div>`;
+  }
+  if(s==='fech'){
+    return `<div class="card calc" style="max-width:580px">
+      <div class="cr"><div><b>E/R no pacote</b><small>${Math.min(c.regs.length,PACOTE)}/4 gratuitas</small></div><span class="vv c-green">R$ 0</span></div>
+      <div class="cr"><div><b>E/R avulsas</b><small>${c.er_av} × ${R(VAL_ER)}</small></div><span class="vv c-blue">${R(c.er_av*VAL_ER)}</span></div>
+      <div class="cr"><div><b>Gráficas</b><small>${c.graf_t} × ${R(VAL_GRAF)}</small></div><span class="vv c-purple">${R(c.graf_t*VAL_GRAF)}</span></div>
+      <div class="cr"><div><b>Bruto</b></div><span class="vv">${R(c.bruto)}</span></div>
+      ${c.emAndamento?`<div class="cr"><div><b style="color:var(--warn)">⏳ Em andamento</b><small>abatimento pendente</small></div><span class="vv">—</span></div>`
+        : c.desconto>0?`<div class="cr"><div><b>Abatimento não-idas</b><small>${c.nao_idas} não-ida(s) → ${c.er_abatidas} E/R + ${c.graf_abatidas} gráf.</small></div><span class="vv c-red">− ${R(c.desconto)}</span></div>`
+        : `<div class="cr"><div><b>Abatimento não-idas PF</b></div><span class="vv c-green">R$ 0</span></div>`}
+      <div class="cr"><div><b>Subtotal E/R</b></div><span class="vv c-blue">${R(c.subtotalER)}</span></div>
+      <div class="cr"><div><b>Diligências</b></div><span class="vv c-gold">${R(c.dilig)}</span></div>
+      <div class="cr tot"><span>Total a Receber</span><span class="vv">${R(c.total)}</span></div></div>
+      <div class="toolbar" style="margin-top:14px">${
+        isFechado(curMonth)
+          ? `<span class="chip" style="background:var(--areia-bg);color:var(--muted)">🔒 Mês fechado — somente leitura</span>${isAdmin?`<button class="btn" onclick="reabrirMes()">🔓 Reabrir mês</button>`:''}`
+          : (isAdmin?`<label style="display:flex;align-items:center;gap:7px;font-size:12.5px;cursor:pointer"><input type="checkbox" ${c.emAndamento?'checked':''} onchange="saveEmAndamento(this.checked)"> Mês em andamento (afeta o cálculo)</label><button class="btn" onclick="fecharMes()">🔒 Fechar mês</button>`:'')
+      }<button class="btn ghost" onclick="openReport()">📊 Relatório / Imprimir</button></div>`;
+  }
+  if(s==='loc'){
+    const cnt={}; d.registros.forEach(r=>{cnt[r.local]=(cnt[r.local]||0)+1;});
+    const srt=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
+    const mx=srt[0]?.[1]||1;
+    const bars=srt.map(([l,n])=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 16px"><span style="flex:1;font-size:12.5px">${esc(l)}</span><div style="width:110px;height:9px;border-radius:6px;background:var(--areia-bg);overflow:hidden"><div style="height:100%;width:${(n/mx*100).toFixed(0)}%;background:var(--verde-cl)"></div></div><span style="font-weight:800;width:24px;text-align:right">${n}</span></div>`).join('')||'<div class="nodata">Sem dados</div>';
+    return `<div class="card"><div class="ph"><h3>Locais movimentados — ${curMonth}</h3></div>${bars}</div>`;
+  }
+  if(s==='rel'){
+    return `<div class="card" style="padding:18px"><div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center"><button class="btn" onclick="openReport()">📊 Abrir relatórios</button><span style="font-size:12px;color:var(--muted)">Mensal · Trimestral · Semestral · Anual — imprimível (com correção de impressão)</span></div></div>`;
+  }
+  return '';
+}
+
+function dashHTML(c,d){
+  let pf=Math.round(c.idasPF/c.idasExig*100); if(!isFinite(pf))pf=0; if(pf>100)pf=100;
+  // chart por mês
+  let maxReg=1; MONTHS.forEach(m=>{const cc=calcMes(m); if(cc.regs.length>maxReg)maxReg=cc.regs.length;});
+  const cols=MONTHS.map(m=>{const cc=calcMes(m);const ent=cc.regs.filter(r=>r.tipo!=='Retirada').length;const ret=cc.regs.length-ent;
+    return `<div class="col ${m===curMonth?'cur':''}" onclick="pickMonth('${m}')"><div class="stack" style="height:${Math.max(4,Math.round(cc.regs.length/maxReg*100))}%"><div class="seg-e" style="flex:${ent||0.001}"></div><div class="seg-r" style="flex:${ret||0.001}"></div></div><span class="ml">${m.slice(0,3)}</span></div>`;}).join('');
+  const idas=d.idasPF.map(p=>`<div class="r"><span class="dot" style="background:#274b73"></span><div class="g"><b>Ida à PF</b></div><span class="v" style="font-size:11px;color:var(--muted)">${esc(p.data)}</span></div>`).join('')||'<div class="nodata">—</div>';
+  const dil=d.diligencias.map(x=>`<div class="r"><span class="dot" style="background:var(--warn)"></span><div class="g"><b style="font-size:12px">${esc(x.desc)}</b><span>${esc(x.data)}</span></div><span class="v">${R(x.valor||130)}</span></div>`).join('')||'<div class="nodata">Nenhuma</div>';
+  const ent=c.regs.filter(r=>r.tipo!=='Retirada').length, ret=c.regs.length-ent;
+  return `<div class="kpis">
+    <button class="kpi" onclick="go('reg')"><div class="ic be">📦</div><div class="k-lb">Entregas</div><div class="k-v">${ent}</div><div class="k-sub">no mês</div></button>
+    <button class="kpi" onclick="go('reg')"><div class="ic br">📤</div><div class="k-lb">Retiradas</div><div class="k-v">${ret}</div><div class="k-sub">no mês</div></button>
+    <button class="kpi" onclick="go('pf')"><div class="ring" style="--p:${pf}"><b>${c.idasPF}/${c.idasExig}</b></div><div class="ic be">🏛</div><div class="k-lb">Idas PF</div><div class="k-v">${c.idasPF}</div><div class="k-sub">de ${c.idasExig}</div></button>
+    <button class="kpi" onclick="go('dil')"><div class="ic" style="background:var(--warn-bg);color:var(--warn)">💼</div><div class="k-lb">Diligências</div><div class="k-v">${d.diligencias.length}</div><div class="k-sub">${R(c.dilig)}</div></button>
+    <button class="kpi hero" onclick="go('fech')"><div class="ic">💰</div><div class="k-lb">A receber</div><div class="k-v" style="font-size:19px">${R(c.total)}</div><div class="k-sub">${c.emAndamento?'Em andamento':'Fechado'}</div></button>
+  </div>
+  <div class="cgrid"><div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card"><div class="ph"><h3>Movimento por mês</h3></div><div class="chart">${cols}</div><div class="legend"><span><i style="background:#274b73"></i>Entregas</span><span><i style="background:var(--areia)"></i>Retiradas</span></div></div>
+    <div class="card"><div class="ph"><h3>Registros de ${curMonth}</h3><button class="lnk" onclick="go('reg')">abrir ›</button></div><div style="overflow:auto">${regTable(d,c,false)}</div></div>
+  </div><div style="display:flex;flex-direction:column;gap:12px">
+    <div class="card"><div class="ph"><h3>Idas à PF</h3><button class="lnk" onclick="go('pf')">abrir ›</button></div><div class="mini2">${idas}</div></div>
+    <div class="card"><div class="ph"><h3>Diligências</h3><button class="lnk" onclick="go('dil')">abrir ›</button></div><div class="mini2">${dil}</div></div>
+  </div></div>`;
+}
+
+// ════════════════════════════════════════════════════════════════
+// INTERAÇÃO (casca)
+// ════════════════════════════════════════════════════════════════
+function go(s){ curSection=s; renderApp(); closeRail(); document.getElementById('view').scrollTop=0; }
+function pickMonth(m){ curMonth=m; curFilter='todos'; renderApp(); }
+function setFilter(f){ curFilter=f; renderApp(); }
+function stepMonth(dir){ let i=MONTHS.indexOf(curMonth)+dir; if(i<0)i=0; if(i>=MONTHS.length)i=MONTHS.length-1; curMonth=MONTHS[i]; curFilter='todos'; renderApp(); }
+function applySearch(v){
+  v=(v||'').toLowerCase();
+  document.querySelectorAll('.v2reg tbody tr').forEach(tr=>{ tr.style.display = tr.textContent.toLowerCase().indexOf(v)>-1?'':'none'; });
+}
+function openRail(){ document.getElementById('rail').classList.add('open'); document.getElementById('scrim').classList.add('on'); }
+function closeRail(){ document.getElementById('rail').classList.remove('open'); document.getElementById('scrim').classList.remove('on'); }
+function toggleUser(e){ e.stopPropagation(); const el=e.currentTarget.closest('[data-user]'); const w=el.classList.contains('open'); closeMenus(); if(!w)el.classList.add('open'); }
+function closeMenus(){ document.querySelectorAll('[data-user].open').forEach(u=>u.classList.remove('open')); }
+document.addEventListener('click',closeMenus);
+function toggleTheme(){ const r=document.documentElement; const cur=r.getAttribute('data-theme'); r.setAttribute('data-theme', cur==='dark'?'light':'dark'); }
+[...document.querySelectorAll('.overlay')].forEach(o=>o.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); }));
+
+// ════════════════════════════════════════════════════════════════
+// INIT — carrega dados reais (com token) atrás do login
+// ════════════════════════════════════════════════════════════════
+async function boot(){
   document.getElementById('loading').classList.add('open');
   populateSels();
-  await apiLoad();
+  seedUsers();                   // Estágio 4: cria usuários seed (idempotente) no localStorage
+  await apiLoad();               // leitura real (token) ou fallback seed
+  curMonth = 'Julho';            // entra num mês com dados; se não existir cai p/ existente
+  if(!DB[curMonth]) curMonth = MONTHS.find(m=>DB[m]&&DB[m].registros&&DB[m].registros.length) || 'Janeiro';
   document.getElementById('loading').classList.remove('open');
-  renderAll();
-  setInterval(async () => { if (!isAdmin) { await apiLoad(); renderAll(); } }, 60000);
+  renderApp();
+  setInterval(async()=>{ if(!isAdmin && document.getElementById('login-screen').classList.contains('gone')){ await apiLoad(); renderApp(); } }, 60000);
 }
-init();
+boot();
 </script>
 </body>
 </html>
