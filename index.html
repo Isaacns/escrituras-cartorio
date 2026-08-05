@@ -87,6 +87,12 @@ svg{display:block}
 .lform{margin-top:18px;display:flex;flex-direction:column;gap:11px}
 .lfg label{font-size:11px;font-weight:700;color:#8ba396;margin-bottom:5px;display:block}
 .linp{display:flex;align-items:center;gap:9px;background:rgba(0,0,0,.28);border:1px solid #25332a;border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
+.pweye{background:none;border:none;cursor:pointer;font-size:15px;line-height:1;padding:2px 5px;border-radius:6px;color:var(--muted);flex:none}
+.pweye:hover{background:rgba(127,127,127,.16)}
+.pweye:focus-visible{outline:2px solid var(--verde-cl);outline-offset:1px}
+.pwwrap{position:relative}
+.pwwrap>input{width:100%;padding-right:40px}
+.pwwrap>.pweye{position:absolute;right:7px;top:50%;transform:translateY(-50%)}
 .linp:focus-within{border-color:var(--verde-cl);box-shadow:0 0 0 3px rgba(24,163,103,.18)}
 .linp input{flex:1;background:none;border:none;outline:none;color:#e9efe9;font-size:14px}
 .linp input::placeholder{color:#5f7368}
@@ -297,7 +303,7 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
     <div class="lhead"><h1>Cartório Praia do Forte</h1><div class="sub">Escrituras 2026</div></div>
     <form class="lform" onsubmit="doLogin(event)">
       <div class="lfg"><label>Usuário</label><div class="linp"><span style="color:#5f7368">&#128100;</span><input type="text" id="luser" value="isaac" autocomplete="username"></div></div>
-      <div class="lfg"><label>Senha</label><div class="linp"><span style="color:#5f7368">&#128274;</span><input type="password" id="lpw" placeholder="senha de administrador" autocomplete="current-password"></div></div>
+      <div class="lfg"><label>Senha</label><div class="linp"><span style="color:#5f7368">&#128274;</span><input type="password" id="lpw" placeholder="senha de administrador" autocomplete="current-password"><button type="button" class="pweye" aria-label="Mostrar senha" onclick="togglePw(this)">👁</button></div></div>
       <div class="lerr" id="lerr">Senha incorreta.</div>
       <button type="submit" class="lbtn">Entrar &#8594;</button>
     </form>
@@ -386,9 +392,9 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
       </div>
       <div style="border-top:1px solid var(--border);margin-top:4px;padding-top:14px">
         <div style="font-size:11px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);margin-bottom:10px">Alterar senha</div>
-        <div class="fg"><label>Senha atual</label><input type="password" id="pf-atual" autocomplete="current-password"></div>
-        <div class="fg" style="margin-top:8px"><label>Nova senha</label><input type="password" id="pf-nova" autocomplete="new-password"></div>
-        <div class="fg" style="margin-top:8px"><label>Confirmar nova senha</label><input type="password" id="pf-conf" autocomplete="new-password"></div>
+        <div class="fg"><label>Senha atual</label><div class="pwwrap"><input type="password" id="pf-atual" autocomplete="current-password"><button type="button" class="pweye" aria-label="Mostrar senha" onclick="togglePw(this)">👁</button></div></div>
+        <div class="fg" style="margin-top:8px"><label>Nova senha</label><div class="pwwrap"><input type="password" id="pf-nova" autocomplete="new-password"><button type="button" class="pweye" aria-label="Mostrar senha" onclick="togglePw(this)">👁</button></div></div>
+        <div class="fg" style="margin-top:8px"><label>Confirmar nova senha</label><div class="pwwrap"><input type="password" id="pf-conf" autocomplete="new-password"><button type="button" class="pweye" aria-label="Mostrar senha" onclick="togglePw(this)">👁</button></div></div>
         <div id="pf-msg" style="font-size:12px;font-weight:600;margin-top:8px;min-height:16px"></div>
         <button class="btn" style="margin-top:4px" onclick="salvarSenha()">Salvar nova senha</button>
       </div>
@@ -682,7 +688,24 @@ function logout(){
   document.getElementById('login-screen').classList.remove('gone');
   document.getElementById('lpw').value = '';
   document.getElementById('lerr').style.display = 'none';
+  resetPwEye('lpw');
   closeMenus();
+}
+// Mostrar/ocultar senha (olho). Alterna type do input irmão no mesmo container.
+function togglePw(btn){
+  const inp = btn.parentNode.querySelector('input');
+  if(!inp) return;
+  const reveal = inp.type === 'password';
+  inp.type = reveal ? 'text' : 'password';
+  btn.textContent = reveal ? '🙈' : '👁';
+  btn.setAttribute('aria-label', reveal ? 'Ocultar senha' : 'Mostrar senha');
+}
+function resetPwEye(id){
+  const inp = document.getElementById(id);
+  if(!inp) return;
+  inp.type = 'password';
+  const b = inp.parentNode.querySelector('.pweye');
+  if(b){ b.textContent = '👁'; b.setAttribute('aria-label','Mostrar senha'); }
 }
 
 // ── Estágio 4: store de usuários no localStorage (D1: FORA do blob; sem PII no A2 público) ──
@@ -716,7 +739,7 @@ function renderPerfil(){
   document.getElementById('pf-avatar').innerHTML = avatarBig(u);
   document.getElementById('pf-nome').textContent = u.nome;
   document.getElementById('pf-papel').textContent = u.papel === 'admin' ? 'Administrador (edição)' : 'Consulta (leitura)';
-  ['pf-atual','pf-nova','pf-conf'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; });
+  ['pf-atual','pf-nova','pf-conf'].forEach(id=>{ const el=document.getElementById(id); if(el) el.value=''; resetPwEye(id); });
   const m = document.getElementById('pf-msg'); if(m){ m.textContent=''; }
 }
 // Redimensiona no canvas p/ máx 256×256, JPEG 0.8 (evita estourar o localStorage)
