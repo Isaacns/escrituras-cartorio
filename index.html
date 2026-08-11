@@ -3,14 +3,11 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escrituras 2026 — v2 (staging)</title>
-<meta name="stage" content="v2-stage1-logo-real">
+<title>Escrituras 2026 — Cartório Praia do Forte</title>
 
 <!--
-  STAGING — index-v2.html · Estágio 1 da Versão C (command center).
-  NÃO é produção. A lógica sensível (calcMes, API+token, CRUD, buildSeed, _ap,
-  esc/getConfig) é COPIADA VERBATIM do index.html de produção (HEAD com token).
-  A casca (login Aura 2 + command center) e a camada de render das seções são novas.
+  Escrituras 2026 — Cartório Praia do Forte. Controle de entrega/retirada de escrituras.
+  Front estático (GitHub Pages) + backend Google Apps Script (GET/POST com token).
 -->
 <style>
 :root{
@@ -56,7 +53,6 @@ svg{display:block}
 .hide{display:none!important}
 ::-webkit-scrollbar{height:9px;width:9px}::-webkit-scrollbar-thumb{background:var(--areia);border-radius:8px}
 
-.stagebar{background:var(--warn-bg);color:var(--warn);font-size:11px;font-weight:700;text-align:center;padding:4px 12px;letter-spacing:.02em}
 
 /* ─── LOGIN (Aura 2) ─── */
 .login{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;
@@ -271,8 +267,47 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
   .search{min-width:0;width:auto}
   .cgrid{grid-template-columns:1fr}
 }
+@media(max-width:640px){
+  html,body{max-width:100%}
+  /* Tabela de registros vira cards empilhados (sem scroll horizontal) */
+  .v2reg-wrap{border:none!important;background:none!important;box-shadow:none!important;padding:0!important;overflow:visible!important;border-radius:0}
+  .v2reg thead{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+  .v2reg,.v2reg tbody,.v2reg tr,.v2reg td{display:block;width:auto}
+  .v2reg tr{border:1px solid var(--border);border-left:3px solid var(--areia);border-radius:11px;margin:0 0 10px;padding:6px 13px;background:var(--card)}
+  .v2reg tr.pac{border-left-color:var(--pac)}.v2reg tr.desc{border-left-color:var(--danger)}.v2reg tr.cob{border-left-color:var(--warn)}
+  .v2reg td{border:none!important;padding:6px 0;display:flex;justify-content:space-between;align-items:center;gap:14px;text-align:right;max-width:none!important;font-size:13px}
+  .v2reg td::before{content:attr(data-l);font-weight:700;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;text-align:left;flex:none}
+  .v2reg td[data-l="Ações"]{justify-content:flex-end;gap:8px;padding-top:8px;border-top:1px dashed var(--border)!important;margin-top:2px}
+  .v2reg td[data-l="Obs."]:empty,.v2reg td[data-l="Obs."]{white-space:normal}
+  .v2reg .nodata{display:block;text-align:center;padding:14px}
+  .delx{min-width:40px;min-height:40px;font-size:17px}
+  /* Topbar quebra com elegância */
+  .topbar{flex-wrap:wrap;gap:8px 10px;padding:10px 12px}
+  .topbar .sp{display:none}
+  .syncpill,#stime{display:none!important}
+  .topbar .ttl{order:2;flex:1 1 auto;min-width:0}
+  .burger{order:1}.user{order:3}.tgl{order:4}
+  .mnav{order:5}#tStatus{order:6}
+  .search{order:7;flex:1 1 100%;min-width:0}
+  .mnav button,.tgl{min-width:40px;min-height:38px}
+  /* Dashboard: KPIs 2 colunas, hero cheio, gráfico compacto */
+  .kpis{grid-template-columns:1fr 1fr}
+  .kpi.hero{grid-column:1 / -1}
+  .chart{height:132px;gap:4px;padding:12px 8px 10px}
+  .chart .ml{font-size:8.5px}
+  /* Relatório: rola dentro do modal, sem estourar a página */
+  #rep-body{overflow-x:auto}
+  .rep-table{font-size:11px}
+  /* Filtros roláveis + alvos de toque */
+  .filters{overflow-x:auto;max-width:100%}
+  .fbtn{min-height:38px}
+  /* Modais e login proporcionais */
+  .overlay{padding:10px}
+  .mbd{padding:16px}
+  .lcard{padding:12px 20px 22px}
+}
 @media print{
-  .stagebar,.rail,.topbar,.toolbar,.scrim,.toast,.burger,.mcl,.mft,.rep-mes-wrap{display:none!important}
+  .rail,.topbar,.toolbar,.scrim,.toast,.burger,.mcl,.mft,.rep-mes-wrap{display:none!important}
   body{background:#fff}
   .overlay:not(.open){display:none!important}
   .overlay.open{position:static;background:none;padding:0;display:block;backdrop-filter:none}
@@ -288,7 +323,6 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 </style>
 </head>
 <body>
-<div class="stagebar">STAGING · index-v2 — casca Versão C sobre a lógica real (não é produção)</div>
 
 <!-- LOGIN -->
 <div class="login" id="login-screen">
@@ -1155,9 +1189,9 @@ function regTable(d,c,withValor,useFilter){
     const erVal = st==='cobrado'?R(VAL_ER):st==='desc'?`<s>${R(VAL_ER)}</s>`:'—';
     const tipoB = r.tipo==='Entrega'?'<span class="badge be">Entrega</span>':r.tipo==='Retirada'?'<span class="badge br">Retirada</span>':'<span class="badge ba">Ambos</span>';
     const statB = st==='pacote'?'<span class="badge bs">Pacote</span>':st==='desc'?'<span class="badge" style="background:var(--danger-bg);color:var(--danger)">Descontado</span>':'<span class="badge" style="background:var(--warn-bg);color:var(--warn)">Cobrado</span>';
-    return `<tr class="${cls}"><td class="stripe">${esc(r.data)}</td><td>${tipoB}</td><td>${esc(r.escrevente||'—')}</td><td>${esc(r.local)}</td><td>${r.grafica==='Sim'?'<span class="badge bs">Sim</span>':'<span class="badge bn">Não</span>'}</td><td>${statB}</td><td style="font-size:11px;color:var(--muted);max-width:220px">${esc(r.obs||'')}</td>${withValor?`<td style="text-align:right;font-variant-numeric:tabular-nums">${erVal}</td>`:''}${ce?`<td style="text-align:right;white-space:nowrap"><button class="delx" title="Editar" data-id="${esc(r.id)}" onclick="openForm(this.dataset.id)">✏️</button><button class="delx" title="Excluir" data-id="${esc(r.id)}" onclick="delReg(this.dataset.id)">🗑</button></td>`:''}</tr>`;
+    return `<tr class="${cls}"><td class="stripe" data-l="Data">${esc(r.data)}</td><td data-l="Tipo">${tipoB}</td><td data-l="Escrevente">${esc(r.escrevente||'—')}</td><td data-l="Local">${esc(r.local)}</td><td data-l="Gráfica">${r.grafica==='Sim'?'<span class="badge bs">Sim</span>':'<span class="badge bn">Não</span>'}</td><td data-l="Status">${statB}</td><td data-l="Obs." style="font-size:11px;color:var(--muted);max-width:220px">${esc(r.obs||'')}</td>${withValor?`<td data-l="Valor E/R" style="text-align:right;font-variant-numeric:tabular-nums">${erVal}</td>`:''}${ce?`<td data-l="Ações" style="text-align:right;white-space:nowrap"><button class="delx" title="Editar" data-id="${esc(r.id)}" onclick="openForm(this.dataset.id)">✏️</button><button class="delx" title="Excluir" data-id="${esc(r.id)}" onclick="delReg(this.dataset.id)">🗑</button></td>`:''}</tr>`;
   }).join('') || `<tr><td colspan="10" class="nodata">Nenhum registro</td></tr>`;
-  return `<div class="card" style="overflow:auto"><table class="tbl v2reg"><thead><tr><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráf.</th><th>Status</th><th>Obs.</th>${withValor?'<th style="text-align:right">Valor E/R</th>':''}${ce?'<th></th>':''}</tr></thead><tbody>${rows}</tbody></table></div>`;
+  return `<div class="card v2reg-wrap" style="overflow:auto"><table class="tbl v2reg"><thead><tr><th>Data</th><th>Tipo</th><th>Escrevente</th><th>Local</th><th>Gráf.</th><th>Status</th><th>Obs.</th>${withValor?'<th style="text-align:right">Valor E/R</th>':''}${ce?'<th></th>':''}</tr></thead><tbody>${rows}</tbody></table></div>`;
 }
 
 function sectionHTML(s,c,d){
