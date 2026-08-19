@@ -315,10 +315,26 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
   .mhd{border-bottom:2px solid var(--verde)}
   .view,.main{padding:0}
 }
+/* ── Movimento vivo (§20) — versão SUTIL · identidade do cartório (verde) ── */
+@property --p{syntax:'<number>';inherits:false;initial-value:0}
+@keyframes riseIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
+@keyframes fillUp{from{transform:scaleY(0)}to{transform:scaleY(1)}}
+@keyframes ringFill{from{--p:0}}
+.kpis .kpi{animation:riseIn .34s ease-out both}
+.kpis .kpi:nth-child(2){animation-delay:.05s}.kpis .kpi:nth-child(3){animation-delay:.1s}.kpis .kpi:nth-child(4){animation-delay:.15s}.kpis .kpi:nth-child(5){animation-delay:.2s}
+.view .card{animation:riseIn .36s ease-out both}
+.mini2 .r{animation:riseIn .3s ease-out both}
+.mini2 .r:nth-child(2){animation-delay:.03s}.mini2 .r:nth-child(3){animation-delay:.06s}.mini2 .r:nth-child(4){animation-delay:.09s}.mini2 .r:nth-child(n+5){animation-delay:.12s}
+.chart .stack{transform-origin:bottom;animation:fillUp .5s cubic-bezier(.2,.7,.3,1) both;animation-delay:calc(var(--i,0)*32ms)}
+.kpi .ring{animation:ringFill .85s ease-out both}
+.chart .col{transition:transform .12s ease}
+.chart .col:hover{transform:scale(1.01)}
 @media (prefers-reduced-motion:reduce){
   .plate,.ring,.particle{animation:none!important}
-  .plate{transform:none}.ring{opacity:.22;transform:scale(1.15)}.particle{opacity:.4;margin-top:0}
+  .plate{transform:none}.rings .ring{opacity:.22;transform:scale(1.15)}.particle{opacity:.4;margin-top:0}
   .sdot.sync{animation:none}
+  .kpis .kpi,.view .card,.mini2 .r,.chart .stack,.chart .col{animation:none!important;transform:none!important;opacity:1!important}
+  .kpi .ring{animation:none!important;opacity:1!important;transform:none!important}
 }
 </style>
 </head>
@@ -350,7 +366,7 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
   <aside class="rail" id="rail">
     <div class="rbrand"><span class="brandplate"><i class="logoimg" role="img" aria-label="Cartório Praia do Forte"></i></span><div class="bt"><span>Escrituras 2026</span></div></div>
     <nav class="rnav" id="rnav"></nav>
-    <div class="rfoot">INPERSON Soluções em Tecnologia</div>
+    <div class="rfoot">INPERSON Soluções em Tecnologia<br><span id="appver" style="opacity:.6"></span></div>
   </aside>
   <div class="scrim" id="scrim" onclick="closeRail()"></div>
   <div class="main">
@@ -451,6 +467,8 @@ const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','A
 const LSKEY = 'cpf_esc26_v4';
 const UKEY = 'esc26_usuarios'; // Estágio 4: store de usuários (localStorage, FORA do blob — D1)
 const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
+const APP_VERSION = '2.1.0'; // movimento vivo (§20)
+const RM = matchMedia('(prefers-reduced-motion: reduce)').matches; // desliga count-up
 const MES_CONFIG_DEFAULT = { idasExigidas: 4, emAndamento: false };
 
 let DB = {}, isAdmin = false, curMonth = 'Janeiro', curFilter = 'todos', mmode = 'pf';
@@ -1174,6 +1192,7 @@ function renderApp(){
   // body
   document.getElementById('view').innerHTML = sectionHTML(curSection,c,d);
   applySearch(document.getElementById('searchInp').value);
+  animateKPIs();
 }
 
 function regTable(d,c,withValor,useFilter){
@@ -1246,21 +1265,36 @@ function sectionHTML(s,c,d){
   return '';
 }
 
+// Count-up dos KPIs (§20). Respeita prefers-reduced-motion (mostra valor final).
+function animateKPIs(){
+  if(RM) return;
+  document.querySelectorAll('#view .k-v[data-count]').forEach(el=>{
+    const target=parseFloat(el.getAttribute('data-count'))||0;
+    if(target<=0) return;
+    const money=el.hasAttribute('data-money'), final=el.textContent, dur=680, t0=performance.now();
+    function step(now){
+      const p=Math.min(1,(now-t0)/dur), v=Math.round(target*(1-Math.pow(1-p,3)));
+      el.textContent = money?R(v):String(v);
+      if(p<1) requestAnimationFrame(step); else el.textContent=final;
+    }
+    requestAnimationFrame(step);
+  });
+}
 function dashHTML(c,d){
   let pf=Math.round(c.idasPF/c.idasExig*100); if(!isFinite(pf))pf=0; if(pf>100)pf=100;
   // chart por mês
   let maxReg=1; MONTHS.forEach(m=>{const cc=calcMes(m); if(cc.regs.length>maxReg)maxReg=cc.regs.length;});
-  const cols=MONTHS.map(m=>{const cc=calcMes(m);const ent=cc.regs.filter(r=>r.tipo!=='Retirada').length;const ret=cc.regs.length-ent;
-    return `<div class="col ${m===curMonth?'cur':''}" onclick="pickMonth('${m}')"><div class="stack" style="height:${Math.max(4,Math.round(cc.regs.length/maxReg*100))}%"><div class="seg-e" style="flex:${ent||0.001}"></div><div class="seg-r" style="flex:${ret||0.001}"></div></div><span class="ml">${m.slice(0,3)}</span></div>`;}).join('');
+  const cols=MONTHS.map((m,i)=>{const cc=calcMes(m);const ent=cc.regs.filter(r=>r.tipo!=='Retirada').length;const ret=cc.regs.length-ent;
+    return `<div class="col ${m===curMonth?'cur':''}" style="--i:${i}" onclick="pickMonth('${m}')"><div class="stack" style="height:${Math.max(4,Math.round(cc.regs.length/maxReg*100))}%"><div class="seg-e" style="flex:${ent||0.001}"></div><div class="seg-r" style="flex:${ret||0.001}"></div></div><span class="ml">${m.slice(0,3)}</span></div>`;}).join('');
   const idas=d.idasPF.map(p=>`<div class="r"><span class="dot" style="background:#274b73"></span><div class="g"><b>Ida à PF</b></div><span class="v" style="font-size:11px;color:var(--muted)">${esc(p.data)}</span></div>`).join('')||'<div class="nodata">—</div>';
   const dil=d.diligencias.map(x=>`<div class="r"><span class="dot" style="background:var(--warn)"></span><div class="g"><b style="font-size:12px">${esc(x.desc)}</b><span>${esc(x.data)}</span></div><span class="v">${R(x.valor||130)}</span></div>`).join('')||'<div class="nodata">Nenhuma</div>';
   const ent=c.regs.filter(r=>r.tipo!=='Retirada').length, ret=c.regs.length-ent;
   return `<div class="kpis">
-    <button class="kpi" onclick="go('reg')"><div class="ic be">📦</div><div class="k-lb">Entregas</div><div class="k-v">${ent}</div><div class="k-sub">no mês</div></button>
-    <button class="kpi" onclick="go('reg')"><div class="ic br">📤</div><div class="k-lb">Retiradas</div><div class="k-v">${ret}</div><div class="k-sub">no mês</div></button>
-    <button class="kpi" onclick="go('pf')"><div class="ring" style="--p:${pf}"><b>${c.idasPF}/${c.idasExig}</b></div><div class="ic be">🏛</div><div class="k-lb">Idas PF</div><div class="k-v">${c.idasPF}</div><div class="k-sub">de ${c.idasExig}</div></button>
-    <button class="kpi" onclick="go('dil')"><div class="ic" style="background:var(--warn-bg);color:var(--warn)">💼</div><div class="k-lb">Diligências</div><div class="k-v">${d.diligencias.length}</div><div class="k-sub">${R(c.dilig)}</div></button>
-    <button class="kpi hero" onclick="go('fech')"><div class="ic">💰</div><div class="k-lb">A receber</div><div class="k-v" style="font-size:19px">${R(c.total)}</div><div class="k-sub">${c.emAndamento?'Em andamento':'Fechado'}</div></button>
+    <button class="kpi" onclick="go('reg')"><div class="ic be">📦</div><div class="k-lb">Entregas</div><div class="k-v" data-count="${ent}">${ent}</div><div class="k-sub">no mês</div></button>
+    <button class="kpi" onclick="go('reg')"><div class="ic br">📤</div><div class="k-lb">Retiradas</div><div class="k-v" data-count="${ret}">${ret}</div><div class="k-sub">no mês</div></button>
+    <button class="kpi" onclick="go('pf')"><div class="ring" style="--p:${pf}"><b>${c.idasPF}/${c.idasExig}</b></div><div class="ic be">🏛</div><div class="k-lb">Idas PF</div><div class="k-v" data-count="${c.idasPF}">${c.idasPF}</div><div class="k-sub">de ${c.idasExig}</div></button>
+    <button class="kpi" onclick="go('dil')"><div class="ic" style="background:var(--warn-bg);color:var(--warn)">💼</div><div class="k-lb">Diligências</div><div class="k-v" data-count="${d.diligencias.length}">${d.diligencias.length}</div><div class="k-sub">${R(c.dilig)}</div></button>
+    <button class="kpi hero" onclick="go('fech')"><div class="ic">💰</div><div class="k-lb">A receber</div><div class="k-v" data-count="${c.total}" data-money="1" style="font-size:19px">${R(c.total)}</div><div class="k-sub">${c.emAndamento?'Em andamento':'Fechado'}</div></button>
   </div>
   <div class="cgrid"><div style="display:flex;flex-direction:column;gap:12px">
     <div class="card"><div class="ph"><h3>Movimento por mês</h3></div><div class="chart">${cols}</div><div class="legend"><span><i style="background:#274b73"></i>Entregas</span><span><i style="background:var(--areia)"></i>Retiradas</span></div></div>
@@ -1304,6 +1338,7 @@ async function boot(){
   renderApp();
   setInterval(async()=>{ if(!isAdmin && document.getElementById('login-screen').classList.contains('gone')){ await apiLoad(); renderApp(); } }, 60000);
 }
+try{document.getElementById('appver').textContent='Escrituras v'+APP_VERSION;}catch(e){}
 boot();
 </script>
 </body>
