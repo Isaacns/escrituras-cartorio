@@ -462,12 +462,12 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 // ════════════════════════════════════════════════════════════════
 const API_URL = 'https://script.google.com/macros/s/AKfycbw_Qt5d5-RWpcSErChlyj99NUnQzLpkIc6Vb2fxawChpoyliH7y2NpU8u7IQ_MdnZUO/exec';
 const API_TOKEN = 'esc26_Iwixi5YcF50Oii1LpmYtdAEJmts4HDeXGZKu8kWryCA';
-const _ap = ['For','te!','Car','tor','io#','202','6vZ','9'];
+const SKEY = 'esc26_sessao', FOTOKEY = 'esc26_foto'; // v3 auth: token de sessão + foto (local, conveniência)
+let sessao = null; // token de sessão assinado (HMAC) devolvido pelo backend no login
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY = 'cpf_esc26_v4';
-const UKEY = 'esc26_usuarios'; // Estágio 4: store de usuários (localStorage, FORA do blob — D1)
 const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
-const APP_VERSION = '2.1.0'; // movimento vivo (§20)
+const APP_VERSION = '2.2.0'; // auth real server-side
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches; // desliga count-up
 const MES_CONFIG_DEFAULT = { idasExigidas: 4, emAndamento: false };
 
@@ -593,27 +593,50 @@ async function apiLoad() {
 async function apiSave() {
   lsSave();
   if (!API_URL || API_URL === 'COLE_SUA_URL_AQUI') { sync('ok', 'Salvo localmente'); return; }
-  return new Promise((resolve) => {
-    try {
-      sync('sync', 'Salvando...');
-      const iframeId = 'save_iframe_' + Date.now();
-      const iframe = document.createElement('iframe');
-      iframe.name = iframeId; iframe.style.display = 'none';
-      document.body.appendChild(iframe);
-      const form = document.createElement('form');
-      form.method = 'POST'; form.action = API_URL; form.target = iframeId; form.style.display = 'none';
-      const input = document.createElement('input');
-      input.type = 'hidden'; input.name = 'data'; input.value = JSON.stringify(DB);
-      form.appendChild(input);
-      const inputToken = document.createElement('input');
-      inputToken.type = 'hidden'; inputToken.name = 'token'; inputToken.value = API_TOKEN;
-      form.appendChild(inputToken);
-      document.body.appendChild(form);
-      const cleanup = setTimeout(() => { try { form.remove(); iframe.remove(); } catch(e) {} sync('ok'); resolve(); }, 3000);
-      iframe.onload = () => { clearTimeout(cleanup); try { form.remove(); iframe.remove(); } catch(e) {} sync('ok'); resolve(); };
-      form.submit();
-    } catch(e) { sync('ok'); resolve(); }
-  });
+  sync('sync', 'Salvando...');
+  const body = new URLSearchParams();
+  body.set('action', 'save'); body.set('data', JSON.stringify(DB)); body.set('token', API_TOKEN);
+  if (sessao) body.set('sessao', sessao);
+  try {
+    const r = await fetch(API_URL, { method: 'POST', body });
+    const j = await r.json();
+    if (j && j.ok) { sync('ok'); return; }
+    if (j && j.code === 401 && /sess/i.test(j.error || '')) { sync('err', 'Sessão expirada'); onSessaoExpirada(); return; }
+    sync('err', (j && j.error) || 'Erro ao salvar');
+  } catch (e) {
+    // fetch/CORS falhou → grava pelo form+iframe (fire-and-forget) p/ não perder o save
+    saveViaForm(); sync('ok');
+  }
+}
+function saveViaForm() {
+  try {
+    const iframeId = 'save_iframe_' + Date.now();
+    const iframe = document.createElement('iframe'); iframe.name = iframeId; iframe.style.display = 'none';
+    document.body.appendChild(iframe);
+    const form = document.createElement('form'); form.method = 'POST'; form.action = API_URL; form.target = iframeId; form.style.display = 'none';
+    const add = (n, v) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = n; i.value = v; form.appendChild(i); };
+    add('action', 'save'); add('data', JSON.stringify(DB)); add('token', API_TOKEN); if (sessao) add('sessao', sessao);
+    document.body.appendChild(form);
+    const cleanup = setTimeout(() => { try { form.remove(); iframe.remove(); } catch (e) {} }, 3000);
+    iframe.onload = () => { clearTimeout(cleanup); try { form.remove(); iframe.remove(); } catch (e) {} };
+    form.submit();
+  } catch (e) {}
+}
+// POST de ação (login/changepw) lendo a resposta JSON. Form-urlencoded = "simple request" (sem preflight CORS).
+async function postAction(action, fields) {
+  const body = new URLSearchParams(); body.set('action', action); body.set('token', API_TOKEN);
+  if (fields) Object.keys(fields).forEach(k => body.set(k, fields[k]));
+  if (sessao && !body.has('sessao')) body.set('sessao', sessao);
+  const r = await fetch(API_URL, { method: 'POST', body });
+  return await r.json();
+}
+function onSessaoExpirada() {
+  sessao = null; try { localStorage.removeItem(SKEY); } catch (e) {}
+  isAdmin = false; currentUser = null;
+  document.getElementById('login-screen').classList.remove('gone');
+  document.getElementById('lpw').value = '';
+  const lerr = document.getElementById('lerr'); if (lerr) { lerr.textContent = 'Sua sessão expirou. Entre novamente.'; lerr.style.display = 'block'; lerr.style.color = ''; }
+  closeMenus(); toast('Sessão expirada — faça login de novo', true);
 }
 function lsSave() { try { localStorage.setItem(LSKEY, JSON.stringify(DB)); } catch (e) { } }
 function lsLoad() { try { const r = localStorage.getItem(LSKEY); return r ? JSON.parse(r) : null; } catch (e) { return null; } }
@@ -711,20 +734,33 @@ function buildSeed() {
 }
 
 // ════════════════════════════════════════════════════════════════
-// AUTH (casca nova) — gate _ap preservado como porta de EDIÇÃO
+// AUTH — login REAL server-side (Apps Script): a senha vive no backend (hash
+// salgado); o login devolve um token de sessão assinado (HMAC) guardado local.
 // ════════════════════════════════════════════════════════════════
-function doLogin(ev){
+async function doLogin(ev){
   if(ev) ev.preventDefault();
-  const id = (document.getElementById('luser').value || '').trim().toLowerCase();
   const pw = document.getElementById('lpw').value;
-  const users = usersLoad() || [];
-  const found = users.find(u => (u.login && u.login.toLowerCase() === id) || (u.nome && u.nome.toLowerCase() === id));
-  if (found && pw === found.senha) {
-    currentUser = found; isAdmin = (found.papel === 'admin'); revealApp();
-  } else {
-    document.getElementById('lerr').style.display = 'block';
-    document.getElementById('lpw').value = '';
-    document.getElementById('lpw').focus();
+  const lerr = document.getElementById('lerr');
+  if(!pw){ lerr.style.color=''; lerr.textContent = 'Informe a senha.'; lerr.style.display='block'; return; }
+  lerr.style.color = 'var(--muted)'; lerr.textContent = 'Entrando…'; lerr.style.display='block';
+  try{
+    const r = await postAction('login', { senha: pw });
+    if(r && r.ok && r.sessao){
+      sessao = r.sessao; try{ localStorage.setItem(SKEY, sessao); }catch(e){}
+      isAdmin = true; currentUser = adminUser();
+      document.getElementById('lpw').value=''; resetPwEye('lpw');
+      lerr.style.display='none'; lerr.style.color='';
+      revealApp();
+    } else {
+      lerr.style.color='';
+      lerr.textContent = (r && r.code===503) ? 'Login ainda não configurado no servidor.' : 'Senha incorreta.';
+      lerr.style.display='block';
+      document.getElementById('lpw').value=''; document.getElementById('lpw').focus();
+    }
+  }catch(e){
+    lerr.style.color='';
+    lerr.textContent = 'Sem conexão com o servidor. Verifique a internet e tente de novo.';
+    lerr.style.display='block';
   }
 }
 function revealApp(){
@@ -736,7 +772,8 @@ function revealApp(){
   toast((isAdmin ? 'Bem-vindo, ' : 'Modo leitura — ') + (currentUser ? currentUser.nome : ''));
 }
 function logout(){
-  isAdmin = false; currentUser = null;
+  isAdmin = false; currentUser = null; sessao = null;
+  try{ localStorage.removeItem(SKEY); }catch(e){}
   document.getElementById('login-screen').classList.remove('gone');
   document.getElementById('lpw').value = '';
   document.getElementById('lerr').style.display = 'none';
@@ -760,15 +797,15 @@ function resetPwEye(id){
   if(b){ b.textContent = '👁'; b.setAttribute('aria-label','Mostrar senha'); }
 }
 
-// ── Estágio 4: store de usuários no localStorage (D1: FORA do blob; sem PII no A2 público) ──
-function usersLoad(){ try{ const r = localStorage.getItem(UKEY); return r ? JSON.parse(r) : null; }catch(e){ return null; } }
-function usersSave(a){ try{ localStorage.setItem(UKEY, JSON.stringify(a)); }catch(e){} }
-function seedUsers(){
-  const cur = usersLoad();
-  if (cur && Array.isArray(cur) && cur.length) return; // idempotente — não sobrescreve
-  usersSave([
-    { id:'u_admin', login:'isaac', nome:'Isaac', papel:'admin', senha:_ap.join(''), foto:null }
-  ]); // Login é exclusivo do admin (Isaac); o cartório usa o link consulta-v2.html (sem login)
+// ── v3 auth: admin único (identidade fixa). A SENHA não vive mais no front —
+//    fica como hash no backend. A foto do perfil segue local (conveniência). ──
+function adminUser(){ return { id:'u_admin', nome:'Isaac', papel:'admin', foto: fotoLoad() }; }
+function fotoLoad(){ try{ return localStorage.getItem(FOTOKEY) || null; }catch(e){ return null; } }
+function fotoSave(v){ try{ if(v) localStorage.setItem(FOTOKEY, v); else localStorage.removeItem(FOTOKEY); }catch(e){} }
+// Checa a expiração da sessão só para UX (decodifica o payload). A validação real é no servidor.
+function sessaoValidaLocal(){
+  if(!sessao) return false;
+  try{ const p = JSON.parse(atob(sessao.split('.')[0].replace(/-/g,'+').replace(/_/g,'/'))); return !!(p && p.exp && Date.now() < p.exp); }catch(e){ return false; }
 }
 function initials(nome){ const p = String(nome||'?').trim().split(/\s+/).filter(Boolean); return ((p[0]?p[0][0]:'') + (p[1]?p[1][0]:'')).toUpperCase() || '?'; }
 function renderUser(){
@@ -817,26 +854,35 @@ function onFotoChange(input){
   const f = input.files && input.files[0]; if(!f) return;
   resizeImage(f, function(dataUri){
     if(!dataUri){ toast('Não foi possível processar a imagem', true); return; }
-    const users = usersLoad() || []; const i = users.findIndex(x => x.id === currentUser.id);
-    if (i >= 0){ users[i].foto = dataUri; usersSave(users); currentUser.foto = dataUri; }
+    fotoSave(dataUri); if(currentUser) currentUser.foto = dataUri;
     renderPerfil(); renderUser(); toast('Foto atualizada');
     input.value = '';
   });
 }
-function salvarSenha(){
+async function salvarSenha(){
   const atual = document.getElementById('pf-atual').value;
   const nova  = document.getElementById('pf-nova').value;
   const conf  = document.getElementById('pf-conf').value;
   const msg = document.getElementById('pf-msg');
   const err = function(t){ msg.textContent = t; msg.style.color = 'var(--danger)'; };
-  if (atual !== currentUser.senha) return err('Senha atual incorreta.');
-  if (!nova || nova.length < 3)    return err('A nova senha deve ter ao menos 3 caracteres.');
-  if (nova !== conf)               return err('A confirmação não confere.');
-  const users = usersLoad() || []; const i = users.findIndex(x => x.id === currentUser.id);
-  if (i >= 0){ users[i].senha = nova; usersSave(users); currentUser.senha = nova; }
-  ['pf-atual','pf-nova','pf-conf'].forEach(id=>document.getElementById(id).value='');
-  msg.textContent = 'Senha alterada com sucesso.'; msg.style.color = 'var(--pac)';
-  toast('Senha alterada');
+  if (!atual)                   return err('Informe a senha atual.');
+  if (!nova || nova.length < 4) return err('A nova senha deve ter ao menos 4 caracteres.');
+  if (nova !== conf)            return err('A confirmação não confere.');
+  msg.textContent = 'Salvando…'; msg.style.color = 'var(--muted)';
+  try{
+    const r = await postAction('changepw', { atual: atual, nova: nova });
+    if (r && r.ok){
+      ['pf-atual','pf-nova','pf-conf'].forEach(id=>document.getElementById(id).value='');
+      msg.textContent = 'Senha alterada. Vale em qualquer aparelho.'; msg.style.color = 'var(--pac)';
+      toast('Senha alterada');
+    } else if (r && r.code === 401 && /sess/i.test(r.error||'')){
+      err('Sessão expirada — entre de novo.'); onSessaoExpirada();
+    } else if (r && r.code === 401){
+      err('Senha atual incorreta.');
+    } else {
+      err((r && r.error) || 'Não foi possível alterar a senha.');
+    }
+  }catch(e){ err('Sem conexão com o servidor.'); }
 }
 
 // ════════════════════════════════════════════════════════════════
@@ -1330,11 +1376,18 @@ function toggleTheme(){ const r=document.documentElement; const cur=r.getAttribu
 async function boot(){
   document.getElementById('loading').classList.add('open');
   populateSels();
-  seedUsers();                   // Estágio 4: cria usuários seed (idempotente) no localStorage
   await apiLoad();               // leitura real (token) ou fallback seed
   curMonth = 'Julho';            // entra num mês com dados; se não existir cai p/ existente
   if(!DB[curMonth]) curMonth = MONTHS.find(m=>DB[m]&&DB[m].registros&&DB[m].registros.length) || 'Janeiro';
   document.getElementById('loading').classList.remove('open');
+  // Restaura a sessão salva (UX — continua logado entre reloads). O servidor revalida a cada gravação.
+  try{ sessao = localStorage.getItem(SKEY); }catch(e){ sessao = null; }
+  if(sessaoValidaLocal()){
+    isAdmin = true; currentUser = adminUser();
+    document.body.classList.add('is-admin');
+    document.getElementById('login-screen').classList.add('gone');
+    renderUser();
+  } else { sessao = null; }
   renderApp();
   setInterval(async()=>{ if(!isAdmin && document.getElementById('login-screen').classList.contains('gone')){ await apiLoad(); renderApp(); } }, 60000);
 }

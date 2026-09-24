@@ -1,0 +1,15 @@
+# Material disperso recolhido do disco (23/07/2026) — não publicar no GitHub
+# Contém versões antigas soltas + apps_script.gs (pode conter referências sensíveis)
+_material-disperso/
+
+# Pacote de correção do backend (23/07/2026) — contém o token de API; NUNCA publicar
+_fix-2026-07-23/
+
+# Reconstrução de UI em STAGING (23/07/2026) — trabalho em andamento, NÃO publicar
+# até revisão do Isaac + troca de credenciais/token (ver _redesign-2026-07-23/NOTAS.md)
+_redesign-2026-07-23/
+
+# Organizacao 24/09/2026: backups, mockups e backend Apps Script ficam locais (repo publica no GitHub Pages)
+_backup-*/
+_mockups-*/
+_auth-*/
