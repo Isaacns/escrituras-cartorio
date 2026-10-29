@@ -2,6 +2,9 @@
 
 Esquema de versão: `APP_VERSION` (const no `index.html`/`consulta.html`), também exibido no rodapé da sidebar.
 
+## v2.3.2 — 2026-10-29 · Abre no mês atual
+- `boot()` (painel e portal): `curMonth = MONTHS[new Date().getMonth()]` no lugar do `'Julho'` fixo. Abre no mês corrente mesmo sem registros. Cache `esc26-v2.3.2`.
+
 ## v2.3.1 — 2026-10-29 · Versão nova visível (§19) + correções do verificador cego R1 (STAGING — não publicado)
 - **Aviso de atualização** (admin e portal): banner fixo "Nova versão disponível — Atualizar agora" (alvo ≥ 40 px, botão "Deixar para depois"). Detecta de dois jeitos: pelo SW (`updatefound`/`statechange` → `installed` com controller, `reg.waiting`, e `controllerchange` quando já havia SW) e por checagem leve do servidor (`fetch(location.pathname, {cache:'no-store'})` ao abrir, ao voltar à aba e a cada 10 min, comparando o `APP_VERSION` do HTML). "Atualizar agora" manda `SKIP_WAITING` ao SW em espera (o `sw.js` agora escuta a mensagem) e recarrega.
 - **Tela de Novidades:** `const NOVIDADES` (todas as versões do CHANGELOG, da mais recente para a mais antiga, sem limite) em modal próprio. Admin: item "✨ Novidades" no menu do usuário; portal: link "✨ Novidades" no rodapé (lista no que faz sentido para quem consulta). Abre sozinha na primeira abertura de uma versão nova (última vista em `esc26_nov_vista` / `esc26_nov_vista_portal`).

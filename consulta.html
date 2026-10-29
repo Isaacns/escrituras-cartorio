@@ -378,10 +378,12 @@ const API_TOKEN = 'esc26_Iwixi5YcF50Oii1LpmYtdAEJmts4HDeXGZKu8kWryCA';
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY = 'cpf_esc26_v4';
 const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
-const APP_VERSION = '2.3.1'; // Portal + PWA + aviso de versão nova/Novidades (§19)
+const APP_VERSION = '2.3.2'; // Portal + PWA + aviso de versão nova/Novidades (§19)
 const NOVKEY = 'esc26_nov_vista_portal';
 // Novidades (§19) — do CHANGELOG.md, da mais recente para a mais antiga, no que faz sentido para quem consulta
 const NOVIDADES = [
+  { v:'2.3.2', d:'29/10/2026', t:'Abre no mês atual', i:[
+    'O sistema agora abre sempre no mês corrente — é só entrar e já está no mês de trabalho.' ] },
   { v:'2.3.1', d:'29/10/2026', t:'Aviso de versão nova + Novidades', i:[
     'Banner "Nova versão disponível — Atualizar agora" quando sai uma versão nova do portal.',
     'Esta tela de Novidades, no rodapé; abre sozinha na primeira vez que uma versão nova é usada.',
@@ -933,8 +935,7 @@ refreshInstallBtn();
 async function boot(){
   document.getElementById('loading').classList.add('open');
   await apiLoad();
-  curMonth = 'Julho';
-  if(!DB[curMonth]) curMonth = MONTHS.find(m=>DB[m]&&DB[m].registros&&DB[m].registros.length) || 'Janeiro';
+  curMonth = MONTHS[new Date().getMonth()]; // sempre abre no mês atual
   document.getElementById('loading').classList.remove('open');
   renderApp();
   novidadesAuto();

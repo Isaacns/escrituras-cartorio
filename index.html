@@ -550,10 +550,12 @@ let sessao = null; // token de sessão assinado (HMAC) devolvido pelo backend no
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY = 'cpf_esc26_v4';
 const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
-const APP_VERSION = '2.3.1'; // Opção C + PWA + compartilhar + aviso de versão nova/Novidades (§19)
+const APP_VERSION = '2.3.2'; // Opção C + PWA + compartilhar + aviso de versão nova/Novidades (§19)
 const NOVKEY = 'esc26_nov_vista';
 // Novidades (§19) — espelha o CHANGELOG.md, da mais recente para a mais antiga (todas as versões)
 const NOVIDADES = [
+  { v:'2.3.2', d:'29/10/2026', t:'Abre no mês atual', i:[
+    'O sistema agora abre sempre no mês corrente — é só entrar e já está no mês de trabalho.' ] },
   { v:'2.3.1', d:'29/10/2026', t:'Aviso de versão nova + Novidades', i:[
     'Banner "Nova versão disponível — Atualizar agora" quando sai uma versão nova (detecta pelo app instalado e por checagem leve do servidor).',
     'Esta tela de Novidades, no menu do usuário; abre sozinha na primeira vez que uma versão nova é usada.',
@@ -1605,8 +1607,7 @@ async function boot(){
   document.getElementById('loading').classList.add('open');
   populateSels();
   await apiLoad();               // leitura real (token) ou fallback seed
-  curMonth = 'Julho';            // entra num mês com dados; se não existir cai p/ existente
-  if(!DB[curMonth]) curMonth = MONTHS.find(m=>DB[m]&&DB[m].registros&&DB[m].registros.length) || 'Janeiro';
+  curMonth = MONTHS[new Date().getMonth()]; // sempre abre no mês atual
   document.getElementById('loading').classList.remove('open');
   // Restaura a sessão salva (UX — continua logado entre reloads). O servidor revalida a cada gravação.
   try{ sessao = localStorage.getItem(SKEY); }catch(e){ sessao = null; }

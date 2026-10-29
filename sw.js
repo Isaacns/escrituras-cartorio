@@ -5,7 +5,7 @@
  *  - Só ícones/manifests/estáticos do próprio site ficam em cache (cache-first).
  *  - skipWaiting + clients.claim; versão no nome do cache → o activate apaga os antigos.
  */
-const VERSION = 'esc26-v2.3.1';
+const VERSION = 'esc26-v2.3.2';
 // Página mostrada só quando não há rede nem cópia em cache (identidade do produto)
 const OFFLINE_HTML = '<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"><title>Aguardando a internet</title>'
   + '<style>body{margin:0;min-height:100vh;display:grid;place-items:center;background:linear-gradient(160deg,#0b3324,#0a4e33 70%,#0d5a3c);color:#fff;font-family:system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif;padding:24px;box-sizing:border-box}'
