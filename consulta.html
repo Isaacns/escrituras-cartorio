@@ -2,10 +2,18 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Escrituras 2026 — Consulta (Cartório Praia do Forte)</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Portal de Consulta — Cartório Praia do Forte</title>
+<link rel="manifest" href="manifest-portal.json">
+<meta name="theme-color" content="#0f6b43">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Portal Cartório">
+<link rel="apple-touch-icon" href="apple-touch-icon-portal.png">
+<link rel="icon" type="image/png" sizes="192x192" href="icon-portal-192.png">
 <!--
-  Escrituras 2026 — Cartório Praia do Forte · página de CONSULTA (somente leitura).
+  Escrituras 2026 — Cartório Praia do Forte · PORTAL DE CONSULTA (somente leitura, casca aprovada 29/10/2026).
   Link de visualização para o cartório, sem login. Lê o backend via GET com token e
   exibe os dados; não há nenhum caminho de gravação.
 -->
@@ -54,97 +62,49 @@ svg{display:block}
 ::-webkit-scrollbar{height:9px;width:9px}::-webkit-scrollbar-thumb{background:var(--areia);border-radius:8px}
 
 
-/* ─── LOGIN (Aura 2) ─── */
-.login{position:fixed;inset:0;z-index:400;display:flex;align-items:center;justify-content:center;padding:20px;
-  background:radial-gradient(1100px 620px at 50% -10%,rgba(24,163,103,.14),transparent 60%),linear-gradient(160deg,#0c1210,#0a1a13 55%,#101a15);transition:opacity .5s}
-.login.gone{opacity:0;pointer-events:none}
-.lcard{position:relative;width:100%;max-width:384px;background:linear-gradient(180deg,#141c17,#182219);border:1px solid #25332a;border-radius:22px;padding:12px 30px 26px;box-shadow:0 30px 70px rgba(0,0,0,.55);overflow:hidden;color:#e9efe9}
-.lcard::before{content:"";position:absolute;left:0;right:0;top:0;height:2px;background:linear-gradient(90deg,transparent,var(--verde-gl),var(--gold),transparent);opacity:.55}
-.embwrap{position:relative;height:150px;display:grid;place-items:center;margin:4px 0 0}
-.aura{position:absolute;inset:0;display:grid;place-items:center;pointer-events:none}
-.rings{position:absolute;width:216px;height:104px}
-.ring{position:absolute;inset:0;border-radius:50%;border:1.5px solid rgba(37,196,127,.55);animation:ripple 3.2s ease-out infinite;opacity:0}
-.ring:nth-child(2){animation-delay:.8s}.ring:nth-child(3){animation-delay:1.6s}.ring:nth-child(4){animation-delay:2.4s;border-color:rgba(201,178,122,.5)}
-@keyframes ripple{0%{transform:scale(.55);opacity:.7}70%{opacity:.18}100%{transform:scale(2.7);opacity:0}}
-.particles{position:absolute;inset:0}
-.particle{position:absolute;width:5px;height:5px;border-radius:50%;background:var(--verde-gl);opacity:.6;left:50%;top:50%;animation:floatP 6s ease-in-out infinite}
-.particle:nth-child(1){transform:translate(-96px,-22px);background:var(--gold)}
-.particle:nth-child(2){transform:translate(104px,-14px);animation-delay:.9s}
-.particle:nth-child(3){transform:translate(-110px,20px);animation-delay:1.8s}
-.particle:nth-child(4){transform:translate(92px,26px);animation-delay:2.6s;background:var(--gold)}
-.particle:nth-child(5){transform:translate(2px,-44px);animation-delay:3.3s}
-@keyframes floatP{0%,100%{opacity:.15;margin-top:0}50%{opacity:.7;margin-top:-8px}}
-.plate{position:relative;z-index:3;background:#fcfbf7;border-radius:16px;padding:14px 22px;display:grid;place-items:center;box-shadow:0 14px 34px rgba(0,0,0,.42),0 0 0 1px rgba(255,255,255,.5) inset,0 0 22px rgba(37,196,127,.15);border:1px solid rgba(255,255,255,.6);animation:breathe 4.6s ease-in-out infinite}
-.plate .logoimg{display:block;width:158px;height:70px;background:var(--logo) center/contain no-repeat}
-@keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.055)}}
-.lhead{text-align:center;margin-top:6px}
-.lhead h1{font-family:var(--ff-serif);font-size:20px}
-.lhead .sub{font-size:10px;letter-spacing:.22em;text-transform:uppercase;color:#8ba396;font-weight:700;margin-top:5px}
-.lform{margin-top:18px;display:flex;flex-direction:column;gap:11px}
-.lfg label{font-size:11px;font-weight:700;color:#8ba396;margin-bottom:5px;display:block}
-.linp{display:flex;align-items:center;gap:9px;background:rgba(0,0,0,.28);border:1px solid #25332a;border-radius:11px;padding:11px 13px;transition:border-color .15s,box-shadow .15s}
-.linp:focus-within{border-color:var(--verde-cl);box-shadow:0 0 0 3px rgba(24,163,103,.18)}
-.linp input{flex:1;background:none;border:none;outline:none;color:#e9efe9;font-size:14px}
-.linp input::placeholder{color:#5f7368}
-.lbtn{margin-top:4px;background:linear-gradient(150deg,var(--verde),var(--verde-cl));color:#fff;font-size:14.5px;font-weight:800;padding:13px;border-radius:12px;box-shadow:0 8px 22px rgba(24,163,103,.32);transition:transform .12s}
-.lbtn:hover{transform:translateY(-1px)}
-.lread{margin-top:2px;font-size:12px;color:#8ba396;text-align:center;padding:8px;font-weight:600}
-.lread:hover{color:var(--verde-gl)}
-.lerr{display:none;color:#e08379;font-size:12px;text-align:center;margin-top:4px;font-weight:600}
-.lfoot{text-align:center;margin-top:16px;font-size:10px;color:#5f7368;line-height:1.5}
-.lfoot b{color:#8ba396}
-
-/* ─── SHELL command center ─── */
-.shell{display:flex;min-height:calc(100vh - 25px)}
-.rail{width:66px;background:linear-gradient(180deg,#0b3324,#0a4e33);color:#fff;flex:none;display:flex;flex-direction:column;padding:12px 0;position:sticky;top:0;height:100vh;z-index:60;transition:width .18s;overflow:hidden;white-space:nowrap}
-.rail:hover{width:214px;box-shadow:var(--sh-2)}
-.rbrand{display:flex;align-items:center;gap:10px;padding:2px 0 14px 12px}
-.rbrand .brandplate{background:#fcfbf7;border-radius:9px;padding:6px 9px;box-shadow:0 2px 9px rgba(0,0,0,.3);display:inline-flex;align-items:center;flex:none}
-.rbrand .brandplate .logoimg{display:block;height:24px;width:56px;background:var(--logo) left center/contain no-repeat}
-.rbrand .bt{opacity:0;transition:.15s}.rail:hover .rbrand .bt{opacity:1}
-.rbrand b{font-family:var(--ff-serif);font-size:13.5px;display:block;line-height:1.1}
-.rbrand span{font-size:8.5px;letter-spacing:.13em;text-transform:uppercase;color:rgba(255,255,255,.6);font-weight:700}
-.rnav{padding:5px 12px;display:flex;flex-direction:column;gap:2px;flex:1;margin-top:6px}
-.rnav button{display:flex;align-items:center;gap:14px;width:100%;text-align:left;padding:9px 10px;border-radius:9px;color:rgba(255,255,255,.8);font-size:13px;font-weight:600}
-.rnav button .ico{width:20px;font-size:15px;display:grid;place-items:center;flex:none}
-.rnav button .lbl{opacity:0;transition:.15s}.rail:hover .rnav button .lbl{opacity:1}
-.rnav button:hover{background:rgba(255,255,255,.09)}
-.rnav button.on{background:rgba(255,255,255,.17);color:#fff;font-weight:700}
-.rnav button .cnt{margin-left:auto;font-size:10.5px;background:rgba(255,255,255,.18);padding:1px 7px;border-radius:100px;font-weight:800;opacity:0}
-.rail:hover .rnav button .cnt{opacity:1}
-.rfoot{padding:8px 0 2px 20px;font-size:9px;color:rgba(255,255,255,.5);border-top:1px solid rgba(255,255,255,.12);margin-top:6px;opacity:0}
-.rail:hover .rfoot{opacity:1}
-.main{flex:1;min-width:0;display:flex;flex-direction:column;background:var(--bg)}
-.topbar{display:flex;align-items:center;gap:12px;padding:10px 18px;background:var(--card);border-bottom:1px solid var(--border);position:sticky;top:0;z-index:30}
-.topbar .ttl{min-width:0}
-.topbar .ttl h2{font-family:var(--ff-serif);font-size:17px;line-height:1}
-.topbar .ttl span{font-size:11px;color:var(--muted)}
-.topbar .sp{flex:1}
-.search{display:flex;align-items:center;gap:7px;background:var(--card-2);border:1px solid var(--border);border-radius:9px;padding:6px 11px;min-width:140px}
-.search input{border:none;background:none;outline:none;font-size:12.5px;color:var(--txt);width:100%}
-.mnav{display:flex;align-items:center;gap:4px;background:var(--card-2);border:1px solid var(--border);border-radius:9px;padding:3px}
-.mnav button{width:24px;height:24px;border-radius:6px;font-size:13px;color:var(--muted);display:grid;place-items:center}
-.mnav b{font-size:12.5px;font-weight:800;min-width:52px;text-align:center}
-.syncpill{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--muted)}
+/* ─── PORTAL de consulta (só leitura, sem login) — casca aprovada 29/10/2026 ─── */
+[hidden]{display:none!important}
+.shell{min-height:100vh;display:flex;flex-direction:column;background:var(--bg)}
+.phero{background:radial-gradient(900px 400px at 50% -20%,rgba(37,196,127,.22),transparent 60%),linear-gradient(160deg,#0b3324,#0a4e33 70%,#0d5a3c);color:#fff;padding:22px 18px 18px;text-align:center;position:relative}
+.phero .plate{display:inline-block;background:#fcfbf7;border-radius:14px;padding:10px 20px;box-shadow:0 12px 30px rgba(0,0,0,.35)}
+.phero .plate .logoimg{display:block;width:140px;height:62px;background:var(--logo) center/contain no-repeat}
+.phero h1{font-family:var(--ff-serif);font-size:26px;font-weight:700;margin-top:14px;line-height:1.1}
+.phero .sub{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:rgba(255,255,255,.72);font-weight:700;margin-top:6px}
+.phero .rochip{display:inline-flex;align-items:center;gap:7px;margin-top:12px;background:rgba(255,255,255,.12);border:1px solid rgba(255,255,255,.22);border-radius:100px;padding:6px 13px;font-size:11.5px;font-weight:700}
+.phero .acts{display:flex;justify-content:center;align-items:center;gap:10px;flex-wrap:wrap;margin-top:16px}
+.tbtn{display:inline-flex;align-items:center;gap:7px;min-height:40px;padding:0 13px;border-radius:9px;font-size:12.5px;font-weight:700;border:1px solid rgba(255,255,255,.25);background:rgba(255,255,255,.1);color:#fff;white-space:nowrap}
+.tbtn:hover{background:rgba(255,255,255,.18)}
+.tbtn.primary{background:#fff;color:var(--verde);border-color:transparent;font-size:13.5px;min-height:44px;padding:0 18px;box-shadow:0 10px 24px rgba(0,0,0,.25)}
+.tbtn.sq{padding:0;min-width:40px;justify-content:center;font-size:14px}
+.ptop{position:absolute;right:12px;top:12px;display:flex;gap:6px}
+.mnav{display:flex;align-items:center;gap:2px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.25);border-radius:9px;padding:2px}
+.mnav button{min-width:40px;min-height:40px;border-radius:7px;font-size:15px;color:rgba(255,255,255,.85);display:grid;place-items:center}
+.mnav button:hover{background:rgba(255,255,255,.14);color:#fff}
+.mnav b{font-size:12.5px;font-weight:800;min-width:118px;text-align:center}
+/* fila de abas rolável: centraliza com margin:auto nas pontas — NUNCA justify-content:center (corta o início no celular) */
+.ptabs{position:sticky;top:0;z-index:30;background:var(--card);border-bottom:1px solid var(--border);display:flex;gap:2px;padding:0 10px;overflow-x:auto;scrollbar-width:none}
+.ptabs::-webkit-scrollbar{display:none}
+.ptab:first-child{margin-left:auto}.ptab:last-child{margin-right:auto}
+.ptab{display:inline-flex;align-items:center;gap:7px;min-height:46px;padding:0 14px;font-size:13px;font-weight:700;color:var(--muted);border-bottom:3px solid transparent;white-space:nowrap;flex:none}
+.ptab:hover{color:var(--txt)}
+.ptab.on{color:var(--verde);border-bottom-color:var(--verde)}
+:root[data-theme="dark"] .ptab.on{color:var(--pac);border-bottom-color:var(--pac)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .ptab.on{color:var(--pac);border-bottom-color:var(--pac)}}
+.ptab .ico{display:none}
+.main{flex:1;min-width:0;display:flex;flex-direction:column}
+.statusrow{display:flex;align-items:center;gap:10px;flex-wrap:wrap;padding:14px 18px 0}
+.statusrow h2{font-family:var(--ff-serif);font-size:19px;line-height:1.1}
+.statusrow .sub{font-size:11.5px;color:var(--muted)}
+.sp{flex:1}
+.search{display:flex;align-items:center;gap:7px;background:var(--card-2);border:1px solid var(--border);border-radius:9px;padding:0 11px;min-height:40px;min-width:160px;max-width:320px;flex:1}
+.search input{border:none;background:none;outline:none;font-size:12.5px;color:var(--txt);width:100%;min-height:40px}
+.view{padding:14px 18px 18px}
+.pfoot{text-align:center;padding:18px 14px 22px;font-size:11px;color:var(--muted);border-top:1px solid var(--border);line-height:1.8}
+.pfoot b{color:var(--txt)}
+.syncpill{display:inline-flex;align-items:center;gap:6px;font-size:11px;color:var(--muted);white-space:nowrap;vertical-align:middle}
 .sdot{width:8px;height:8px;border-radius:50%;background:var(--verde-cl)}
 .sdot.sync{background:var(--gold);animation:blink 1s infinite}.sdot.err{background:var(--danger)}
 @keyframes blink{50%{opacity:.3}}
-.tgl{width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card-2);display:grid;place-items:center;font-size:14px;flex:none}
-.burger{display:none;place-items:center;width:34px;height:34px;border-radius:9px;border:1px solid var(--border);background:var(--card-2)}
-.view{padding:14px 16px}
-
-/* user menu */
-.user{position:relative}
-.user .ub{display:flex;align-items:center;gap:8px;padding:4px 8px 4px 4px;border-radius:100px;border:1px solid var(--border);background:var(--card-2)}
-.user .av{width:28px;height:28px;border-radius:50%;background:linear-gradient(150deg,var(--verde-cl),var(--verde));color:#fff;display:grid;place-items:center;font-size:11px;font-weight:800;flex:none}
-.user .who{text-align:left;line-height:1.1}.user .who b{font-size:12px;display:block}.user .who span{font-size:9.5px;color:var(--muted)}
-@media(max-width:620px){.user .who{display:none}}
-.user .menu{position:absolute;right:0;top:calc(100% + 8px);background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--sh-2);min-width:186px;padding:6px;opacity:0;visibility:hidden;transform:translateY(-6px);transition:.16s;z-index:90}
-.user.open .menu{opacity:1;visibility:visible;transform:none}
-.user .menu a{display:flex;align-items:center;gap:10px;padding:9px 11px;border-radius:8px;font-size:13px;font-weight:600;text-decoration:none;color:var(--txt)}
-.user .menu a:hover{background:var(--areia-bg)}.user .menu a.out{color:var(--danger)}
-.user .menu .sep{height:1px;background:var(--border);margin:5px 4px}
-.user .menu .role{font-size:10.5px;color:var(--muted);padding:4px 11px 8px}
 
 /* componentes */
 .badge{display:inline-flex;align-items:center;gap:5px;font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:6px}
@@ -155,7 +115,7 @@ svg{display:block}
 .chip{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:800;padding:4px 10px;border-radius:100px}
 .chip.ok{background:var(--pac-bg);color:var(--pac)}.chip.and{background:var(--warn-bg);color:var(--warn)}
 .card{background:var(--card);border:1px solid var(--border);border-radius:12px;box-shadow:var(--sh)}
-.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;font-size:12.5px;font-weight:700;background:var(--verde);color:#fff;box-shadow:0 3px 10px rgba(15,107,67,.28)}
+.btn{display:inline-flex;align-items:center;gap:7px;padding:8px 14px;border-radius:9px;font-size:12.5px;font-weight:700;background:var(--verde);color:#fff;box-shadow:0 1px 3px rgba(0,0,0,.14)}
 .btn.ghost{background:var(--card);color:var(--txt);border:1px solid var(--border);box-shadow:none}
 .btn.danger{background:var(--danger);box-shadow:none}
 .toolbar{display:flex;align-items:center;gap:9px;margin-bottom:14px;flex-wrap:wrap}
@@ -208,7 +168,8 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 .cgrid{display:grid;grid-template-columns:1.35fr 1fr;gap:12px;align-items:start}
 @media(max-width:940px){.cgrid{grid-template-columns:1fr}}
 .chart{display:flex;align-items:flex-end;gap:8px;padding:16px 14px 12px;height:150px}
-.chart .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;cursor:pointer}
+.chart .col{flex:1;display:flex;flex-direction:column;align-items:center;gap:6px;height:100%;justify-content:flex-end;border-radius:6px;padding:0}
+.chart button.col:hover{background:var(--areia-bg)}
 .chart .stack{width:66%;max-width:30px;display:flex;flex-direction:column;justify-content:flex-end;border-radius:5px 5px 0 0;overflow:hidden;min-height:5px}
 .chart .seg-e{background:#274b73}.chart .seg-r{background:var(--areia)}
 .chart .col.cur .stack{outline:2px solid var(--verde-cl);outline-offset:1px}
@@ -223,7 +184,7 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 .modal.wide{max-width:760px}
 .mhd{display:flex;align-items:center;gap:10px;padding:15px 20px;border-bottom:1px solid var(--border)}
 .mhd h2{font-family:var(--ff-serif);font-size:17px;flex:1}
-.mcl{font-size:18px;color:var(--muted);width:30px;height:30px;border-radius:8px}
+.mcl{font-size:20px;color:var(--muted);min-width:40px;min-height:40px;border-radius:8px}
 .mbd{padding:18px 20px;display:flex;flex-direction:column;gap:12px}
 .fg label{font-size:11px;font-weight:700;color:var(--muted);margin-bottom:5px;display:block}
 .fg input,.fg select{width:100%;padding:9px 11px;border:1px solid var(--border);border-radius:9px;background:var(--card-2);color:var(--txt);font-size:13px;outline:none}
@@ -233,10 +194,33 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 .mi{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:10px 12px;border:1px solid var(--border);border-radius:9px;margin-bottom:8px}
 .mi-label{font-size:13px;font-weight:600}.mi-date{font-size:11px;color:var(--muted)}
 .nodata{color:var(--muted);font-size:12px;padding:14px;text-align:center}
-.toast{position:fixed;bottom:20px;right:20px;z-index:500;background:#12281c;color:#fff;padding:11px 16px;border-radius:10px;font-size:12.5px;font-weight:600;box-shadow:var(--sh-2);transform:translateY(70px);opacity:0;transition:.3s;max-width:300px}
+.toast{position:fixed;bottom:calc(20px + env(safe-area-inset-bottom,0px));right:20px;z-index:500;background:#12281c;color:#fff;padding:11px 16px;border-radius:10px;font-size:12.5px;font-weight:600;box-shadow:var(--sh-2);transform:translateY(70px);opacity:0;transition:.3s;max-width:300px}
 .toast.show{transform:none;opacity:1}.toast.err{background:#6a201b}
 .loading{position:fixed;inset:0;background:rgba(20,22,15,.5);z-index:350;display:none;place-items:center;color:#fff;font-size:13px}
 .loading.open{display:grid}
+/* modal Instalar app */
+.hint{font-size:12px;color:var(--muted);line-height:1.5}
+.hint b{color:var(--txt)}
+.installcard{display:flex;align-items:center;gap:12px;background:var(--card-2);border:1px solid var(--border);border-radius:12px;padding:12px}
+.installcard .appic{width:48px;height:48px;border-radius:12px;background:#fcfbf7;display:grid;place-items:center;border:1px solid var(--border);flex:none}
+.installcard .appic .logoimg{display:block;width:40px;height:30px;background:var(--logo) center/contain no-repeat}
+.installcard b{display:block;font-size:13.5px}.installcard span{font-size:11.5px;color:var(--muted)}
+.ioslist{margin:0;padding-left:18px;font-size:12.5px;line-height:1.7}
+/* §19 — versão nova: banner "Atualizar agora" + modal Novidades */
+.updbar{position:fixed;left:50%;bottom:calc(16px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);z-index:450;display:none;align-items:center;gap:10px;background:var(--verde);color:#fff;padding:6px 6px 6px 16px;border-radius:12px;box-shadow:var(--sh-2);font-size:12.5px;font-weight:700;max-width:min(560px,calc(100vw - 24px))}
+.updbar.show{display:flex}
+.updbar button{min-height:40px;padding:0 14px;border-radius:9px;background:#fff;color:var(--verde);font-weight:800;white-space:nowrap}
+.updbar button.x{background:transparent;color:#fff;min-width:40px;padding:0;font-size:18px}
+.nov .nv{padding:10px 0;border-bottom:1px solid var(--border)}.nov .nv:last-child{border-bottom:none}
+.nov .nv h3{font-family:var(--ff-serif);font-size:15px;display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}
+.nov .nv h3 small{font-size:11px;color:var(--muted);font-weight:600}
+.nov .nv .tag{font-size:10px;font-weight:800;background:var(--pac-bg);color:var(--pac);padding:2px 7px;border-radius:100px}
+.nov ul{margin:6px 0 0 18px;font-size:12.5px;line-height:1.55}.nov li{margin-bottom:3px}
+.pfoot{padding-bottom:calc(22px + env(safe-area-inset-bottom,0px))}
+body.has-upd .pfoot{padding-bottom:calc(104px + env(safe-area-inset-bottom,0px))} /* banner visível: nada fica escondido atrás dele */
+.pfoot a{color:var(--verde-cl);font-weight:700;text-decoration:none;display:inline-flex;align-items:center;min-height:40px;padding:0 8px;border-radius:6px}
+.pfoot a:hover{background:var(--areia-bg)}
+:root[data-theme="dark"] .pfoot a{color:var(--pac)}
 
 /* report */
 .rep-sec{margin-bottom:18px}.rep-sec h3{font-family:var(--ff-serif);font-size:15px;margin-bottom:10px;border-bottom:1px solid var(--border);padding-bottom:6px}
@@ -251,16 +235,6 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 .rep-table .desc-row td:first-child{border-left:3px solid var(--danger)}
 .rep-table .cobrado-row td:first-child{border-left:3px solid var(--warn)}
 
-@media(max-width:760px){
-  .rail{position:fixed;left:0;top:25px;bottom:0;transform:translateX(-100%);transition:.24s;z-index:70;width:214px}
-  .rail .rbrand .bt,.rail .rnav button .lbl,.rail .rnav button .cnt,.rail .rfoot{opacity:1}
-  .rail.open{transform:none}
-  .scrim{position:fixed;inset:0;background:rgba(4,68,44,.4);z-index:65;opacity:0;visibility:hidden;transition:.2s}
-  .scrim.on{opacity:1;visibility:visible}
-  .burger{display:grid}
-  .search{min-width:0;width:auto}
-  .cgrid{grid-template-columns:1fr}
-}
 @media(max-width:640px){
   html,body{max-width:100%}
   /* Tabela de registros vira cards empilhados (sem scroll horizontal) */
@@ -273,15 +247,22 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
   .v2reg td::before{content:attr(data-l);font-weight:700;color:var(--muted);font-size:10.5px;text-transform:uppercase;letter-spacing:.03em;text-align:left;flex:none}
   .v2reg td[data-l="Obs."]{white-space:normal}
   .v2reg .nodata{display:block;text-align:center;padding:14px}
-  /* Topbar quebra com elegância */
-  .topbar{flex-wrap:wrap;gap:8px 10px;padding:10px 12px}
-  .topbar .sp{display:none}
-  .syncpill,#stime{display:none!important}
-  .topbar .ttl{order:2;flex:1 1 auto;min-width:0}
-  .burger{order:1}.tgl{order:4}
-  .mnav{order:5}#tStatus{order:6}
-  .search{order:7;flex:1 1 100%;min-width:0}
-  .mnav button,.tgl{min-width:40px;min-height:38px}
+  /* Portal no celular */
+  .phero{padding:48px 14px 16px}
+  .phero h1{font-size:22px}
+  .ptop{right:8px;top:8px}
+  .ptab{min-height:44px;padding:0 12px}
+  .ptab .ico{display:inline;font-size:13px}
+  .statusrow{padding:12px 12px 0}
+  .search{flex:1 1 100%;max-width:none;min-width:0}
+  .view{padding:12px 12px 14px}
+  .cgrid{grid-template-columns:1fr}
+  #stime{display:none!important}
+  /* alvos de toque ≥ 40 px */
+  .ph .lnk{min-height:40px;padding:0 10px;border-radius:6px}
+  .btn{min-height:40px}
+  #rep-period,#rep-mes{min-height:40px}
+  .mft{flex-wrap:wrap}
   /* Dashboard: KPIs 2 colunas, hero cheio, gráfico compacto */
   .kpis{grid-template-columns:1fr 1fr}
   .kpi.hero{grid-column:1 / -1}
@@ -292,13 +273,13 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
   .rep-table{font-size:11px}
   /* Filtros roláveis + alvos de toque */
   .filters{overflow-x:auto;max-width:100%}
-  .fbtn{min-height:38px}
+  .fbtn{min-height:40px}
   /* Modais proporcionais */
   .overlay{padding:10px}
   .mbd{padding:16px}
 }
 @media print{
-  .rail,.topbar,.toolbar,.scrim,.toast,.burger,.mcl,.mft,.rep-mes-wrap{display:none!important}
+  .phero,.ptabs,.statusrow,.pfoot,.toolbar,.toast,.mcl,.mft,.rep-mes-wrap{display:none!important}
   body{background:#fff}
   .overlay:not(.open){display:none!important}
   .overlay.open{position:static;background:none;padding:0;display:block;backdrop-filter:none}
@@ -332,26 +313,35 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
 <body>
 
 <div class="shell">
-  <aside class="rail" id="rail">
-    <div class="rbrand"><span class="brandplate"><i class="logoimg" role="img" aria-label="Cartório Praia do Forte"></i></span><div class="bt"><span>Escrituras 2026 · Consulta</span></div></div>
-    <nav class="rnav" id="rnav"></nav>
-    <div class="rfoot">Visualização · Cartório Praia do Forte<br>Sistema fornecido pela INPERSON<br><span id="appver" style="opacity:.6"></span></div>
-  </aside>
-  <div class="scrim" id="scrim" onclick="closeRail()"></div>
-  <div class="main">
-    <div class="topbar">
-      <button class="burger" onclick="openRail()">&#9776;</button>
-      <div class="ttl"><h2 id="tTitle">Visão Geral</h2><span id="tSub"></span></div>
-      <div class="sp"></div>
-      <div class="search"><span style="color:var(--muted);font-size:12px">&#128269;</span><input id="searchInp" placeholder="Buscar registro..." oninput="applySearch(this.value)"></div>
-      <div class="mnav"><button onclick="stepMonth(-1)">&#8249;</button><b id="moLabel">—</b><button onclick="stepMonth(1)">&#8250;</button></div>
-      <span id="tStatus"></span>
-      <div class="syncpill"><span class="sdot" id="sdot"></span><span id="smsg">—</span></div>
-      <span id="stime" style="display:none"></span>
-      <button class="tgl" onclick="toggleTheme()" title="Tema">&#9681;</button>
-      <span class="chip" style="background:var(--areia-bg);color:var(--muted)">👁 Visualização</span>
+  <header class="phero">
+    <div class="ptop"><button class="tbtn sq" onclick="toggleTheme()" title="Tema claro/escuro" aria-label="Tema claro/escuro">&#9681;</button></div>
+    <div class="plate"><i class="logoimg" role="img" aria-label="Cartório Praia do Forte"></i></div>
+    <h1>Portal de Consulta</h1>
+    <div class="sub">Cartório Praia do Forte · Escrituras 2026</div>
+    <div class="rochip">&#128065; Modo consulta — acompanhe as escrituras do cartório</div>
+    <div class="acts">
+      <button class="tbtn primary" id="btn-install" hidden onclick="instalarApp()">&#128242; Instalar app</button>
+      <div class="mnav"><button onclick="stepMonth(-1)" aria-label="Mês anterior">&#8249;</button><b id="moLabel">—</b><button onclick="stepMonth(1)" aria-label="Próximo mês">&#8250;</button></div>
     </div>
+  </header>
+  <nav class="ptabs" id="tabs" role="tablist" aria-label="Seções"></nav>
+  <div class="main">
+    <div class="statusrow"><h2 id="tTitle">Visão Geral</h2><span class="sub" id="tSub"></span><span id="tStatus"></span><span class="sp"></span><div class="search"><span style="color:var(--muted);font-size:12px">&#128269;</span><input id="searchInp" placeholder="Buscar registro, escrevente, local…" aria-label="Buscar" oninput="applySearch(this.value)"></div></div>
     <div class="view" id="view"></div>
+  </div>
+  <footer class="pfoot"><span class="syncpill"><span class="sdot" id="sdot"></span><span id="smsg">—</span></span> · atualizado automaticamente <span id="stime"></span><br>Sistema fornecido pela <b>INPERSON</b> Soluções em Tecnologia · <span id="appver"></span> · <a href="#" onclick="openNovidades();return false">&#10024; Novidades</a></footer>
+</div>
+
+<!-- MODAL: instalar app (PWA do portal) -->
+<div class="overlay" id="ov-install">
+  <div class="modal">
+    <div class="mhd"><h2>Instalar app</h2><button class="mcl" onclick="closeOv('ov-install')" aria-label="Fechar">&times;</button></div>
+    <div class="mbd">
+      <div class="installcard"><div class="appic"><i class="logoimg"></i></div><div><b>Portal de Consulta — Cartório</b><span>cartorio.inpersonaltec.com.br</span></div></div>
+      <p class="hint" id="inst-hint">Fica na tela inicial do celular e no menu Iniciar do computador, abre em janela própria e carrega mais rápido. Continua somente visualização.</p>
+      <div id="inst-ios" hidden><p class="hint">No iPhone/iPad, o Safari instala assim:</p><ol class="ioslist"><li>Toque em <b>Compartilhar</b> (ícone de quadrado com seta, na barra do Safari).</li><li>Escolha <b>Adicionar à Tela de Início</b>.</li><li>Confirme em <b>Adicionar</b>.</li></ol></div>
+    </div>
+    <div class="mft"><button class="btn ghost" onclick="closeOv('ov-install')">Agora não</button><button class="btn" id="inst-go" onclick="confirmarInstalacao()">Instalar</button></div>
   </div>
 </div>
 
@@ -363,6 +353,18 @@ button.kpi{cursor:pointer}button.kpi:hover{border-color:var(--verde-cl);transfor
     <div class="mft"><button class="btn ghost" onclick="closeOv('ov-report')">Fechar</button><button class="btn" onclick="window.print()">&#128424; Imprimir</button></div>
   </div>
 </div>
+
+<!-- MODAL: Novidades (§19) -->
+<div class="overlay" id="ov-nov">
+  <div class="modal">
+    <div class="mhd"><h2>&#10024; Novidades</h2><button class="mcl" onclick="closeOv('ov-nov')" aria-label="Fechar">&times;</button></div>
+    <div class="mbd nov" id="nov-body"></div>
+    <div class="mft"><button class="btn" onclick="closeOv('ov-nov')">Entendi</button></div>
+  </div>
+</div>
+
+<!-- Banner: versão nova disponível (§19) -->
+<div class="updbar" id="updbar" role="status" aria-live="polite"><span>Nova versão disponível</span><button onclick="atualizarAgora()">Atualizar agora</button><button class="x" onclick="fecharUpd()" aria-label="Deixar para depois">&times;</button></div>
 
 <div class="toast" id="toast"></div>
 <div class="loading" id="loading">Carregando dados…</div>
@@ -376,7 +378,29 @@ const API_TOKEN = 'esc26_Iwixi5YcF50Oii1LpmYtdAEJmts4HDeXGZKu8kWryCA';
 const MONTHS = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
 const LSKEY = 'cpf_esc26_v4';
 const PACOTE = 4, VAL_ER = 60, VAL_GRAF = 15;
-const APP_VERSION = '2.1.0'; // movimento vivo (§20)
+const APP_VERSION = '2.3.1'; // Portal + PWA + aviso de versão nova/Novidades (§19)
+const NOVKEY = 'esc26_nov_vista_portal';
+// Novidades (§19) — do CHANGELOG.md, da mais recente para a mais antiga, no que faz sentido para quem consulta
+const NOVIDADES = [
+  { v:'2.3.1', d:'29/10/2026', t:'Aviso de versão nova + Novidades', i:[
+    'Banner "Nova versão disponível — Atualizar agora" quando sai uma versão nova do portal.',
+    'Esta tela de Novidades, no rodapé; abre sozinha na primeira vez que uma versão nova é usada.',
+    'Página offline com a identidade do cartório: "Aguardando a internet".' ] },
+  { v:'2.3.0', d:'29/10/2026', t:'Portal de Consulta com cara própria + app instalável', i:[
+    'Capa do cartório, abas no topo e navegação de mês por extenso.',
+    'Botão "Instalar app": o portal vira um app na tela inicial do celular e no computador.',
+    'Modo consulta: os mesmos dados do painel, para acompanhar; relatórios mensal, trimestral, semestral e anual com o cálculo detalhado.',
+    'Ícones novos com o logo do cartório; atualização automática, sempre com a versão mais recente.' ] },
+  { v:'2.2.0', d:'11/09/2026', t:'Login real no servidor (painel administrativo)', i:[
+    'A consulta continua abrindo direto, em modo leitura; a senha do administrador passou a viver protegida no servidor.' ] },
+  { v:'2.1.0', d:'19/08/2026', t:'Movimento vivo', i:[
+    'Gráfico "Movimento por mês" preenche de baixo para cima e o anel de Idas à PF anima até o valor.',
+    'Números dos indicadores contam até o valor final; entrada suave de cards e listas.' ] },
+  { v:'2.0.0', d:'04/08/2026', t:'Versão C — base do sistema', i:[
+    'Página de consulta somente leitura com visão geral, registros, idas à PF, diligências, fechamento e relatórios imprimíveis.',
+    'Layout para celular (tabelas viram cards).' ] }
+];
+const TEMAKEY = 'esc26_tema';
 const RM = matchMedia('(prefers-reduced-motion: reduce)').matches; // desliga count-up
 let DB = {}, curMonth = 'Janeiro', curSection = 'vis', curFilter = 'todos';
 
@@ -480,7 +504,7 @@ async function apiLoad() {
       const j = await r.json();
       if (j.ok && j.data && Object.keys(j.data).length > 0) { DB = j.data; cacheSave(); sync('ok'); return; }
     } catch (e2) { }
-    const l = cacheLoad(); DB = l || buildSeed(); sync(l ? 'ok' : 'err', l ? 'Dados locais' : 'Sem conexão');
+    const l = cacheLoad(); DB = l || buildSeed(); sync(l ? 'ok' : 'err', l ? 'Dados locais' : 'Offline — reconectando');
   }
 }
 // cache local APENAS do que foi LIDO (não é escrita na base; não há POST nesta página)
@@ -710,11 +734,11 @@ const TITLES={vis:["Visão Geral","Panorama do mês"],reg:["Registros","Entregas
 
 function renderApp(){
   const c = calcMes(curMonth), d = DB[curMonth] || emptyMonth();
-  document.getElementById('moLabel').textContent = curMonth.slice(0,3)+' 26';
-  const counts={reg:d.registros.length,pf:d.idasPF.length,dil:d.diligencias.length};
-  document.getElementById('rnav').innerHTML = NAV.map(n=>{
-    const cnt=(n[3]&&counts[n[0]]!==undefined)?`<span class="cnt">${counts[n[0]]}</span>`:'';
-    return `<button class="${curSection===n[0]?'on':''}" onclick="go('${n[0]}')"><span class="ico">${n[2]}</span><span class="lbl">${n[1]}</span>${cnt}</button>`;
+  document.getElementById('moLabel').textContent = curMonth+' 2026';
+  // abas no topo (Portal): só leitura — sem contadores
+  document.getElementById('tabs').innerHTML = NAV.map(n=>{
+    const on=curSection===n[0];
+    return `<button class="ptab ${on?'on':''}" role="tab" aria-selected="${on}" onclick="go('${n[0]}')"><span class="ico">${n[2]}</span><span>${n[1]}</span></button>`;
   }).join('');
   const t=TITLES[curSection];
   document.getElementById('tTitle').textContent=t[0];
@@ -777,7 +801,7 @@ function sectionHTML(s,c,d){
     const cnt={}; d.registros.forEach(r=>{cnt[r.local]=(cnt[r.local]||0)+1;});
     const srt=Object.entries(cnt).sort((a,b)=>b[1]-a[1]);
     const mx=srt[0]?.[1]||1;
-    const bars=srt.map(([l,n])=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 16px"><span style="flex:1;font-size:12.5px">${esc(l)}</span><div style="width:110px;height:9px;border-radius:6px;background:var(--areia-bg);overflow:hidden"><div style="height:100%;width:${(n/mx*100).toFixed(0)}%;background:var(--verde-cl)"></div></div><span style="font-weight:800;width:24px;text-align:right">${n}</span></div>`).join('')||'<div class="nodata">Sem dados</div>';
+    const bars=srt.map(([l,n])=>`<div style="display:flex;align-items:center;gap:10px;padding:9px 16px"><span style="flex:1;font-size:12.5px">${esc(l)}</span><div style="width:110px;height:9px;border-radius:6px;background:var(--areia-bg);overflow:hidden"><div style="height:100%;width:${(n/mx*100).toFixed(0)}%;background:var(--verde-cl)"></div></div><span style="font-weight:800;width:24px;text-align:right">${n}</span></div>`).join('')||'<div class="nodata">Nada registrado neste mês</div>';
     return `<div class="card"><div class="ph"><h3>Locais movimentados — ${curMonth}</h3></div>${bars}</div>`;
   }
   if(s==='rel'){
@@ -804,8 +828,11 @@ function animateKPIs(){
 function dashHTML(c,d){
   let pf=Math.round(c.idasPF/c.idasExig*100); if(!isFinite(pf))pf=0; if(pf>100)pf=100;
   let maxReg=1; MONTHS.forEach(m=>{const cc=calcMes(m); if(cc.regs.length>maxReg)maxReg=cc.regs.length;});
+  // no celular as colunas ficam estreitas demais para toque: viram só leitura (mês troca por ‹ ›)
+  const mob=isMobile();
   const cols=MONTHS.map((m,i)=>{const cc=calcMes(m);const ent=cc.regs.filter(r=>r.tipo!=='Retirada').length;const ret=cc.regs.length-ent;
-    return `<div class="col ${m===curMonth?'cur':''}" style="--i:${i}" onclick="pickMonth('${m}')"><div class="stack" style="height:${Math.max(4,Math.round(cc.regs.length/maxReg*100))}%"><div class="seg-e" style="flex:${ent||0.001}"></div><div class="seg-r" style="flex:${ret||0.001}"></div></div><span class="ml">${m.slice(0,3)}</span></div>`;}).join('');
+    const inner=`<div class="stack" style="height:${Math.max(4,Math.round(cc.regs.length/maxReg*100))}%"><div class="seg-e" style="flex:${ent||0.001}"></div><div class="seg-r" style="flex:${ret||0.001}"></div></div><span class="ml">${m.slice(0,3)}</span>`;
+    return mob?`<div class="col ${m===curMonth?'cur':''}" style="--i:${i}">${inner}</div>`:`<button class="col ${m===curMonth?'cur':''}" style="--i:${i}" onclick="pickMonth('${m}')" title="Ver ${m}">${inner}</button>`;}).join('');
   const idas=d.idasPF.map(p=>`<div class="r"><span class="dot" style="background:#274b73"></span><div class="g"><b>Ida à PF</b></div><span class="v" style="font-size:11px;color:var(--muted)">${esc(p.data)}</span></div>`).join('')||'<div class="nodata">—</div>';
   const dil=d.diligencias.map(x=>`<div class="r"><span class="dot" style="background:var(--warn)"></span><div class="g"><b style="font-size:12px">${esc(x.desc)}</b><span>${esc(x.data)}</span></div><span class="v">${R(x.valor||130)}</span></div>`).join('')||'<div class="nodata">Nenhuma</div>';
   const ent=c.regs.filter(r=>r.tipo!=='Retirada').length, ret=c.regs.length-ent;
@@ -817,7 +844,7 @@ function dashHTML(c,d){
     <button class="kpi hero" onclick="go('fech')"><div class="ic">💰</div><div class="k-lb">A receber</div><div class="k-v" data-count="${c.total}" data-money="1" style="font-size:19px">${R(c.total)}</div><div class="k-sub">${isFechado(curMonth)?'Fechado':(c.emAndamento?'Em andamento':'Aberto')}</div></button>
   </div>
   <div class="cgrid"><div style="display:flex;flex-direction:column;gap:12px">
-    <div class="card"><div class="ph"><h3>Movimento por mês</h3></div><div class="chart">${cols}</div><div class="legend"><span><i style="background:#274b73"></i>Entregas</span><span><i style="background:var(--areia)"></i>Retiradas</span></div></div>
+    <div class="card"><div class="ph"><h3>Movimento por mês</h3></div><div class="chart">${cols}</div><div class="legend"><span><i style="background:#274b73"></i>Entregas</span><span><i style="background:var(--areia)"></i>Retiradas</span>${mob?'<span>use ‹ › para trocar o mês</span>':''}</div></div>
     <div class="card"><div class="ph"><h3>Registros de ${curMonth}</h3><button class="lnk" onclick="go('reg')">abrir ›</button></div><div style="overflow:auto">${regTable(d,c,false)}</div></div>
   </div><div style="display:flex;flex-direction:column;gap:12px">
     <div class="card"><div class="ph"><h3>Idas à PF</h3><button class="lnk" onclick="go('pf')">abrir ›</button></div><div class="mini2">${idas}</div></div>
@@ -828,15 +855,77 @@ function dashHTML(c,d){
 // ════════════════════════════════════════════════════════════════
 // INTERAÇÃO (navegação / mês / busca / tema) — nada de escrita
 // ════════════════════════════════════════════════════════════════
-function go(s){ curSection=s; renderApp(); closeRail(); document.getElementById('view').scrollTop=0; }
+function go(s){ curSection=s; renderApp(); const t=document.getElementById('tabs'); window.scrollTo({top:Math.max(0,t.offsetTop)}); }
 function setFilter(f){ curFilter=f; renderApp(); }
 function pickMonth(m){ curMonth=m; renderApp(); }
 function stepMonth(dir){ let i=MONTHS.indexOf(curMonth)+dir; if(i<0)i=0; if(i>=MONTHS.length)i=MONTHS.length-1; curMonth=MONTHS[i]; renderApp(); }
 function applySearch(v){ v=(v||'').toLowerCase(); document.querySelectorAll('.v2reg tbody tr').forEach(tr=>{ tr.style.display = tr.textContent.toLowerCase().indexOf(v)>-1?'':'none'; }); }
-function openRail(){ document.getElementById('rail').classList.add('open'); document.getElementById('scrim').classList.add('on'); }
-function closeRail(){ document.getElementById('rail').classList.remove('open'); document.getElementById('scrim').classList.remove('on'); }
-function toggleTheme(){ const r=document.documentElement; const cur=r.getAttribute('data-theme'); r.setAttribute('data-theme', cur==='dark'?'light':'dark'); }
+// Tema claro/escuro: respeita o sistema até o 1º clique; depois fica salvo neste aparelho (conveniência, sem rede)
+function toggleTheme(){ const r=document.documentElement; const dark=r.getAttribute('data-theme')==='dark'||(r.getAttribute('data-theme')!=='light'&&matchMedia('(prefers-color-scheme:dark)').matches); r.setAttribute('data-theme',dark?'light':'dark'); try{ localStorage.setItem(TEMAKEY, r.getAttribute('data-theme')); }catch(e){} }
+try{ const t=localStorage.getItem(TEMAKEY); if(t==='dark'||t==='light') document.documentElement.setAttribute('data-theme',t); }catch(e){}
 [...document.querySelectorAll('.overlay')].forEach(o=>o.addEventListener('click',function(e){ if(e.target===this) this.classList.remove('open'); }));
+// celular (≤640px): gráfico só leitura; re-renderiza ao cruzar o limiar
+function isMobile(){ return matchMedia('(max-width:640px)').matches; }
+matchMedia('(max-width:640px)').addEventListener('change',()=>renderApp());
+
+// ════════════════════════════════════════════════════════════════
+// PWA — Instalar app (beforeinstallprompt; iOS = instrução). Nada aqui grava na base.
+// ════════════════════════════════════════════════════════════════
+let deferredInstall = null;
+function isStandalone(){ return matchMedia('(display-mode: standalone)').matches || navigator.standalone === true; }
+function isIOS(){ return /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform==='MacIntel' && navigator.maxTouchPoints>1); }
+function refreshInstallBtn(){ const b=document.getElementById('btn-install'); if(b) b.hidden = isStandalone() || !(deferredInstall || isIOS()); }
+window.addEventListener('beforeinstallprompt', e=>{ e.preventDefault(); deferredInstall=e; refreshInstallBtn(); });
+window.addEventListener('appinstalled', ()=>{ deferredInstall=null; refreshInstallBtn(); toast('App instalado'); });
+function instalarApp(){
+  const ios = !deferredInstall; // sem prompt nativo → instrução (iPhone/iPad Safari)
+  document.getElementById('inst-ios').hidden = !ios;
+  document.getElementById('inst-hint').hidden = ios;
+  document.getElementById('inst-go').hidden = ios;
+  document.getElementById('ov-install').classList.add('open');
+}
+async function confirmarInstalacao(){
+  const p = deferredInstall; if(!p){ closeOv('ov-install'); return; }
+  deferredInstall = null; closeOv('ov-install');
+  try{ p.prompt(); const r = await p.userChoice; if(!r || r.outcome!=='accepted') deferredInstall = p; }catch(e){ deferredInstall = p; }
+  refreshInstallBtn();
+}
+// ════════════════════════════════════════════════════════════════
+// §19 — Versão nova visível: banner "Atualizar agora" (SW + checagem do servidor) e tela de Novidades. Só leitura.
+// ════════════════════════════════════════════════════════════════
+let swWaiting = null, updVisivel = false;
+function mostrarUpd(){ if(updVisivel) return; updVisivel = true; document.getElementById('updbar').classList.add('show'); document.body.classList.add('has-upd'); }
+function fecharUpd(){ document.getElementById('updbar').classList.remove('show'); document.body.classList.remove('has-upd'); }
+function atualizarAgora(){ if(swWaiting){ try{ swWaiting.postMessage({ type:'SKIP_WAITING' }); }catch(e){} } setTimeout(()=>location.reload(), 150); }
+if('serviceWorker' in navigator){
+  const tinhaControle = !!navigator.serviceWorker.controller;
+  window.addEventListener('load', async()=>{
+    try{
+      const reg = await navigator.serviceWorker.register('sw.js');
+      if(reg.waiting && navigator.serviceWorker.controller){ swWaiting = reg.waiting; mostrarUpd(); }
+      reg.addEventListener('updatefound', ()=>{
+        const nw = reg.installing; if(!nw) return;
+        nw.addEventListener('statechange', ()=>{ if(nw.state==='installed' && navigator.serviceWorker.controller){ swWaiting = reg.waiting || nw; mostrarUpd(); } });
+      });
+    }catch(e){}
+  });
+  navigator.serviceWorker.addEventListener('controllerchange', ()=>{ if(tinhaControle) mostrarUpd(); });
+}
+async function checarVersao(){
+  try{
+    const r = await fetch(location.pathname, { cache:'no-store' }); if(!r.ok) return;
+    const m = (await r.text()).match(/APP_VERSION\s*=\s*'([^']+)'/);
+    if(m && m[1] !== APP_VERSION) mostrarUpd();
+  }catch(e){}
+}
+checarVersao(); setInterval(checarVersao, 10*60*1000);
+document.addEventListener('visibilitychange', ()=>{ if(!document.hidden) checarVersao(); });
+function renderNovidades(){
+  document.getElementById('nov-body').innerHTML = NOVIDADES.map((n,idx)=>`<div class="nv"><h3>v${esc(n.v)} <small>${esc(n.d)}</small>${idx===0?'<span class="tag">atual</span>':''}</h3><div style="font-size:12.5px;font-weight:700;margin-top:2px">${esc(n.t)}</div><ul>${n.i.map(x=>`<li>${esc(x)}</li>`).join('')}</ul></div>`).join('');
+}
+function openNovidades(){ renderNovidades(); document.getElementById('ov-nov').classList.add('open'); try{ localStorage.setItem(NOVKEY, APP_VERSION); }catch(e){} }
+function novidadesAuto(){ try{ const v = localStorage.getItem(NOVKEY); if(v && v !== APP_VERSION) openNovidades(); else if(!v) localStorage.setItem(NOVKEY, APP_VERSION); }catch(e){} }
+refreshInstallBtn();
 
 // ════════════════════════════════════════════════════════════════
 // INIT — abre DIRETO nos dados (sem login). Leitura com token.
@@ -848,9 +937,10 @@ async function boot(){
   if(!DB[curMonth]) curMonth = MONTHS.find(m=>DB[m]&&DB[m].registros&&DB[m].registros.length) || 'Janeiro';
   document.getElementById('loading').classList.remove('open');
   renderApp();
+  novidadesAuto();
   setInterval(async()=>{ await apiLoad(); renderApp(); }, 60000);
 }
-try{document.getElementById('appver').textContent='Escrituras v'+APP_VERSION+' · consulta';}catch(e){}
+try{document.getElementById('appver').textContent='Portal v'+APP_VERSION;}catch(e){}
 boot();
 </script>
 </body>
